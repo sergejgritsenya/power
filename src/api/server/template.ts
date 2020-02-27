@@ -1,15 +1,30 @@
-export const template = async (): Promise<string> => {
-  return `
+import { Env } from "./env"
+
+const { WDS_PORT } = Env
+export const adminTemplate = async (): Promise<string> => `
   <!DOCTYPE html>
   <html>
     <head>
       <meta charset="utf8" />
-      <title>Admin POWER</title>
+      <title>Admin P.O.W.E.R.</title>
     </head>
     <body>
       <div id="admin"></div>
+      <script src="http://localhost:${WDS_PORT}/bundle.js"></script>
+    </body>
+  </html>
+  `
+
+export const webTemplate = async (): Promise<string> => `
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf8" />
+      <title>P.O.W.E.R.</title>
+    </head>
+    <body>
+      <div id="app"></div>
       <script src="http://localhost:8080/bundle.js"></script>
     </body>
   </html>
   `
-}

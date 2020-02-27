@@ -9,7 +9,7 @@
     "build": "tsc -p tsconfig.json",
     "webpack": "TS_NODE_POJECT=\"tsconfig.json\" webpack --config webpack.config.ts",
     "start": "node -r dotenv/config ./dist/api/entry.js",
-    "start:dev": "ts-node -r dotenv/config ./src/api/entry.ts",
+    "start:dev": "ts-node-dev -r dotenv/config --no-notify --respawn --transpileOnly ./src/api/entry.ts",
     "wds": "TS_NODE_POJECT=\"tsconfig.json\" webpack-dev-server --config webpack.config.ts"
   },
   "dependencies": {
@@ -25,7 +25,7 @@
     "@types/webpack": "^4.41.6",
     "@types/webpack-dev-server": "^3.10.0",
     "ts-loader": "^6.2.1",
-    "ts-node": "^8.6.2",
+    "ts-node-dev": "^1.0.0-pre.44",
     "tslib": "^1.11.0",
     "typescript": "^3.8.2",
     "webpack": "^4.41.6",

@@ -4,7 +4,7 @@ import { render } from "react-dom"
 const AdminRoot: FC = () => {
   return (
     <>
-      <h1>Hello POWER</h1>
+      <h1>Hello POWER Admin</h1>
     </>
   )
 }
