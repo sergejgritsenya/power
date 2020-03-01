@@ -1,1 +1,1 @@
-import "./server/koa-server"
+import "./server/server"

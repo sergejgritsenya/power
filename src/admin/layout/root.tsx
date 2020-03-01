@@ -1,10 +1,11 @@
 import React, { FC } from "react"
 import { render } from "react-dom"
+import { AdminLayot } from "./layout"
 
 const AdminRoot: FC = () => {
   return (
     <>
-      <h1>Hello POWER Admin</h1>
+      <AdminLayot />
     </>
   )
 }

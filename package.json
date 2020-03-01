@@ -8,27 +8,35 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "webpack": "TS_NODE_POJECT=\"tsconfig.json\" webpack --config webpack.config.ts",
+    "docker:build": "docker build -t power .",
     "start": "node -r dotenv/config ./dist/api/entry.js",
     "start:dev": "ts-node-dev -r dotenv/config --no-notify --respawn --transpileOnly ./src/api/entry.ts",
     "wds": "TS_NODE_POJECT=\"tsconfig.json\" webpack-dev-server --config webpack.config.ts"
   },
   "dependencies": {
+    "@material-ui/core": "^4.9.5",
     "dotenv": "^8.2.0",
     "koa": "^2.11.0",
+    "koa-router": "^8.0.8",
     "react": "^16.13.0",
     "react-dom": "^16.13.0"
   },
   "devDependencies": {
     "@types/koa": "^2.11.2",
+    "@types/koa-router": "^7.4.0",
+    "@types/node": "^13.7.7",
     "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
     "@types/webpack": "^4.41.6",
+    "@types/webpack-assets-manifest": "^3.0.0",
     "@types/webpack-dev-server": "^3.10.0",
+    "fork-ts-checker-webpack-plugin": "^4.0.5",
     "ts-loader": "^6.2.1",
     "ts-node-dev": "^1.0.0-pre.44",
     "tslib": "^1.11.0",
     "typescript": "^3.8.2",
     "webpack": "^4.41.6",
+    "webpack-assets-manifest": "^3.1.1",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3"
   }

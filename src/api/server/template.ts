@@ -10,7 +10,7 @@ export const adminTemplate = async (): Promise<string> => `
     </head>
     <body>
       <div id="admin"></div>
-      <script src="http://localhost:${WDS_PORT}/bundle.js"></script>
+      <script src="http://localhost:${WDS_PORT}/admin.js"></script>
     </body>
   </html>
   `
@@ -24,7 +24,7 @@ export const webTemplate = async (): Promise<string> => `
     </head>
     <body>
       <div id="app"></div>
-      <script src="http://localhost:8080/bundle.js"></script>
+      <script src="http://localhost:${WDS_PORT}/web.js"></script>
     </body>
   </html>
   `
