@@ -16,7 +16,7 @@ export const AdminHeader: FC = () => {
     <AppBar position="static">
       <Toolbar>
         <div className={classes.left}>
-          <Typography>P.O.W.E.R. ADMIN</Typography>
+          <Typography>P-O-W-E-R ADMIN</Typography>
         </div>
       </Toolbar>
     </AppBar>

@@ -6,7 +6,7 @@ export const adminTemplate = async (): Promise<string> => `
   <html>
     <head>
       <meta charset="utf8" />
-      <title>P.O.W.E.R. ADMIN</title>
+      <title>P-O-W-E-R ADMIN</title>
     </head>
     <body>
       <div id="admin"></div>
@@ -20,7 +20,7 @@ export const webTemplate = async (): Promise<string> => `
   <html>
     <head>
       <meta charset="utf8" />
-      <title>P.O.W.E.R.</title>
+      <title>P-O-W-E-R</title>
     </head>
     <body>
       <div id="app"></div>

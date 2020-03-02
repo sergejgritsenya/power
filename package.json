@@ -11,22 +11,30 @@
     "docker:build": "docker build -t power .",
     "start": "node -r dotenv/config ./dist/api/entry.js",
     "start:dev": "ts-node-dev -r dotenv/config --no-notify --respawn --transpileOnly ./src/api/entry.ts",
-    "wds": "TS_NODE_POJECT=\"tsconfig.json\" webpack-dev-server --config webpack.config.ts"
+    "wds": "TS_NODE_POJECT=\"tsconfig.json\" webpack-dev-server --config webpack.config.ts",
+    "prisma:save": "./node_modules/.bin/prisma2 migrate save --experimental",
+    "prisma:up": "./node_modules/.bin/prisma2 migrate up --experimental",
+    "generate": "./node_modules/.bin/prisma2 generate",
+    "seed": "ts-node-dev -r dotenv/config migration/seed"
   },
   "dependencies": {
     "@material-ui/core": "^4.9.5",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/styles": "^4.9.0",
+    "@prisma/client": "^2.0.0-preview022",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "koa": "^2.11.0",
     "koa-router": "^8.0.8",
     "mobx": "^5.15.4",
     "mobx-react-lite": "^1.5.2",
+    "prisma2": "^2.0.0-preview022",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/koa": "^2.11.2",
     "@types/koa-router": "^7.4.0",
     "@types/react": "^16.9.23",

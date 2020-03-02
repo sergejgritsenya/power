@@ -84,6 +84,11 @@
     prop-types "^15.7.2"
     react-is "^16.8.0"
 
+"@prisma/client@^2.0.0-preview022":
+  version "2.0.0-preview022"
+  resolved "https://registry.npmjs.org/@prisma/client/-/client-2.0.0-preview022.tgz#89c95b2ba17d151edb5891f0a114a2b000ed4e02"
+  integrity sha512-VVjwodKA7f/xIw704ZP5aAmaVXbcOa0g69E0RWDsMc/mSJlQyBjUtAnQy1QPvjaEA2V8+x+A85zW5JwrIs6qQg==
+
 "@types/accepts@*":
   version "1.3.5"
   resolved "https://registry.npmjs.org/@types/accepts/-/accepts-1.3.5.tgz#c34bec115cfc746e04fe5a059df4ce7e7b391575"
@@ -95,6 +100,11 @@
   version "1.3.1"
   resolved "https://registry.npmjs.org/@types/anymatch/-/anymatch-1.3.1.tgz#336badc1beecb9dacc38bea2cf32adf627a8421a"
   integrity sha512-/+CRPXpBDpo2RK9C68N3b2cOvO0Cf5B9aPijHsoDQTHivnGSObdOF2BRQOYjojWTDy6nQvMjmqRXIxH55VjxxA==
+
+"@types/bcryptjs@^2.4.2":
+  version "2.4.2"
+  resolved "https://registry.npmjs.org/@types/bcryptjs/-/bcryptjs-2.4.2.tgz#e3530eac9dd136bfdfb0e43df2c4c5ce1f77dfae"
+  integrity sha512-LiMQ6EOPob/4yUL66SZzu6Yh77cbzJFYll+ZfaPiPPFswtIlA/Fs1MzdKYA7JApHU49zQTbJGX3PDmCpIdDBRQ==
 
 "@types/body-parser@*":
   version "1.19.0"
@@ -732,6 +742,11 @@ batch@0.6.1:
   version "0.6.1"
   resolved "https://registry.npmjs.org/batch/-/batch-0.6.1.tgz#dc34314f4e679318093fc760272525f94bf25c16"
   integrity sha1-3DQxT05nkxgJP8dgJyUl+UvyXBY=
+
+bcryptjs@^2.4.3:
+  version "2.4.3"
+  resolved "https://registry.npmjs.org/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
+  integrity sha1-mrVie5PmBiH/fNrF2pczAn3x0Ms=
 
 big.js@^5.2.2:
   version "5.2.2"
@@ -3683,6 +3698,11 @@ posix-character-classes@^0.1.0:
   version "0.1.1"
   resolved "https://registry.npmjs.org/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
   integrity sha1-AerA/jta9xoqbAL+q7jB/vfgDqs=
+
+prisma2@^2.0.0-preview022:
+  version "2.0.0-preview022"
+  resolved "https://registry.npmjs.org/prisma2/-/prisma2-2.0.0-preview022.tgz#959770a89696004411785cfb27a76ebc3eb889aa"
+  integrity sha512-esfFlVwGr/q5AoZFT+mf5FF+4bKYLIoqgfTNsrsodKzWnYR/JoTme2rO7FjM1U1jp80rCiX8RbcAvl6o/TG5zg==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
