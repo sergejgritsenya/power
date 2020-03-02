@@ -1,4 +1,4 @@
-import { Card } from "@material-ui/core"
+import { Card, CardContent } from "@material-ui/core"
 import { createStyles, makeStyles } from "@material-ui/styles"
 import { useObserver } from "mobx-react-lite"
 import React, { FC } from "react"
@@ -33,7 +33,9 @@ export const AdminLayot: FC = () => {
         <NavBar />
         <main className={classes.main}>
           <Card>
-            <h1>Hello POWER ADMIN</h1>
+            <CardContent>
+              <h1>Hello POWER ADMIN</h1>
+            </CardContent>
           </Card>
         </main>
       </div>

@@ -7,6 +7,8 @@ import {
   SvgIconProps,
 } from "@material-ui/core"
 import AccountCircle from "@material-ui/icons/AccountCircle"
+import EmojiEvents from "@material-ui/icons/EmojiEvents"
+import HowToReg from "@material-ui/icons/HowToReg"
 import React, { ComponentType, FC } from "react"
 import { NavLink, NavLinkProps } from "react-router-dom"
 
@@ -28,8 +30,8 @@ const useStyles = makeStyles(
 export const NavBar: FC = () => (
   <List component="nav">
     <NavItemLink exact to={"/admin/"} Icon={AccountCircle} text={"My account"} />
-    <NavItemLink to={"/admin/admins"} Icon={AccountCircle} text={"Admins"} />
-    <NavItemLink to={"/admin/tournaments"} Icon={AccountCircle} text={"Tournaments"} />
+    <NavItemLink to={"/admin/admins"} Icon={HowToReg} text={"Admins"} />
+    <NavItemLink to={"/admin/tournaments"} Icon={EmojiEvents} text={"Tournaments"} />
   </List>
 )
 
