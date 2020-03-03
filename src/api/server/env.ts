@@ -1,11 +1,11 @@
-type TEnv = {
+export type TEnv = {
   API_PORT: number
   WDS_PORT: number
   NODE_ENV: string
   IS_PROD: boolean
 }
 
-export const Env: TEnv = {
+export const env: TEnv = {
   API_PORT: Number(process.env) || 3088,
   WDS_PORT: Number(process.env.WDS_PORT) || 3089,
   NODE_ENV: String(process.env.NODE_ENV) || "production",

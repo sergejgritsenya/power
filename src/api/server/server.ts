@@ -1,8 +1,8 @@
 import Koa from "koa"
-import { Env } from "./env"
+import { env } from "./env"
 import { AppRouter } from "./router"
 
-const api_port = Env.API_PORT
+const api_port = env.API_PORT
 const api_server = new Koa()
 const app_router = new AppRouter()
 
