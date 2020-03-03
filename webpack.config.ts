@@ -2,9 +2,9 @@ require("dotenv").config()
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin"
 import { resolve } from "path"
 import { Configuration } from "webpack"
-import { Env } from "./src/api/server/env"
+import { env } from "./src/api/server/env"
 
-const { WDS_PORT, IS_PROD } = Env
+const { WDS_PORT, IS_PROD } = env
 
 resolve(__dirname, "src")
 const config: Configuration = {
