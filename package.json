@@ -10,7 +10,7 @@
     "webpack": "TS_NODE_POJECT=\"tsconfig.json\" webpack --config webpack.config.ts",
     "docker:build": "docker build -t power .",
     "start": "node -r dotenv/config ./dist/api/entry.js",
-    "start:dev": "ts-node-dev -r dotenv/config --no-notify --respawn --transpileOnly ./src/api/entry.ts",
+    "start:dev": "ts-node-dev -r dotenv/config --no-notify --respawn --transpileOnly ./src/entry.ts",
     "wds": "TS_NODE_POJECT=\"tsconfig.json\" webpack-dev-server --config webpack.config.ts",
     "prisma:save": "./node_modules/.bin/prisma2 migrate save --experimental",
     "prisma:up": "./node_modules/.bin/prisma2 migrate up --experimental",

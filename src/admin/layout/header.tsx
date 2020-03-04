@@ -1,22 +1,21 @@
-import { AppBar, Toolbar, Typography } from "@material-ui/core"
-import { createStyles, makeStyles } from "@material-ui/styles"
+import { AppBar, Theme, Toolbar, Typography } from "@material-ui/core"
+import { makeStyles } from "@material-ui/styles"
 import React, { FC } from "react"
 
-const useStyles = makeStyles(
-  createStyles({
-    left: {
-      flexGrow: 1,
-      color: "#b89960",
-    },
-  })
-)
+const useStyles = makeStyles((theme: Theme) => ({
+  left: {
+    flexGrow: 1,
+    color: theme.palette.common.black,
+  },
+}))
+
 export const AdminHeader: FC = () => {
   const classes = useStyles()
   return (
     <AppBar position="static">
       <Toolbar>
         <div className={classes.left}>
-          <Typography>P-O-W-E-R ADMIN</Typography>
+          <Typography>P.O.W.E.R. ADMIN</Typography>
         </div>
       </Toolbar>
     </AppBar>

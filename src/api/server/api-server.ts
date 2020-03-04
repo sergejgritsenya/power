@@ -3,7 +3,7 @@ import { ApiDiService, TInitApiServerProps } from "./api-di"
 import { TEnv } from "./env"
 import { appSymbols } from "./symbols"
 
-const initServer = (props: TInitApiServerProps) => {
+const initApiServer = (props: TInitApiServerProps) => {
   const api_server = new Koa()
   api_server.context.ioc = props.container
   api_server.use(props.router.routes()).use(props.router.allowedMethods())
@@ -15,4 +15,4 @@ const initServer = (props: TInitApiServerProps) => {
 }
 
 const api_di = new ApiDiService()
-api_di.init().then(initServer)
+api_di.init().then(initApiServer)

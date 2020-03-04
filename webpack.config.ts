@@ -10,7 +10,7 @@ resolve(__dirname, "src")
 const config: Configuration = {
   mode: IS_PROD ? "production" : "development",
   entry: {
-    admin: "./src/admin/entry.ts",
+    admin: "./src/admin/index.ts",
     web: "./src/web/entry.tsx",
   },
   output: {

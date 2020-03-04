@@ -1,15 +1,34 @@
-import { createMuiTheme } from "@material-ui/core/styles"
+import { createMuiTheme, Theme } from "@material-ui/core/styles"
 
-export const getTheme = () => {
-  return createMuiTheme({
+const gold = "#b89960"
+const blue = "#1c3780"
+
+export const getTheme = (): Theme =>
+  createMuiTheme({
     palette: {
       primary: {
-        main: "#1c3780",
-        // main: "#006A94",
+        main: blue,
+      },
+      common: {
+        black: gold,
       },
       secondary: {
         main: "#EC0000",
       },
     },
+    overrides: {
+      MuiButton: {
+        contained: {
+          fontWeight: "bold",
+        },
+        containedPrimary: {
+          color: gold,
+        },
+      },
+    },
+    props: {
+      MuiButton: {
+        variant: "contained",
+      },
+    },
   })
-}

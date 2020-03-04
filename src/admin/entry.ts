@@ -1,1 +1,1 @@
-import "./layout/root"
+import "./server/admin-server"

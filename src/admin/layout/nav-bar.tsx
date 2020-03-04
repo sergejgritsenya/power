@@ -5,6 +5,7 @@ import {
   ListItemText,
   makeStyles,
   SvgIconProps,
+  Theme,
 } from "@material-ui/core"
 import AccountCircle from "@material-ui/icons/AccountCircle"
 import EmojiEvents from "@material-ui/icons/EmojiEvents"
@@ -12,58 +13,55 @@ import HowToReg from "@material-ui/icons/HowToReg"
 import React, { ComponentType, FC } from "react"
 import { NavLink, NavLinkProps } from "react-router-dom"
 
-const useStyles = makeStyles(
-  {
-    root: { color: "#fafafa" },
-    itemIcon: {
-      color: "inherit",
-    },
-    text: {
-      paddingLeft: 0,
-    },
-    active: {
-      color: "#b89960",
-    },
-  },
-  { name: "NavItem" }
-)
-export const NavBar: FC = () => (
-  <List component="nav">
-    <NavItemLink exact to={"/admin/"} Icon={AccountCircle} text={"My account"} />
-    <NavItemLink to={"/admin/admins"} Icon={HowToReg} text={"Admins"} />
-    <NavItemLink to={"/admin/tournaments"} Icon={EmojiEvents} text={"Tournaments"} />
-  </List>
-)
+export const NavBar: FC = () => {
+  const classes = useStyles()
+  return (
+    <List component="nav" className={classes.root}>
+      <NavItem exact to={"/"} Icon={AccountCircle} text={"My account"} />
+      <NavItem to={"/admins"} Icon={HowToReg} text={"Admins"} />
+      <NavItem to={"/tournaments"} Icon={EmojiEvents} text={"Tournaments"} />
+    </List>
+  )
+}
 
-type TNavItemCommonProps = {
+type TNavItemProps = NavLinkProps & {
   Icon: ComponentType<SvgIconProps>
   text: string
 }
-type TNavItemProps = TNavItemCommonProps
 const NavItem: FC<TNavItemProps> = props => {
   const { Icon, text, ...rest } = props
   const classes = useStyles()
   return (
-    <ListItem button classes={{ root: classes.root }} {...rest}>
-      <ListItemIcon classes={{ root: classes.itemIcon }}>
+    <ListItem
+      button
+      className={classes.item}
+      component={NavLink}
+      activeClassName={classes.active}
+      {...rest}
+    >
+      <ListItemIcon className={classes.item_icon}>
         <Icon color="inherit" />
       </ListItemIcon>
-      <ListItemText primary={text} classes={{ root: classes.text }} />
+      <ListItemText primary={text} className={classes.item_text} />
     </ListItem>
   )
 }
 
-type TNavItemLinkProps = TNavItemCommonProps & NavLinkProps
-const NavItemLink: FC<TNavItemLinkProps> = props => {
-  const classes = useStyles()
-  return <NavItem component={NavLink} activeClassName={classes.active} {...props} />
-}
+// { name: "NavItem" }
 
-// const useStylesLink = makeStyles(
-//   theme => ({
-//     active: {
-//       color: theme.palette.secondary.main,
-//     },
-//   }),
-//   { name: "NavItemLink" }
-// )
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    background: theme.palette.primary.main,
+    width: "245px",
+  },
+  item: { color: "#fafafa" },
+  item_icon: {
+    color: "inherit",
+  },
+  item_text: {
+    paddingLeft: 0,
+  },
+  active: {
+    color: theme.palette.common.black,
+  },
+}))
