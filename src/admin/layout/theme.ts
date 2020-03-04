@@ -21,14 +21,41 @@ export const getTheme = (): Theme =>
         contained: {
           fontWeight: "bold",
         },
-        containedPrimary: {
-          color: gold,
-        },
+      },
+    },
+    typography: {
+      fontFamily: [
+        "-apple-system",
+        "BlinkMacSystemFont",
+        '"Segoe UI"',
+        "Roboto",
+        '"Helvetica Neue"',
+        "Arial",
+        "sans-serif",
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+      ].join(","),
+      h3: {
+        fontSize: "2rem",
+        fontWeight: "bold",
       },
     },
     props: {
       MuiButton: {
         variant: "contained",
+      },
+      MuiCardHeader: {
+        titleTypographyProps: {
+          variant: "h3",
+        },
+      },
+      MuiInputLabel: { shrink: true },
+      MuiFormControl: { margin: "normal", fullWidth: true },
+      MuiGrid: { spacing: 2 },
+      MuiTextField: {
+        variant: "outlined",
+        fullWidth: true,
       },
     },
   })
