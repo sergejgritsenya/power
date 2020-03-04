@@ -1,20 +1,25 @@
 import { createStyles, makeStyles } from "@material-ui/styles"
+import { createBrowserHistory } from "history"
 import { useObserver } from "mobx-react-lite"
 import React, { FC } from "react"
-import { AdminMain } from "./admin-main"
+import { Router } from "react-router-dom"
 import { AdminHeader } from "./header"
-import { NavBar } from "./nav-bar"
+import { AdminMain } from "./main"
+import { AdminNavBar } from "./nav-bar"
 
 export const AdminApp: FC = () => {
+  const history = createBrowserHistory()
   const classes = useStyles()
   return useObserver(() => (
-    <div className={classes.root}>
-      <AdminHeader />
-      <div className={classes.flex}>
-        <NavBar />
-        <AdminMain />
+    <Router history={history}>
+      <div className={classes.root}>
+        <AdminHeader />
+        <div className={classes.flex}>
+          <AdminNavBar />
+          <AdminMain />
+        </div>
       </div>
-    </div>
+    </Router>
   ))
 }
 

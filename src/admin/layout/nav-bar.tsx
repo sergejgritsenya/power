@@ -13,7 +13,7 @@ import HowToReg from "@material-ui/icons/HowToReg"
 import React, { ComponentType, FC } from "react"
 import { NavLink, NavLinkProps } from "react-router-dom"
 
-export const NavBar: FC = () => {
+export const AdminNavBar: FC = () => {
   const classes = useStyles()
   return (
     <List component="nav" className={classes.root}>
@@ -46,8 +46,6 @@ const NavItem: FC<TNavItemProps> = props => {
     </ListItem>
   )
 }
-
-// { name: "NavItem" }
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {

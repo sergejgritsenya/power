@@ -1,9 +1,9 @@
 import { createStyles, makeStyles } from "@material-ui/core"
 import React, { FC } from "react"
 import { Route, Switch } from "react-router-dom"
-import { AdminAccount } from "../account/account"
-import { AdminList } from "../admin/admin-list"
-import { TournamentList } from "../tournament/tournament-list"
+import { AdminAccount } from "../components/account/account"
+import { AdminList } from "../components/admin/admin-list"
+import { TournamentList } from "../components/tournament/tournament-list"
 
 export const AdminMain: FC = () => {
   const classes = useStyles()

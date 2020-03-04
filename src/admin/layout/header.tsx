@@ -2,13 +2,6 @@ import { AppBar, Theme, Toolbar, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/styles"
 import React, { FC } from "react"
 
-const useStyles = makeStyles((theme: Theme) => ({
-  left: {
-    flexGrow: 1,
-    color: theme.palette.common.black,
-  },
-}))
-
 export const AdminHeader: FC = () => {
   const classes = useStyles()
   return (
@@ -21,3 +14,10 @@ export const AdminHeader: FC = () => {
     </AppBar>
   )
 }
+
+const useStyles = makeStyles((theme: Theme) => ({
+  left: {
+    flexGrow: 1,
+    color: theme.palette.common.black,
+  },
+}))
