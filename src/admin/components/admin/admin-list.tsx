@@ -1,8 +1,14 @@
 import { Card, CardContent, CardHeader, Grid } from "@material-ui/core"
+import { TRouteComponentProps } from "chyk"
 import React, { FC } from "react"
+import { TChykLoadData } from "../.."
 import { ButtonLink } from "../../../front-sdk/button-link"
 
-export const AdminList: FC = () => {
+type TAdminListData = {}
+export const adminListLoader: TChykLoadData<TAdminListData> = async (_, {}) => ({})
+
+type TAdminListProps = TRouteComponentProps<TAdminListData>
+export const AdminList: FC<TAdminListProps> = () => {
   return (
     <Card>
       <Grid container justify="space-between" alignItems="center">
