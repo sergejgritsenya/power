@@ -7,6 +7,8 @@ export const adminTemplate = async (): Promise<string> => `
   <html>
     <head>
       <meta charset="utf8" />
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>P.O.W.E.R. ADMIN</title>
     </head>
     <body>

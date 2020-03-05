@@ -1,7 +1,7 @@
 import Koa from "koa"
 import { adminTemplate } from "./template"
 
-const adminServerInit = () => {
+const adminServerInit = async () => {
   const admin_port = process.env.ADMIN_PORT || 3087
   const admin_server = new Koa()
   admin_server.use(async ctx => {
