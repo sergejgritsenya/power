@@ -1,4 +1,5 @@
 import { Button, Card, CardContent, CardHeader, Grid } from "@material-ui/core"
+import Axios from "axios"
 import { TRouteComponentProps } from "chyk"
 import React, { FC } from "react"
 import { TChykLoadData } from "../.."
@@ -11,17 +12,13 @@ export const adminListLoader: TChykLoadData<TAdminListData> = async (_, {}) => {
 
 type TAdminListProps = TRouteComponentProps<TAdminListData>
 export const AdminList: FC<TAdminListProps> = ({}) => {
-  // const admin_sdk = new AdminSdk()
   const sendGet = async () => {
-    // const r = await Axios.get("http://localhost:3087")
-    // console.log(r.data)
-    const q = await fetch("http://localhost:3088/admin").then(r => r.json)
-    console.log(q)
-
-    // await admin_sdk.testGet()
+    const r = await Axios.get("http://localhost:3088/admin")
+    console.log(r.data)
   }
   const sendPost = async () => {
-    // await admin_sdk.testPost()
+    const r = await Axios.post("http://localhost:3088/admin")
+    console.log(r.data)
   }
   return (
     <Card>
