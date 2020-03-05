@@ -4,25 +4,25 @@ import React, { FC } from "react"
 import { TChykLoadData } from "../.."
 import { ButtonLink } from "../../../front-sdk/button-link"
 
-type TTournamentListData = {}
-export const tournamentListLoader: TChykLoadData<TTournamentListData> = async (_, {}) => ({})
+type TNewsListData = {}
+export const newsListLoader: TChykLoadData<TNewsListData> = async (_, {}) => ({})
 
-type TTournamentListProps = TRouteComponentProps<TTournamentListData>
-export const TournamentList: FC<TTournamentListProps> = () => {
+type TNewsListProps = TRouteComponentProps<TNewsListData>
+export const NewsList: FC<TNewsListProps> = () => {
   return (
     <Card>
       <Grid container justify="space-between" alignItems="center">
         <Grid item>
-          <CardHeader title="Tournament List" />
+          <CardHeader title="News List" />
         </Grid>
         <Grid item>
-          <ButtonLink to="/tournaments/create" color="primary">
-            Create new tournament
+          <ButtonLink to="/news/create" color="primary">
+            Create new news
           </ButtonLink>
         </Grid>
       </Grid>
       <CardContent>
-        <h1>Tournament List</h1>
+        <h1>News List</h1>
       </CardContent>
     </Card>
   )

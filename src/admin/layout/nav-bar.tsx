@@ -8,8 +8,10 @@ import {
   Theme,
 } from "@material-ui/core"
 import AccountCircle from "@material-ui/icons/AccountCircle"
+import Description from "@material-ui/icons/Description"
 import EmojiEvents from "@material-ui/icons/EmojiEvents"
 import HowToReg from "@material-ui/icons/HowToReg"
+import ShoppingCart from "@material-ui/icons/ShoppingCart"
 import React, { ComponentType, FC } from "react"
 import { NavLink, NavLinkProps } from "react-router-dom"
 
@@ -20,6 +22,8 @@ export const AdminNavBar: FC = () => {
       <NavItem exact to={"/"} Icon={AccountCircle} text={"My account"} />
       <NavItem to={"/admins"} Icon={HowToReg} text={"Admins"} />
       <NavItem to={"/tournaments"} Icon={EmojiEvents} text={"Tournaments"} />
+      <NavItem to={"/news"} Icon={Description} text={"News"} />
+      <NavItem to={"/shop"} Icon={ShoppingCart} text={"Shop"} />
     </List>
   )
 }

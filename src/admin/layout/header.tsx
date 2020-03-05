@@ -1,4 +1,4 @@
-import { AppBar, Theme, Toolbar, Typography } from "@material-ui/core"
+import { AppBar, Button, Grid, Theme, Toolbar, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/styles"
 import React, { FC } from "react"
 
@@ -8,7 +8,14 @@ export const AdminHeader: FC = () => {
     <AppBar position="static">
       <Toolbar>
         <div className={classes.left}>
-          <Typography>P.O.W.E.R. ADMIN</Typography>
+          <Grid container justify="space-between" alignItems="center">
+            <Grid item>
+              <Typography>P.O.W.E.R. ADMIN</Typography>
+            </Grid>
+            <Grid item>
+              <Button color="secondary">Logout</Button>
+            </Grid>
+          </Grid>
         </div>
       </Toolbar>
     </AppBar>

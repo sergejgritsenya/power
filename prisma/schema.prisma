@@ -23,10 +23,16 @@ model AdminSalt {
     salt String 
     admin Admin
 }
+model News {
+    id String @default(cuid()) @id
+    title String
+    text String
+}
 model Tournament {
     id String @default(cuid()) @id
     name String
-    logo String
+    logo String?
+    description String
     videos TournamentVideo[]
     images TournamentImage[]
 }

@@ -1,30 +1,19 @@
 import { Card, CardContent, CardHeader, Grid, TextField } from "@material-ui/core"
+import { TRouteComponentProps } from "chyk"
 import { useObserver } from "mobx-react-lite"
 import React, { FC, useMemo } from "react"
-import { RouteComponentProps } from "react-router-dom"
+import { TChykLoadData } from "../.."
 import { AdminModel } from "./admin-model"
 
-type TAdminLoaderProps = {} & RouteComponentProps<{
-  admin_id: string
-}>
-export const AdminLoader: FC<TAdminLoaderProps> = props => {
-  const { admin_id } = props.match.params
-  // const [admin, setAdmin] = useState<any>(null)
-  // const load = async () => {
-  //   setAdmin(admin_id)
-  // }
-  // useEffect(() => {
-  //   load()
-  // }, [])
-  return <Admin admin_data={admin_id} />
-}
-type TAdminProps = {
-  admin_data: string
-}
-const Admin: FC<TAdminProps> = props => {
-  const { admin_data } = props
+type TAdminData = {}
+export const adminLoader: TChykLoadData<TAdminData, { id: string }> = async ({ match }, {}) => ({
+  admin_id: match.params.id,
+})
+
+type TAdminProps = TRouteComponentProps<TAdminData>
+export const Admin: FC<TAdminProps> = ({ match }) => {
   const admin = useMemo(() => {
-    const model = new AdminModel({ id: admin_data })
+    const model = new AdminModel({ id: match.params.id })
     return model
   }, [])
   return <AdminField admin={admin} />
