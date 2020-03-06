@@ -1,24 +1,22 @@
 import { Button, Card, CardContent, CardHeader, Grid } from "@material-ui/core"
-import Axios from "axios"
+import { AxiosInstance } from "axios"
 import { TRouteComponentProps } from "chyk"
 import React, { FC } from "react"
 import { TChykLoadData } from "../.."
 import { ButtonLink } from "../../../front-sdk/button-link"
+import { AdminSdk } from "./admin-sdk"
 
-type TAdminListData = {}
-export const adminListLoader: TChykLoadData<TAdminListData> = async (_, {}) => {
-  return {}
+type TAdminListData = { axios: AxiosInstance }
+export const adminListLoader: TChykLoadData<TAdminListData> = async (_, { axios }) => {
+  return { axios }
 }
 
 type TAdminListProps = TRouteComponentProps<TAdminListData>
-export const AdminList: FC<TAdminListProps> = ({}) => {
-  const sendGet = async () => {
-    const r = await Axios.get("http://localhost:3088/admin")
-    console.log(r.data)
-  }
-  const sendPost = async () => {
-    const r = await Axios.post("http://localhost:3088/admin")
-    console.log(r.data)
+export const AdminList: FC<TAdminListProps> = ({ axios }) => {
+  const admin_sdk = new AdminSdk(axios)
+  const getList = async () => {
+    const r = await admin_sdk.adminList()
+    console.log(r)
   }
   return (
     <Card>
@@ -34,11 +32,8 @@ export const AdminList: FC<TAdminListProps> = ({}) => {
       </Grid>
       <CardContent>
         <h1>Admin List</h1>
-        <Button color="primary" onClick={sendGet}>
-          Send get
-        </Button>
-        <Button color="secondary" onClick={sendPost}>
-          Send post
+        <Button color="primary" onClick={getList}>
+          Get list
         </Button>
       </CardContent>
     </Card>

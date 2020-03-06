@@ -1,7 +1,8 @@
 import { PrismaClient } from "@prisma/client"
 import { Container, interfaces } from "inversify"
 import Router from "koa-router"
-import { AdminRouter } from "./admin-router"
+import { AdminRouter } from "../admin/admin-router"
+import { AdminApiRouter } from "./admin-api-router"
 import { AppRouter } from "./app-router"
 import { env, TEnv } from "./env"
 import { PrismaService } from "./prisma-service"
@@ -10,7 +11,12 @@ import { WebRouter } from "./web-router"
 
 const app_dependencies: interfaces.ServiceIdentifier<any>[] = [PrismaService]
 const singletones: interfaces.ServiceIdentifier<any>[] = []
-const routers: interfaces.ServiceIdentifier<any>[] = [AppRouter, AdminRouter, WebRouter]
+const routers: interfaces.ServiceIdentifier<any>[] = [
+  AppRouter,
+  AdminApiRouter,
+  WebRouter,
+  AdminRouter,
+]
 
 export type TInitApiServerProps = { container: Container; router: Router }
 export class ApiDiService {

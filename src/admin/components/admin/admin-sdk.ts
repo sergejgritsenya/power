@@ -1,20 +1,16 @@
+import { AxiosInstance } from "axios"
+
+// @injectable()
 export class AdminSdk {
-  // axios: AxiosInstance
-  // constructor(axios: AxiosInstance) {
-  //   this.axios = axios
-  // }
-  options?: RequestInit
-  constructor() {}
-  testGet = async () => {
-    const r = await fetch("http://localhost:3088/admin", {
-      headers: { "Access-Control-Allow-Origin": "*" },
-    })
-    // const r = await this.axios.get("https://www.youtube.com/")
-    // const r = await this.axios.get("http://localhost:3088/admin")
-    console.log(r)
+  private axios: AxiosInstance
+  constructor(axios: AxiosInstance) {
+    this.axios = axios
   }
-  testPost = async () => {
-    // const r = await this.axios.post("http://localhost:3088/admin")
-    // console.log(r.data)
+  // constructor(@inject(AxiosService) axiosService: AxiosService) {
+  //   this.axios = axiosService.axios
+  // }
+  adminList = async () => {
+    const r = await this.axios.post("http://localhost:3088/admin/list")
+    return r.data
   }
 }

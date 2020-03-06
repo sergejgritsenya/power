@@ -10,7 +10,7 @@ import { AdminMain } from "./main"
 import { AdminNavBar } from "./nav-bar"
 
 type TAdminAppData = {}
-export const adminAppLoader: TChykLoadData<TAdminAppData> = async (_, { axios }) => ({})
+export const adminAppLoader: TChykLoadData<TAdminAppData> = async (_, {}) => ({})
 
 type TAdminAppProps = TRouteComponentProps<TAdminAppData>
 export const AdminApp: FC<TAdminAppProps> = ({ route }) => {

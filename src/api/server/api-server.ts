@@ -19,7 +19,6 @@ const api_di = new ApiDiService()
 api_di.init().then(initApiServer)
 
 const cors: Middleware = async (ctx, next) => {
-  console.log(ctx.res)
   const { res } = ctx
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3087")
   res.setHeader("Access-Control-Allow-Methods", "GET, POST")
