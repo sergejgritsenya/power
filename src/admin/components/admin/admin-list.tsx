@@ -3,7 +3,7 @@ import { TRouteComponentProps } from "chyk"
 import { Container } from "inversify"
 import React, { FC } from "react"
 import { TChykLoadData } from "../.."
-import { ButtonLink } from "../../../front-sdk/button-link"
+import { ButtonLink } from "../../../common/front-sdk/button-link"
 import { AdminSdk } from "./admin-sdk"
 
 type TAdminListData = { container: Container }

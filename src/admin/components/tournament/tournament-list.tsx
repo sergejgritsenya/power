@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, Grid } from "@material-ui/core"
 import { TRouteComponentProps } from "chyk"
 import React, { FC } from "react"
 import { TChykLoadData } from "../.."
-import { ButtonLink } from "../../../front-sdk/button-link"
+import { ButtonLink } from "../../../common/front-sdk/button-link"
 
 type TTournamentListData = {}
 export const tournamentListLoader: TChykLoadData<TTournamentListData> = async (_, {}) => ({})
