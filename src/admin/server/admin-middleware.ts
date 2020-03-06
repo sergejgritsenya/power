@@ -8,7 +8,7 @@ export const spa_middleware: Middleware = async (ctx, next) => {
     const manifest = await getManifest()
     scripts = getEntryAssetsScripts(PUBLIC_OUTPUT_PATH, manifest.entrypoints.admin.js)
   }
-  ctx.status = 200
+  ctx.statusCode = 200
   const r = template({ scripts })
   ctx.body = r
   await next()
@@ -22,7 +22,7 @@ const template = (props: TTemplateProps) => `
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Admin - Rakeback.ru</title>
+  <title>P.O.W.E.R. ADMIN</title>
 </head>
 <body>
   <div id="admin"></div>

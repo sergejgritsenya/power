@@ -1,5 +1,6 @@
 - Fix axiosService baseUrl
 + Fix api server cors policy
-- Fix api routers ctx
-- Fix webpack & temlates chunks
-- Admin container
++ Fix api routers ctx
++ Fix webpack & temlates chunks
++ Admin container
+- Fix chyk preloading

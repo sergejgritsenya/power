@@ -13,11 +13,6 @@ const admin_di = new AdminContainer()
 const container = admin_di.init()
 const axios = container.get(AxiosService).axios
 
-type TChykDeps = {
-  axios: AxiosInstance
-  snackService: SnackService
-}
-
 new Chyk<TChykDeps>({
   routes,
   history,
@@ -26,4 +21,8 @@ new Chyk<TChykDeps>({
   el: document.getElementById("admin"),
 })
 
+export type TChykDeps = {
+  axios: AxiosInstance
+  snackService: SnackService
+}
 export type TChykLoadData<T, M = any> = TLoadData<T, M, TChykDeps>

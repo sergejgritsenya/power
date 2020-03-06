@@ -1,5 +1,5 @@
+import Axios from "axios"
 import { TWebpackAssetsManifestJson } from "chyk"
-import fetch from "node-fetch"
 
 const { WDS_PORT, ASSETS_URL_BASE } = process.env
 
@@ -17,5 +17,5 @@ export const WEBPACK_ASSETS_MANIFEST_FILENAME = "manifest.json"
 
 export const getManifest = async (): Promise<TWebpackAssetsManifestJson<EEntrypoint>> =>
   WDS_PORT || ASSETS_URL_BASE
-    ? await fetch(PUBLIC_OUTPUT_PATH + WEBPACK_ASSETS_MANIFEST_FILENAME).then(r => r.json())
+    ? await Axios(PUBLIC_OUTPUT_PATH + WEBPACK_ASSETS_MANIFEST_FILENAME).then(r => r.data)
     : "PROD_WEBPACK_ASSETS_MANIFEST_REPLACE"

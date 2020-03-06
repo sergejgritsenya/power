@@ -33,7 +33,6 @@
     "mobx": "^5.15.4",
     "mobx-keystone": "^0.42.1",
     "mobx-react-lite": "^1.5.2",
-    "node-fetch": "^2.6.0",
     "notistack": "^0.9.8",
     "prisma2": "^2.0.0-preview022",
     "react": "^16.13.0",

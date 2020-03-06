@@ -1,9 +1,7 @@
-import { Theme } from "@material-ui/core/styles"
-import { Container } from "inversify"
-import React from "react"
-import { symbols } from "../server/symbols"
+import { Chyk, useChyk } from "chyk"
+import { TChykDeps } from ".."
 
-const DiContext = React.createContext({} as Container)
-export const DiContextProvider = DiContext.Provider
-const useAdminDi = () => React.useContext(DiContext)
-export const useTheme = (): Theme => useAdminDi().get(symbols.theme)
+export const useAdminChyk = (): Chyk<TChykDeps> => useChyk<TChykDeps>()
+
+export const useAxios = () => useAdminChyk().deps.axios
+export const useSnackService = () => useAdminChyk().deps.snackService

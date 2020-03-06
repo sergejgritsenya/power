@@ -10,14 +10,15 @@ import { NoElements } from "../common/no-elements"
 
 type TAdminListData = AxiosResponse<TAdminList[]>
 export const adminListLoader: TChykLoadData<TAdminListData> = async (_, { axios }) =>
-  await axios.post(admin_root_routes.list)
+  axios.post(admin_root_routes.list)
 type TAdminListProps = TRouteComponentProps<TAdminListData>
 
 export const AdminList: FC<TAdminListProps> = ({ data }) => {
   console.log("admin_list", data)
-  // const deleteAdmin = async (admin_id: string) => {
-  //   console.log(admin_id)
-  // }
+  const admin_list = data || []
+  const deleteAdmin = async (admin_id: string) => {
+    console.log(admin_id)
+  }
   return (
     <Card>
       <CardContent>
@@ -41,7 +42,7 @@ export const AdminList: FC<TAdminListProps> = ({ data }) => {
           <Grid item xs={12} md={6} lg={3} />
           <Grid item xs={12} md={6} lg={3} />
         </Grid>
-        {/* <AdminListTable admin_list={admin_list} deleteAdmin={deleteAdmin} /> */}
+        <AdminListTable admin_list={admin_list} deleteAdmin={deleteAdmin} />
       </CardContent>
     </Card>
   )
