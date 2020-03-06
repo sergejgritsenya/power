@@ -1,16 +1,17 @@
 import { AxiosInstance } from "axios"
+import { inject, injectable } from "inversify"
+import { admin_root_routes } from "../../../common/routes"
+import { TAdminList } from "../../../common/types/admin-types"
+import { AxiosService } from "../../server/axios-service"
 
-// @injectable()
+@injectable()
 export class AdminSdk {
   private axios: AxiosInstance
-  constructor(axios: AxiosInstance) {
-    this.axios = axios
+  constructor(@inject(AxiosService) axiosService: AxiosService) {
+    this.axios = axiosService.axios
   }
-  // constructor(@inject(AxiosService) axiosService: AxiosService) {
-  //   this.axios = axiosService.axios
-  // }
-  adminList = async () => {
-    const r = await this.axios.post("http://localhost:3088/admin/list")
+  adminList = async (): Promise<TAdminList[]> => {
+    const r = await this.axios.post(`http://localhost:3088${admin_root_routes.list}`)
     return r.data
   }
 }

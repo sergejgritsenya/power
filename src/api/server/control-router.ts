@@ -4,10 +4,10 @@ import Router from "koa-router"
 import { AdminRouter } from "../admin/admin-router"
 
 @injectable()
-export class AdminApiRouter {
-  admin_api_router = new Router()
+export class ControlRouter {
+  control_router = new Router()
   constructor(@inject(AdminRouter) private readonly adminRouter: AdminRouter) {
-    this.admin_api_router.use(
+    this.control_router.use(
       this.adminRouter.admin_router.routes() as Middleware,
       this.adminRouter.admin_router.allowedMethods() as Middleware
     )

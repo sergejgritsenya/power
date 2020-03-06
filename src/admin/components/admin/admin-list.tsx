@@ -1,23 +1,22 @@
 import { Button, Card, CardContent, CardHeader, Grid } from "@material-ui/core"
-import { AxiosInstance } from "axios"
 import { TRouteComponentProps } from "chyk"
+import { Container } from "inversify"
 import React, { FC } from "react"
 import { TChykLoadData } from "../.."
 import { ButtonLink } from "../../../front-sdk/button-link"
 import { AdminSdk } from "./admin-sdk"
 
-type TAdminListData = { axios: AxiosInstance }
-export const adminListLoader: TChykLoadData<TAdminListData> = async (_, { axios }) => {
-  return { axios }
+type TAdminListData = { container: Container }
+export const adminListLoader: TChykLoadData<TAdminListData> = async (_, { container }) => {
+  const admin_sdk = container.get(AdminSdk)
+  const r = await admin_sdk.adminList()
+  console.log(r)
+  return { container }
 }
-
 type TAdminListProps = TRouteComponentProps<TAdminListData>
-export const AdminList: FC<TAdminListProps> = ({ axios }) => {
-  const admin_sdk = new AdminSdk(axios)
-  const getList = async () => {
-    const r = await admin_sdk.adminList()
-    console.log(r)
-  }
+
+export const AdminList: FC<TAdminListProps> = ({}) => {
+  const getList = async () => {}
   return (
     <Card>
       <Grid container justify="space-between" alignItems="center">
