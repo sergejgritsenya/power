@@ -1,4 +1,5 @@
 import { Container, interfaces } from "inversify"
+import "reflect-metadata"
 import { AdminSdk } from "../components/admin/admin-sdk"
 import { AxiosService } from "./axios-service"
 

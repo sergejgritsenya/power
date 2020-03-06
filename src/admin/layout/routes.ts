@@ -9,6 +9,7 @@ import { ShopList, shopListLoader } from "../components/shop/shop-list"
 import { Tournament, tournamentLoader } from "../components/tournament/tournament"
 import { TournamentList, tournamentListLoader } from "../components/tournament/tournament-list"
 import { AdminApp, adminAppLoader } from "./admin-app"
+import { NotFound } from "./not-found"
 
 export const routes: TRouteConfig[] = [
   {
@@ -67,6 +68,10 @@ export const routes: TRouteConfig[] = [
         loadData: shopListLoader,
         component: ShopList as FC,
         dataKey: "shop_list",
+      },
+      {
+        component: NotFound as FC,
+        loadData: async ({ chyk }) => chyk.set404(),
       },
     ],
   },

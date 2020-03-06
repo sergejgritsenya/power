@@ -1,22 +1,31 @@
 import { Card, CardContent, CardHeader, Grid, TextField } from "@material-ui/core"
+import { AxiosResponse } from "axios"
 import { TRouteComponentProps } from "chyk"
 import { useObserver } from "mobx-react-lite"
 import React, { FC, useMemo } from "react"
 import { TChykLoadData } from "../.."
+import { admin_routes, frontRoute } from "../../../common/routes"
+import { TAdmin } from "../../../common/types/admin-types"
 import { AdminModel } from "./admin-model"
 
-type TAdminData = {}
-export const adminLoader: TChykLoadData<TAdminData, { id: string }> = async ({ match }, {}) => ({
-  admin_id: match.params.id,
-})
+type TAdminData = AxiosResponse<TAdmin>
+export const adminLoader: TChykLoadData<TAdminData, { id: string }> = async (
+  { match },
+  { axios }
+) => {
+  const r = await axios.post(frontRoute(admin_routes.get, { admin_id: match.params.id }))
+  console.log("data", r)
+  return r
+}
 
 type TAdminProps = TRouteComponentProps<TAdminData>
-export const Admin: FC<TAdminProps> = ({ match }) => {
-  const admin = useMemo(() => {
-    const model = new AdminModel({ id: match.params.id })
+export const Admin: FC<TAdminProps> = ({ data }) => {
+  console.log("admin", data)
+  const admin_model = useMemo(() => {
+    const model = new AdminModel({ ...data })
     return model
   }, [])
-  return <AdminField admin={admin} />
+  return <AdminField admin={admin_model} />
 }
 
 type TAdminFieldProps = {

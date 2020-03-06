@@ -1,9 +1,8 @@
 import { createStyles, makeStyles } from "@material-ui/styles"
 import { TRouteComponentProps } from "chyk"
-import { createBrowserHistory } from "history"
 import { useObserver } from "mobx-react-lite"
 import React, { FC } from "react"
-import { Router } from "react-router-dom"
+import { Router, useHistory } from "react-router-dom"
 import { TChykLoadData } from ".."
 import { AdminHeader } from "./header"
 import { AdminMain } from "./main"
@@ -14,7 +13,7 @@ export const adminAppLoader: TChykLoadData<TAdminAppData> = async (_, {}) => ({}
 
 type TAdminAppProps = TRouteComponentProps<TAdminAppData>
 export const AdminApp: FC<TAdminAppProps> = ({ route }) => {
-  const history = createBrowserHistory()
+  const history = useHistory()
   const classes = useStyles()
   return useObserver(() => (
     <Router history={history}>

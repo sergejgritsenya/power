@@ -1,24 +1,23 @@
 import { Button, Card, CardContent, CardHeader, Grid } from "@material-ui/core"
+import { AxiosResponse } from "axios"
 import { TRouteComponentProps } from "chyk"
 import React, { FC } from "react"
 import { TChykLoadData } from "../.."
 import { ButtonLink } from "../../../common/front-sdk/button-link"
+import { admin_root_routes } from "../../../common/routes"
 import { TAdminList } from "../../../common/types/admin-types"
 import { NoElements } from "../common/no-elements"
-import { AdminSdk } from "./admin-sdk"
 
-type TAdminListData = { admin_list: TAdminList[] }
-export const adminListLoader: TChykLoadData<TAdminListData> = async (_, { container }) => {
-  const admin_sdk = container.get(AdminSdk)
-  const admin_list = await admin_sdk.adminList()
-  return { admin_list }
-}
+type TAdminListData = AxiosResponse<TAdminList[]>
+export const adminListLoader: TChykLoadData<TAdminListData> = async (_, { axios }) =>
+  await axios.post(admin_root_routes.list)
 type TAdminListProps = TRouteComponentProps<TAdminListData>
 
-export const AdminList: FC<TAdminListProps> = ({ admin_list }) => {
-  const deleteAdmin = async (admin_id: string) => {
-    console.log(admin_id)
-  }
+export const AdminList: FC<TAdminListProps> = ({ data }) => {
+  console.log("admin_list", data)
+  // const deleteAdmin = async (admin_id: string) => {
+  //   console.log(admin_id)
+  // }
   return (
     <Card>
       <CardContent>
@@ -42,7 +41,7 @@ export const AdminList: FC<TAdminListProps> = ({ admin_list }) => {
           <Grid item xs={12} md={6} lg={3} />
           <Grid item xs={12} md={6} lg={3} />
         </Grid>
-        <AdminListTable admin_list={admin_list} deleteAdmin={deleteAdmin} />
+        {/* <AdminListTable admin_list={admin_list} deleteAdmin={deleteAdmin} /> */}
       </CardContent>
     </Card>
   )
@@ -52,7 +51,7 @@ type TAdminListTableProps = {
   admin_list: TAdminList[]
   deleteAdmin: (admin_id: string) => void
 }
-const AdminListTable: FC<TAdminListTableProps> = props => {
+export const AdminListTable: FC<TAdminListTableProps> = props => {
   const { admin_list, deleteAdmin } = props
   return (
     <div>
