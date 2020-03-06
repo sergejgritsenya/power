@@ -1,10 +1,11 @@
 import { PrismaClient } from "@prisma/client"
 import { Container, interfaces } from "inversify"
 import Router from "koa-router"
+import "reflect-metadata"
 import { AdminRouter } from "../admin/admin-router"
 import { AppRouter } from "./app-router"
 import { ControlRouter } from "./control-router"
-import { env, TEnv } from "./env"
+import { api_env, TApiEnv } from "./env"
 import { PrismaService } from "./prisma-service"
 import { appSymbols } from "./symbols"
 import { WebRouter } from "./web-router"
@@ -32,7 +33,7 @@ export class ApiDiService {
     routers.forEach(router => this.container.bind(router).toSelf())
     const prisma: PrismaClient = this.container.get(PrismaService).prisma
     this.container.bind<PrismaClient>(appSymbols.prisma).toConstantValue(prisma)
-    this.container.bind<TEnv>(appSymbols.env).toConstantValue(env)
+    this.container.bind<TApiEnv>(appSymbols.env).toConstantValue(api_env)
   }
   private bindSingleton = () => (singleton: interfaces.ServiceIdentifier<any>) => {
     this.container

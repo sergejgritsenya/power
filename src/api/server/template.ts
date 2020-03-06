@@ -1,6 +1,6 @@
-import { env } from "./env"
+import { api_env } from "./env"
 
-const { WDS_PORT } = env
+const { WDS_PORT } = api_env
 
 export const webTemplate = async (): Promise<string> => `
   <!DOCTYPE html>

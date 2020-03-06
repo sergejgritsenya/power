@@ -1,8 +1,10 @@
-import { env } from "../../api/server/env"
+import { api_env } from "../../api/server/env"
 
-const { WDS_PORT } = env
+const { WDS_PORT } = api_env
 
-export const adminTemplate = async (): Promise<string> => `
+export const adminTemplate = async (): Promise<string> => {
+  const ASSETS_URL = WDS_PORT ? `http://localhost:${WDS_PORT}/admin.js` : "/dist/admin.js"
+  return `
   <!DOCTYPE html>
   <html>
     <head>
@@ -13,7 +15,8 @@ export const adminTemplate = async (): Promise<string> => `
     </head>
     <body>
       <div id="admin"></div>
-      <script src="http://localhost:${WDS_PORT}/admin.js"></script>
+      <script src="${ASSETS_URL}"></script>
     </body>
   </html>
   `
+}
