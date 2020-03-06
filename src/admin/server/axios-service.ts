@@ -1,8 +1,7 @@
 import Axios, { AxiosInstance } from "axios"
 import { injectable } from "inversify"
 
-const api_port = process.env.API_PORT
-const api_url = `http://localhost:${api_port}`
+const api_url = `http://localhost:3088`
 @injectable()
 export class AxiosService {
   axios: AxiosInstance

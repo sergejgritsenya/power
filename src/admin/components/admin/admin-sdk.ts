@@ -11,7 +11,7 @@ export class AdminSdk {
     this.axios = axiosService.axios
   }
   adminList = async (): Promise<TAdminList[]> => {
-    const r = await this.axios.post(`http://localhost:3088${admin_root_routes.list}`)
+    const r = await this.axios.post(admin_root_routes.list)
     return r.data
   }
 }
