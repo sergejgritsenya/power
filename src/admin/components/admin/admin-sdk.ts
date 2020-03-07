@@ -1,5 +1,4 @@
 import { AxiosInstance } from "axios"
-import { inject, injectable } from "inversify"
 import { admin_root_routes, admin_routes, frontRoute } from "../../../common/routes"
 import {
   TAdmin,
@@ -7,28 +6,23 @@ import {
   TAdminList,
   TAdminUpdateProps,
 } from "../../../common/types/admin-types"
-import { AxiosService } from "../../server/axios-service"
 
-@injectable()
-export class AdminSdk {
-  private axios: AxiosInstance
-  constructor(@inject(AxiosService) axiosService: AxiosService) {
-    this.axios = axiosService.axios
-  }
-  adminList = async (): Promise<TAdminList[]> => {
-    const r = await this.axios.post(admin_root_routes.list)
-    return r.data
-  }
-  adminGet = async (admin_id: string): Promise<TAdmin> => {
-    const r = await this.axios.post(frontRoute(admin_routes.get, { admin_id }))
-    return r.data
-  }
-  adminCreate = async (data: TAdminCreateProps): Promise<TAdmin> => {
-    const r = await this.axios.post(admin_root_routes.create, data)
-    return r.data
-  }
-  adminUpdate = async (admin_id: string, data: TAdminUpdateProps): Promise<TAdmin> => {
-    const r = await this.axios.post(frontRoute(admin_routes.update, { admin_id }), data)
-    return r.data
-  }
+export const adminList = async (axios: AxiosInstance) => {
+  return await axios.post<TAdminList[]>(admin_root_routes.list)
+}
+export const adminGet = async (axios: AxiosInstance, admin_id: string) => {
+  return await axios.post<TAdmin>(frontRoute(admin_routes.get, { admin_id }))
+}
+export const adminCreate = async (axios: AxiosInstance, data: TAdminCreateProps) => {
+  return await axios.post<string>(admin_root_routes.create, data)
+}
+export const adminUpdate = async (
+  axios: AxiosInstance,
+  admin_id: string,
+  data: TAdminUpdateProps
+) => {
+  return await axios.post<TAdmin>(frontRoute(admin_routes.update, { admin_id }), data)
+}
+export const deleteAdmin = async (axios: AxiosInstance, admin_id: string) => {
+  return await axios.post<TAdminList[]>(admin_root_routes.delete, { admin_id })
 }

@@ -1,10 +1,11 @@
 import { getEntryAssetsScripts } from "chyk"
 import { Middleware } from "koa"
 import { getManifest, PUBLIC_OUTPUT_PATH } from "../../common/config"
+import { adminEnv } from "./env"
 
 let scripts: string = ""
 export const spa_middleware: Middleware = async (ctx, next) => {
-  if (process.env.NODE_ENV !== "production" || !scripts) {
+  if (!adminEnv.IS_PROD || !scripts) {
     const manifest = await getManifest()
     scripts = getEntryAssetsScripts(PUBLIC_OUTPUT_PATH, manifest.entrypoints.admin.js)
   }

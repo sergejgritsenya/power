@@ -2,6 +2,7 @@ import { TRouteConfig } from "chyk"
 import { FC } from "react"
 import { AdminAccount } from "../components/account/account"
 import { Admin, adminLoader } from "../components/admin/admin"
+import { AdminCreate } from "../components/admin/admin-create"
 import { AdminList, adminListLoader } from "../components/admin/admin-list"
 import { News, newsLoader } from "../components/news/news"
 import { NewsList, newsListLoader } from "../components/news/news-list"
@@ -29,6 +30,12 @@ export const routes: TRouteConfig[] = [
         loadData: adminListLoader,
         component: AdminList as FC,
         dataKey: "admins",
+      },
+      {
+        path: "/admins/create",
+        exact: true,
+        component: AdminCreate as FC,
+        dataKey: "admin_create",
       },
       {
         path: "/admins/:id",

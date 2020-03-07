@@ -3,6 +3,7 @@ import { Container, interfaces } from "inversify"
 import Router from "koa-router"
 import "reflect-metadata"
 import { AdminRouter } from "../admin/admin-router"
+import { AdminService } from "../admin/admin-service"
 import { AppRouter } from "./app-router"
 import { ControlRouter } from "./control-router"
 import { api_env, TApiEnv } from "./env"
@@ -11,7 +12,7 @@ import { appSymbols } from "./symbols"
 import { WebRouter } from "./web-router"
 
 const app_dependencies: interfaces.ServiceIdentifier<any>[] = [PrismaService]
-const singletones: interfaces.ServiceIdentifier<any>[] = []
+const singletones: interfaces.ServiceIdentifier<any>[] = [AdminService]
 const routers: interfaces.ServiceIdentifier<any>[] = [
   AppRouter,
   ControlRouter,

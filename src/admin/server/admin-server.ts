@@ -1,8 +1,9 @@
 import Koa from "koa"
 import { errorMiddleware, koaOnError } from "../../common/server/middleware"
 import { spa_middleware } from "./admin-middleware"
+import { adminEnv } from "./env"
 
-const admin_port = process.env.ADMIN_PORT || 3087
+const admin_port = adminEnv.ADMIN_PORT
 const admin_server = new Koa()
 
 admin_server.use(errorMiddleware)

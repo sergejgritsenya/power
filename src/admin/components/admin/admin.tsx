@@ -4,25 +4,20 @@ import { TRouteComponentProps } from "chyk"
 import { useObserver } from "mobx-react-lite"
 import React, { FC, useMemo } from "react"
 import { TChykLoadData } from "../.."
-import { admin_routes, frontRoute } from "../../../common/routes"
 import { TAdmin } from "../../../common/types/admin-types"
 import { AdminModel } from "./admin-model"
+import { adminGet } from "./admin-sdk"
 
 type TAdminData = AxiosResponse<TAdmin>
 export const adminLoader: TChykLoadData<TAdminData, { id: string }> = async (
   { match },
   { axios }
-) => {
-  const r = await axios.post(frontRoute(admin_routes.get, { admin_id: match.params.id }))
-  console.log("data", r)
-  return r
-}
+) => adminGet(axios, match.params.id)
 
 type TAdminProps = TRouteComponentProps<TAdminData>
 export const Admin: FC<TAdminProps> = ({ data }) => {
-  console.log("admin", data)
   const admin_model = useMemo(() => {
-    const model = new AdminModel({ ...data })
+    const model = new AdminModel(data)
     return model
   }, [])
   return <AdminField admin={admin_model} />
