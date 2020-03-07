@@ -4,6 +4,7 @@ import Router from "koa-router"
 import "reflect-metadata"
 import { AdminRouter } from "../admin/admin-router"
 import { AdminService } from "../admin/admin-service"
+import { TournamentRouter } from "../tournament/tournament-router"
 import { AppRouter } from "./app-router"
 import { ControlRouter } from "./control-router"
 import { api_env, TApiEnv } from "./env"
@@ -18,6 +19,7 @@ const routers: interfaces.ServiceIdentifier<any>[] = [
   ControlRouter,
   WebRouter,
   AdminRouter,
+  TournamentRouter,
 ]
 
 export type TInitApiServerProps = { container: Container; router: Router }

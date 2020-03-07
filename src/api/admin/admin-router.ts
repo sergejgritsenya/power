@@ -1,7 +1,7 @@
 import Router = require("koa-router")
 import { inject, injectable } from "inversify"
 import { admin_root_routes, admin_routes } from "../../common/routes"
-import { TAdminCreateProps, TAdminUpdateProps } from "../../common/types/admin-types"
+import { TAdminCreateProps } from "../../common/types/admin-types"
 import { AdminService } from "./admin-service"
 
 @injectable()
@@ -22,11 +22,6 @@ export class AdminRouter {
     this.admin_router.post(admin_routes.get, async ctx => {
       const admin_id = ctx.params.admin_id
       ctx.body = await this.admin_service.getAdmin(admin_id)
-    })
-    this.admin_router.post(admin_routes.update, async ctx => {
-      const admin_id = ctx.params.admin_id
-      const data = ctx.request.body as TAdminUpdateProps
-      ctx.body = await admin_service.update(admin_id, data)
     })
   }
 }
