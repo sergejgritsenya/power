@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client"
-import { inject } from "inversify"
+import { inject, injectable } from "inversify"
 import {
   TTournament,
   TTournamentList,
@@ -7,6 +7,7 @@ import {
 } from "../../common/types/tournament-types"
 import { PrismaService } from "../server/prisma-service"
 
+@injectable()
 export class TournamentService {
   prisma: PrismaClient
   constructor(@inject(PrismaService) private readonly prisma_service: PrismaService) {
@@ -32,9 +33,9 @@ export class TournamentService {
     const tournament = await this.prisma.tournament.create({ data })
     return tournament.id
   }
-  update = async (id: string, data: TTournamentUpdateProps): Promise<string> => {
+  update = async (id: string, data: TTournamentUpdateProps): Promise<TTournament> => {
     const tournament = await this.prisma.tournament.update({ where: { id }, data })
-    return tournament.id
+    return tournament
   }
   deleteTournament = async (id: string): Promise<TTournamentList[]> => {
     await this.prisma.tournamentImage.deleteMany({ where: { tournament: { id } } })

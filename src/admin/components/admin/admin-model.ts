@@ -45,18 +45,18 @@ export class CreateAdminModel extends Model({
   }
   @modelAction
   setName(name: string) {
-    this.name = name.trim()
+    this.name = name
   }
   @modelAction
   setEmail(email: string) {
-    this.email = email.trim()
+    this.email = email
   }
   @modelAction
   setPassword(password: string) {
-    this.password = password.trim()
+    this.password = password
   }
   @modelAction
   setConfirmPassword(confirm_password: string) {
-    this.confirm_password = confirm_password.trim()
+    this.confirm_password = confirm_password
   }
 }

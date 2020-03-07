@@ -1,5 +1,3 @@
-import { CREATE_ID } from "./common-types"
-
 export type TAdminList = {
   id: string
   name: string
@@ -19,9 +17,4 @@ export type TAdminCreateProps = {
 export type TAdminUpdateProps = {
   name: string
   email: string
-}
-export const default_admin: TAdmin = {
-  id: CREATE_ID,
-  name: "create",
-  email: "create",
 }

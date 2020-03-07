@@ -19,7 +19,7 @@ export const tournament_root_routes = {
   list: `${control_routes.tournament}/list`,
   create: `${control_routes.tournament}/create`,
   delete: `${control_routes.tournament}/delete`,
-  root: `${control_routes.tournament}/:admin_id`,
+  root: `${control_routes.tournament}/:tournament_id`,
 }
 export const tournament_routes = {
   get: `${tournament_root_routes.root}/get`,

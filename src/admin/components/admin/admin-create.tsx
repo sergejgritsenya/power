@@ -16,7 +16,7 @@ export const AdminCreate: FC = () => {
     const model = new CreateAdminModel({})
     return model
   }, [])
-  const save = async () => {
+  const create = async () => {
     try {
       const data = admin.json
       const res = await adminCreate(axios, data)
@@ -25,7 +25,6 @@ export const AdminCreate: FC = () => {
       })
       history.replace(`/admins/${res.data}`)
     } catch (e) {
-      console.log(e)
       enqueueSnackbar("Error", {
         variant: "error",
       })
@@ -68,7 +67,7 @@ export const AdminCreate: FC = () => {
             />
           </Grid>
         </Grid>
-        {admin.validation && <SaveButton save={save} />}
+        {admin.validation && <SaveButton save={create} />}
       </CardContent>
     </Card>
   ))

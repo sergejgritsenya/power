@@ -5,6 +5,7 @@ import "reflect-metadata"
 import { AdminRouter } from "../admin/admin-router"
 import { AdminService } from "../admin/admin-service"
 import { TournamentRouter } from "../tournament/tournament-router"
+import { TournamentService } from "../tournament/tournament-service"
 import { AppRouter } from "./app-router"
 import { ControlRouter } from "./control-router"
 import { api_env, TApiEnv } from "./env"
@@ -13,7 +14,7 @@ import { appSymbols } from "./symbols"
 import { WebRouter } from "./web-router"
 
 const app_dependencies: interfaces.ServiceIdentifier<any>[] = [PrismaService]
-const singletones: interfaces.ServiceIdentifier<any>[] = [AdminService]
+const singletones: interfaces.ServiceIdentifier<any>[] = [AdminService, TournamentService]
 const routers: interfaces.ServiceIdentifier<any>[] = [
   AppRouter,
   ControlRouter,

@@ -8,6 +8,7 @@ import { News, newsLoader } from "../components/news/news"
 import { NewsList, newsListLoader } from "../components/news/news-list"
 import { ShopList, shopListLoader } from "../components/shop/shop-list"
 import { Tournament, tournamentLoader } from "../components/tournament/tournament"
+import { TournamentCreate } from "../components/tournament/tournament-create"
 import { TournamentList, tournamentListLoader } from "../components/tournament/tournament-list"
 import { AdminApp, adminAppLoader } from "./admin-app"
 import { NotFound } from "./not-found"
@@ -49,6 +50,12 @@ export const routes: TRouteConfig[] = [
         loadData: tournamentListLoader,
         component: TournamentList as FC,
         dataKey: "tournaments",
+      },
+      {
+        path: "/tournaments/create",
+        exact: true,
+        component: TournamentCreate as FC,
+        dataKey: "tournaments_create",
       },
       {
         path: "/tournaments/:id",
