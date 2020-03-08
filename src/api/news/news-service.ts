@@ -10,7 +10,10 @@ export class NewsService {
     this.prisma = this.prismaService.prisma
   }
   list = async (): Promise<TNewsList[]> => {
-    const news_list = await this.prisma.news.findMany({ select: { id: true, title: true } })
+    const news_list = await this.prisma.news.findMany({
+      select: { id: true, title: true },
+      orderBy: { created_at: "asc" },
+    })
     return news_list
   }
   getNews = async (id: string): Promise<TNews> => {
@@ -37,7 +40,10 @@ export class NewsService {
   }
   deleteNews = async (id: string): Promise<TNewsList[]> => {
     await this.prisma.news.delete({ where: { id } })
-    const news_list = await this.prisma.news.findMany({ select: { id: true, title: true } })
+    const news_list = await this.prisma.news.findMany({
+      select: { id: true, title: true },
+      orderBy: { created_at: "asc" },
+    })
     return news_list
   }
 }

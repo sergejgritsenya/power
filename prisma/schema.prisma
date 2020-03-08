@@ -8,11 +8,9 @@ datasource db {
 }
 
 model Admin {
-    id       String        @default(cuid()) @id
-    name     String        @unique
-    email    String        @unique
-    password AdminPassword
-    salt     AdminSalt
+    id    String @default(cuid()) @id
+    name  String @unique
+    email String @unique
 }
 
 model AdminPassword {
@@ -28,9 +26,10 @@ model AdminSalt {
 }
 
 model News {
-    id    String @default(cuid()) @id
-    title String
-    text  String
+    id         String   @default(cuid()) @id
+    title      String
+    text       String
+    created_at DateTime @default(now())
 }
 
 model Tournament {
@@ -38,6 +37,7 @@ model Tournament {
     name        String
     logo        String?
     description String
+    created_at  DateTime          @default(now())
     videos      TournamentVideo[]
     images      TournamentImage[]
 }

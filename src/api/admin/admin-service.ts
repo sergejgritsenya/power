@@ -18,6 +18,7 @@ export class AdminService {
   list = async (): Promise<TAdminList[]> => {
     return await this.prisma.admin.findMany({
       select: { id: true, name: true, email: true },
+      orderBy: { name: "asc" },
     })
   }
   getAdmin = async (id: string): Promise<TAdmin> => {
@@ -42,8 +43,14 @@ export class AdminService {
       const salt = genSaltSync(16)
       const password = hashSync(data.password, salt)
       const admin = await this.prisma.admin.create({
-        data: { ...create_data, salt: { create: { salt } }, password: { create: { password } } },
+        data: create_data,
         select: { id: true },
+      })
+      await this.prisma.adminSalt.create({
+        data: { salt, admin: { connect: { id: admin.id } } },
+      })
+      await this.prisma.adminPassword.create({
+        data: { password, admin: { connect: { id: admin.id } } },
       })
       return admin.id
     } catch (e) {
@@ -62,12 +69,12 @@ export class AdminService {
     return admin
   }
   deleteAdmin = async (id: string): Promise<TAdminList[]> => {
-    console.log(id)
     await this.prisma.adminSalt.deleteMany({ where: { admin: { id } } })
     await this.prisma.adminPassword.deleteMany({ where: { admin: { id } } })
     await this.prisma.admin.delete({ where: { id } })
     return await this.prisma.admin.findMany({
       select: { id: true, name: true, email: true },
+      orderBy: { name: "asc" },
     })
   }
 }

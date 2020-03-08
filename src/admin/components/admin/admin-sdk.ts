@@ -11,6 +11,6 @@ export const adminGet = async (axios: AxiosInstance, admin_id: string) => {
 export const adminCreate = async (axios: AxiosInstance, data: TAdminCreateProps) => {
   return await axios.post<string>(admin_root_routes.create, data)
 }
-export const deleteAdmin = async (axios: AxiosInstance, admin_id: string) => {
+export const adminDelete = async (axios: AxiosInstance, admin_id: string) => {
   return await axios.post<TAdminList[]>(admin_root_routes.delete, { admin_id })
 }

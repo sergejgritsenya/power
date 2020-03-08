@@ -4,6 +4,7 @@ import { useSnackbar } from "notistack"
 import React, { FC, useMemo } from "react"
 import { useHistory } from "react-router-dom"
 import { useAxios } from "../../layout/di-context"
+import { Locker } from "../common/locker"
 import { SaveButton } from "../common/save-button"
 import { CreateAdminModel } from "./admin-model"
 import { adminCreate } from "./admin-sdk"
@@ -17,14 +18,17 @@ export const AdminCreate: FC = () => {
     return model
   }, [])
   const create = async () => {
+    admin.setLoading(true)
     try {
       const data = admin.json
       const res = await adminCreate(axios, data)
+      admin.setLoading(false)
       enqueueSnackbar("Successfully created", {
         variant: "success",
       })
       history.replace(`/admins/${res.data}`)
     } catch (e) {
+      admin.setLoading(false)
       enqueueSnackbar("Error", {
         variant: "error",
       })
@@ -68,6 +72,7 @@ export const AdminCreate: FC = () => {
           </Grid>
         </Grid>
         {admin.validation && <SaveButton save={create} />}
+        <Locker show={admin.is_loading} />
       </CardContent>
     </Card>
   ))

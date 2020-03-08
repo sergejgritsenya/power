@@ -1,15 +1,18 @@
-import { Button, Card, CardContent, CardHeader, Divider, Grid } from "@material-ui/core"
+import { Card, CardContent, CardHeader, Divider, Grid } from "@material-ui/core"
 import { AxiosResponse } from "axios"
 import { TRouteComponentProps } from "chyk"
+import { useObserver } from "mobx-react-lite"
 import { useSnackbar } from "notistack"
 import React, { FC, useMemo } from "react"
 import { TChykLoadData } from "../.."
 import { ButtonLink } from "../../../common/front-sdk/button-link"
 import { TAdminList } from "../../../common/types/admin-types"
 import { useAxios } from "../../layout/di-context"
+import { ApplyRemoveDialog } from "../common/apply-remove-dialog"
 import { ListModel } from "../common/list-model"
+import { Locker } from "../common/locker"
 import { NoElements } from "../common/no-elements"
-import { adminList, deleteAdmin } from "./admin-sdk"
+import { adminDelete, adminList } from "./admin-sdk"
 
 type TAdminListData = AxiosResponse<TAdminList[]>
 export const adminListLoader: TChykLoadData<TAdminListData> = async (_, { axios }) =>
@@ -24,14 +27,17 @@ export const AdminList: FC<TAdminListProps> = ({ data }) => {
     model.setList(data)
     return model
   }, [])
-  const adminDelete = async (admin_id: string) => {
+  const deleteAdmin = async (admin_id: string) => {
+    admin_list.setLoading(true)
     try {
-      const r = await deleteAdmin(axios, admin_id)
-      admin_list.setList(r.data)
+      const res = await adminDelete(axios, admin_id)
+      admin_list.setList(res.data)
+      admin_list.setLoading(false)
       enqueueSnackbar("Successfully deleted", {
         variant: "success",
       })
     } catch (e) {
+      admin_list.setLoading(false)
       enqueueSnackbar("Error", {
         variant: "error",
       })
@@ -61,7 +67,8 @@ export const AdminList: FC<TAdminListProps> = ({ data }) => {
           <Grid item xs={12} md={6} lg={3} />
           <Grid item xs={12} md={6} lg={3} />
         </Grid>
-        <AdminListTable admin_list={admin_list} adminDelete={adminDelete} />
+        <AdminListTable admin_list={admin_list} deleteAdmin={deleteAdmin} />
+        <Locker show={admin_list.is_loading} />
       </CardContent>
     </Card>
   )
@@ -69,11 +76,11 @@ export const AdminList: FC<TAdminListProps> = ({ data }) => {
 
 type TAdminListTableProps = {
   admin_list: ListModel<TAdminList>
-  adminDelete: (admin_id: string) => void
+  deleteAdmin: (admin_id: string) => void
 }
 export const AdminListTable: FC<TAdminListTableProps> = props => {
-  const { admin_list, adminDelete } = props
-  return (
+  const { admin_list, deleteAdmin } = props
+  return useObserver(() => (
     <div>
       {admin_list.list.length ? (
         admin_list.list.map(admin => (
@@ -89,9 +96,11 @@ export const AdminListTable: FC<TAdminListTableProps> = props => {
                 <ButtonLink to={`/admins/${admin.id}`}>More</ButtonLink>
               </Grid>
               <Grid item xs={12} md={6} lg={3}>
-                <Button color="secondary" onClick={() => adminDelete(admin.id)}>
-                  Delete
-                </Button>
+                <ApplyRemoveDialog
+                  id={admin.id}
+                  removeEntity={deleteAdmin}
+                  entity_name={`admin ${admin.name}`}
+                />
               </Grid>
             </Grid>
             <Divider />
@@ -101,5 +110,5 @@ export const AdminListTable: FC<TAdminListTableProps> = props => {
         <NoElements />
       )}
     </div>
-  )
+  ))
 }

@@ -7,6 +7,7 @@ export class AdminModel extends Model({
   id: prop<string>(),
   name: prop<string>(""),
   email: prop<string>(""),
+  is_loading: prop<boolean>(false),
 }) {
   @modelAction
   setName(name: string) {
@@ -16,6 +17,10 @@ export class AdminModel extends Model({
   setEmail(email: string) {
     this.email = email.trim()
   }
+  @modelAction
+  setLoading(is_loading: boolean) {
+    this.is_loading = is_loading
+  }
 }
 @model("CreateAdminModel")
 export class CreateAdminModel extends Model({
@@ -23,6 +28,7 @@ export class CreateAdminModel extends Model({
   email: prop<string>(""),
   password: prop<string>(""),
   confirm_password: prop<string>(""),
+  is_loading: prop<boolean>(false),
 }) {
   @computed
   get json(): TAdminCreateProps {
@@ -58,5 +64,9 @@ export class CreateAdminModel extends Model({
   @modelAction
   setConfirmPassword(confirm_password: string) {
     this.confirm_password = confirm_password
+  }
+  @modelAction
+  setLoading(is_loading: boolean) {
+    this.is_loading = is_loading
   }
 }

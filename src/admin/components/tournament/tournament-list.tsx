@@ -32,15 +32,15 @@ export const TournamentList: FC<TTournamentListProps> = ({ data }) => {
     try {
       const res = await tournamentDelete(axios, tournament_id)
       tournament_list.setList(res.data)
+      tournament_list.setLoading(false)
       enqueueSnackbar("Succesfully deleted", {
         variant: "success",
       })
     } catch (e) {
+      tournament_list.setLoading(false)
       enqueueSnackbar("Error", {
         variant: "error",
       })
-    } finally {
-      tournament_list.setLoading(false)
     }
   }
   return (

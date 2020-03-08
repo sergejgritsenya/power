@@ -16,6 +16,7 @@ export class TournamentService {
   list = async (): Promise<TTournamentList[]> => {
     const tournaments = await this.prisma.tournament.findMany({
       select: { id: true, name: true, logo: true },
+      orderBy: { created_at: "asc" },
     })
     return tournaments
   }
@@ -43,6 +44,7 @@ export class TournamentService {
     await this.prisma.tournament.delete({ where: { id } })
     const tournaments = await this.prisma.tournament.findMany({
       select: { id: true, name: true, logo: true },
+      orderBy: { created_at: "asc" },
     })
     return tournaments
   }
