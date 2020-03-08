@@ -6,6 +6,7 @@ import {
   TTournamentUpdateProps,
   TTournamentVideo,
 } from "../../../common/types/tournament-types"
+import { TournamentVideoModel } from "./tournament-video-model"
 
 @model("TournamentModel")
 export class TournamentModel extends Model({
@@ -16,7 +17,7 @@ export class TournamentModel extends Model({
   is_loading: prop<boolean>(false),
 }) {
   images = observable.array<TTournamentImages>([])
-  videos = observable.array<TTournamentVideo>([])
+  videos = observable.array<TournamentVideoModel>([])
   @computed
   get json(): TTournamentUpdateProps {
     return { name: this.name.trim(), description: this.description.trim() }
@@ -51,7 +52,8 @@ export class TournamentModel extends Model({
     this.images.replace(images)
   }
   setVideos(videos: TTournamentVideo[]) {
-    this.videos.replace(videos)
+    const video_models = videos.map(video => new TournamentVideoModel(video))
+    this.videos.replace(video_models)
   }
 }
 @model("CreateTournamentModel")

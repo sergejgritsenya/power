@@ -25,6 +25,11 @@ export const tournament_root_routes = {
 export const tournament_routes = {
   get: `${tournament_root_routes.root}/get`,
   update: `${tournament_root_routes.root}/update`,
+  video: `${tournament_root_routes.root}/video`,
+}
+export const tournament_video_routes = {
+  create: `${tournament_routes.video}/create`,
+  delete: `${tournament_routes.video}/delete`,
 }
 export const news_root_routes = {
   list: `${control_routes.news}/list`,

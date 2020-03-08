@@ -8,6 +8,7 @@ import { NewsRouter } from "../news/news-router"
 import { NewsService } from "../news/news-service"
 import { TournamentRouter } from "../tournament/tournament-router"
 import { TournamentService } from "../tournament/tournament-service"
+import { TournamentVideoRouter } from "../tournament/video-router"
 import { AppRouter } from "./app-router"
 import { ControlRouter } from "./control-router"
 import { api_env, TApiEnv } from "./env"
@@ -27,6 +28,7 @@ const routers: interfaces.ServiceIdentifier<any>[] = [
   WebRouter,
   AdminRouter,
   TournamentRouter,
+  TournamentVideoRouter,
   NewsRouter,
 ]
 

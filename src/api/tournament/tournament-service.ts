@@ -4,6 +4,8 @@ import {
   TTournament,
   TTournamentList,
   TTournamentUpdateProps,
+  TTournamentVideo,
+  TTournamentVideoCreateProps,
 } from "../../common/types/tournament-types"
 import { PrismaService } from "../server/prisma-service"
 
@@ -65,5 +67,26 @@ export class TournamentService {
       orderBy: { created_at: "asc" },
     })
     return tournaments
+  }
+  createVideo = async (
+    tournament_id: string,
+    data: TTournamentVideoCreateProps
+  ): Promise<TTournamentVideo[]> => {
+    await this.prisma.tournamentVideo.create({
+      data: { ...data, tournament: { connect: { id: tournament_id } } },
+    })
+    const videos = this.prisma.tournamentVideo.findMany({
+      where: { tournament: { id: tournament_id } },
+      select: { id: true, url: true },
+    })
+    return videos
+  }
+  deleteVideo = async (tournament_id: string, id: string): Promise<TTournamentVideo[]> => {
+    await this.prisma.tournamentVideo.delete({ where: { id } })
+    const videos = this.prisma.tournamentVideo.findMany({
+      where: { tournament: { id: tournament_id } },
+      select: { id: true, url: true },
+    })
+    return videos
   }
 }

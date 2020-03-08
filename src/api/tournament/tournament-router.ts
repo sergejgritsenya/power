@@ -1,32 +1,41 @@
 import { inject, injectable } from "inversify"
+import { Middleware } from "koa"
 import Router from "koa-router"
 import { tournament_root_routes, tournament_routes } from "../../common/routes"
 import { TTournamentUpdateProps } from "../../common/types/tournament-types"
 import { TournamentService } from "./tournament-service"
+import { TournamentVideoRouter } from "./video-router"
 
 @injectable()
 export class TournamentRouter {
   tournament_router = new Router()
-  constructor(@inject(TournamentService) private readonly tournamentService: TournamentService) {
+  constructor(
+    @inject(TournamentService) private readonly tournamentService: TournamentService,
+    @inject(TournamentVideoRouter) private readonly videoRouter: TournamentVideoRouter
+  ) {
     this.tournament_router.post(tournament_root_routes.list, async ctx => {
       ctx.body = await this.tournamentService.list()
     })
     this.tournament_router.post(tournament_root_routes.create, async ctx => {
       const data = ctx.request.body as TTournamentUpdateProps
-      ctx.body = await tournamentService.create(data)
+      ctx.body = await this.tournamentService.create(data)
     })
     this.tournament_router.post(tournament_root_routes.delete, async ctx => {
       const { tournament_id } = ctx.request.body as { tournament_id: string }
-      ctx.body = await tournamentService.deleteTournament(tournament_id)
+      ctx.body = await this.tournamentService.deleteTournament(tournament_id)
     })
     this.tournament_router.post(tournament_routes.get, async ctx => {
-      const tournament_id = ctx.params.tournament_id
+      const { tournament_id } = ctx.params
       ctx.body = await this.tournamentService.getTournament(tournament_id)
     })
     this.tournament_router.post(tournament_routes.update, async ctx => {
-      const tournament_id = ctx.params.tournament_id
+      const { tournament_id } = ctx.params
       const data = ctx.request.body as TTournamentUpdateProps
-      ctx.body = await tournamentService.update(tournament_id, data)
+      ctx.body = await this.tournamentService.update(tournament_id, data)
     })
+    this.tournament_router.use(
+      this.videoRouter.video_router.routes() as Middleware,
+      this.videoRouter.video_router.allowedMethods() as Middleware
+    )
   }
 }

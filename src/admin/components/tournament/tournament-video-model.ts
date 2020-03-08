@@ -28,4 +28,8 @@ export class TournamentVideoCreateModel extends Model({
   setUrl(url: string) {
     this.url = url
   }
+  @modelAction
+  discard() {
+    this.url = ""
+  }
 }

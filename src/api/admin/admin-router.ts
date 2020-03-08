@@ -13,11 +13,11 @@ export class AdminRouter {
     })
     this.admin_router.post(admin_root_routes.create, async ctx => {
       const data = ctx.request.body as TAdminCreateProps
-      ctx.body = await adminService.create(data)
+      ctx.body = await this.adminService.create(data)
     })
     this.admin_router.post(admin_root_routes.delete, async ctx => {
       const { admin_id } = ctx.request.body as { admin_id: string }
-      ctx.body = await adminService.deleteAdmin(admin_id)
+      ctx.body = await this.adminService.deleteAdmin(admin_id)
     })
     this.admin_router.post(admin_routes.get, async ctx => {
       const admin_id = ctx.params.admin_id

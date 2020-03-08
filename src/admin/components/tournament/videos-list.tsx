@@ -8,6 +8,7 @@ import {
   makeStyles,
   TextField,
 } from "@material-ui/core"
+import { useObserver } from "mobx-react-lite"
 import { useSnackbar } from "notistack"
 import React, { FC, useMemo } from "react"
 import {
@@ -18,6 +19,7 @@ import { useAxios } from "../../layout/di-context"
 import { ApplyRemoveDialog } from "../common/apply-remove-dialog"
 import { NoElements } from "../common/no-elements"
 import { useTournamentContext } from "./tournament"
+import { tournamentVideoCreate, tournamentVideoDelete } from "./tournament-sdk"
 import { TournamentVideoCreateModel, TournamentVideoModel } from "./tournament-video-model"
 
 export const VideosList: FC = () => {
@@ -27,6 +29,10 @@ export const VideosList: FC = () => {
   const createVideo = async (data: TTournamentVideoCreateProps) => {
     tournament.setLoading(true)
     try {
+      const res = await axios.sendPost<TTournamentVideo[]>(
+        tournamentVideoCreate(tournament.id, data)
+      )
+      tournament.setVideos(res.data)
       tournament.setLoading(false)
       enqueueSnackbar("Succesfully created", {
         variant: "success",
@@ -41,6 +47,10 @@ export const VideosList: FC = () => {
   const deleteVideo = async (video_id: string) => {
     tournament.setLoading(true)
     try {
+      const res = await axios.sendPost<TTournamentVideo[]>(
+        tournamentVideoDelete(tournament.id, video_id)
+      )
+      tournament.setVideos(res.data)
       tournament.setLoading(false)
       enqueueSnackbar("Succesfully deleted", {
         variant: "success",
@@ -52,19 +62,21 @@ export const VideosList: FC = () => {
       })
     }
   }
-  return (
+  return useObserver(() => (
     <Card>
       <CardHeader title="Video list" />
       <CardContent>
         <VideoCreateItem createVideo={createVideo} />
         {tournament.videos.length ? (
-          tournament.videos.map(video => <VideoListItem video={video} deleteVideo={deleteVideo} />)
+          tournament.videos.map(video => (
+            <VideoListItem video={video} deleteVideo={deleteVideo} key={video.id} />
+          ))
         ) : (
           <NoElements />
         )}
       </CardContent>
     </Card>
-  )
+  ))
 }
 
 type TVideoCreateItemProps = {
@@ -76,41 +88,41 @@ const VideoCreateItem: FC<TVideoCreateItemProps> = props => {
     const model = new TournamentVideoCreateModel({})
     return model
   }, [])
-  return (
+  const create = () => {
+    createVideo(video.json)
+    video.discard()
+  }
+  return useObserver(() => (
     <div>
       <Grid container justify="space-between" alignItems="center">
         <Grid item xs={12} lg={10}>
-          <TextField label="url" />
+          <TextField label="url" value={video.url} onChange={e => video.setUrl(e.target.value)} />
         </Grid>
         <Grid item xs={12} lg={2}>
-          <Button color="primary" onClick={() => createVideo(video.json)}>
+          <Button color="primary" onClick={create}>
             Create
           </Button>
         </Grid>
       </Grid>
       <Divider />
     </div>
-  )
+  ))
 }
 type TVideoListItemProps = {
-  video: TTournamentVideo
+  video: TournamentVideoModel
   deleteVideo: (id: string) => void
 }
 const VideoListItem: FC<TVideoListItemProps> = props => {
   const { video, deleteVideo } = props
   const classes = useStyles()
-  const video_model = useMemo(() => {
-    const model = new TournamentVideoModel(video)
-    return model
-  }, [])
   return (
     <div>
-      <Grid container justify="space-between" alignItems="center">
+      <Grid container justify="space-between" alignItems="center" style={{ padding: "7px 0" }}>
         <Grid item xs={12} md={6}>
-          <div className={classes.iframe} dangerouslySetInnerHTML={{ __html: video_model.url }} />
+          <div className={classes.iframe} dangerouslySetInnerHTML={{ __html: video.url }} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <ApplyRemoveDialog id={video_model.id} removeEntity={deleteVideo} entity_name="video" />
+          <ApplyRemoveDialog id={video.id} removeEntity={deleteVideo} entity_name="video" />
         </Grid>
       </Grid>
       <Divider />

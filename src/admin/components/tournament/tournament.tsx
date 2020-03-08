@@ -24,6 +24,8 @@ export const Tournament: FC<TTournamentProps> = ({ data }) => {
   const [value, setValue] = useState<number>(0)
   const tournament = useMemo(() => {
     const model = new TournamentModel(data)
+    model.setVideos(data.videos)
+    model.setImages(data.images)
     return model
   }, [])
   return (
