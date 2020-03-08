@@ -21,7 +21,7 @@ export const AdminCreate: FC = () => {
     admin.setLoading(true)
     try {
       const data = admin.json
-      const res = await adminCreate(axios, data)
+      const res = await axios.sendPost<string>(adminCreate(data))
       admin.setLoading(false)
       enqueueSnackbar("Successfully created", {
         variant: "success",

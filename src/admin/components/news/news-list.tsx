@@ -15,7 +15,8 @@ import { NoElements } from "../common/no-elements"
 import { newsDelete, newsList } from "./news-sdk"
 
 type TNewsListData = AxiosResponse<TNewsList[]>
-export const newsListLoader: TChykLoadData<TNewsListData> = async (_, { axios }) => newsList(axios)
+export const newsListLoader: TChykLoadData<TNewsListData> = async (_, { axios }) =>
+  axios.sendPost<TNewsList[]>(newsList())
 type TNewsListProps = TRouteComponentProps<TNewsListData>
 
 export const NewsList: FC<TNewsListProps> = ({ data }) => {
@@ -29,7 +30,7 @@ export const NewsList: FC<TNewsListProps> = ({ data }) => {
   const deleteNews = async (news_id: string) => {
     news_list.setLoading(true)
     try {
-      const res = await newsDelete(axios, news_id)
+      const res = await axios.sendPost<TNewsList[]>(newsDelete(news_id))
       news_list.setList(res.data)
       news_list.setLoading(false)
       enqueueSnackbar("Succesfully deleted", {
@@ -47,7 +48,7 @@ export const NewsList: FC<TNewsListProps> = ({ data }) => {
       <CardContent>
         <Grid container justify="space-between" alignItems="center">
           <Grid item>
-            <CardHeader title="News List" />
+            <CardHeader title="News list" />
           </Grid>
           <Grid item>
             <ButtonLink to="/news/create" color="primary">

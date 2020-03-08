@@ -16,7 +16,7 @@ import { tournamentDelete, tournamentList } from "./tournament-sdk"
 
 type TTournamentListData = AxiosResponse<TTournamentList[]>
 export const tournamentListLoader: TChykLoadData<TTournamentListData> = async (_, { axios }) =>
-  tournamentList(axios)
+  axios.sendPost<TTournamentList[]>(tournamentList())
 
 type TTournamentListProps = TRouteComponentProps<TTournamentListData>
 export const TournamentList: FC<TTournamentListProps> = ({ data }) => {
@@ -30,7 +30,7 @@ export const TournamentList: FC<TTournamentListProps> = ({ data }) => {
   const deleteTournament = async (tournament_id: string) => {
     tournament_list.setLoading(true)
     try {
-      const res = await tournamentDelete(axios, tournament_id)
+      const res = await axios.sendPost<TTournamentList[]>(tournamentDelete(tournament_id))
       tournament_list.setList(res.data)
       tournament_list.setLoading(false)
       enqueueSnackbar("Succesfully deleted", {
@@ -48,7 +48,7 @@ export const TournamentList: FC<TTournamentListProps> = ({ data }) => {
       <CardContent>
         <Grid container justify="space-between" alignItems="center">
           <Grid item>
-            <CardHeader title="Tournament List" />
+            <CardHeader title="Tournament list" />
           </Grid>
           <Grid item>
             <ButtonLink to="/tournaments/create" color="primary">

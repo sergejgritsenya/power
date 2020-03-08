@@ -12,7 +12,7 @@ export const ShopList: FC<TShopListProps> = () => {
     <Card>
       <Grid container justify="space-between" alignItems="center">
         <Grid item>
-          <CardHeader title="Shop List" />
+          <CardHeader title="Shop list" />
         </Grid>
         <Grid item>
           {/* <ButtonLink to="/shop/create" color="primary">

@@ -14,7 +14,7 @@ import { newsGet, newsUpdate } from "./news-sdk"
 
 type TNewsData = AxiosResponse<TNews>
 export const newsLoader: TChykLoadData<TNewsData, { id: string }> = async ({ match }, { axios }) =>
-  newsGet(axios, match.params.id)
+  axios.sendPost<TNews>(newsGet(match.params.id))
 
 type TNewsProps = TRouteComponentProps<TNewsData>
 export const News: FC<TNewsProps> = ({ data }) => {
@@ -27,7 +27,7 @@ export const News: FC<TNewsProps> = ({ data }) => {
   const update = async () => {
     news.setLoading(true)
     try {
-      const res = await newsUpdate(axios, news.id, news.json)
+      const res = await axios.sendPost<TNews>(newsUpdate(news.id, news.json))
       news.updateAll(res.data)
       news.setLoading(false)
       enqueueSnackbar("Successfully saved", {

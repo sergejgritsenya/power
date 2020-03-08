@@ -16,7 +16,7 @@ import { adminDelete, adminList } from "./admin-sdk"
 
 type TAdminListData = AxiosResponse<TAdminList[]>
 export const adminListLoader: TChykLoadData<TAdminListData> = async (_, { axios }) =>
-  adminList(axios)
+  axios.sendPost<TAdminList[]>(adminList())
 type TAdminListProps = TRouteComponentProps<TAdminListData>
 
 export const AdminList: FC<TAdminListProps> = ({ data }) => {
@@ -30,7 +30,7 @@ export const AdminList: FC<TAdminListProps> = ({ data }) => {
   const deleteAdmin = async (admin_id: string) => {
     admin_list.setLoading(true)
     try {
-      const res = await adminDelete(axios, admin_id)
+      const res = await axios.sendPost<TAdminList[]>(adminDelete(admin_id))
       admin_list.setList(res.data)
       admin_list.setLoading(false)
       enqueueSnackbar("Successfully deleted", {
@@ -49,7 +49,7 @@ export const AdminList: FC<TAdminListProps> = ({ data }) => {
       <CardContent>
         <Grid container justify="space-between" alignItems="center">
           <Grid item>
-            <CardHeader title="Admin List" />
+            <CardHeader title="Admin list" />
           </Grid>
           <Grid item>
             <ButtonLink to="/admins/create" color="primary">

@@ -20,7 +20,7 @@ export const NewsCreate: FC = () => {
   const create = async () => {
     news.setLoading(true)
     try {
-      const res = await newsCreate(axios, news.json)
+      const res = await axios.sendPost<string>(newsCreate(news.json))
       news.setLoading(false)
       enqueueSnackbar("Successfully created", {
         variant: "success",

@@ -1,4 +1,3 @@
-import { AxiosInstance } from "axios"
 import { Chyk, TLoadData } from "chyk"
 import { createBrowserHistory } from "history"
 import { AdminRoot } from "./layout/root"
@@ -8,7 +7,7 @@ import { AxiosService } from "./server/axios-service"
 
 const history = createBrowserHistory()
 const snackService = new SnackService()
-const axios: AxiosInstance = new AxiosService().axios
+const axios = new AxiosService()
 new Chyk<TChykDeps>({
   routes,
   history,
@@ -18,7 +17,7 @@ new Chyk<TChykDeps>({
 })
 
 export type TChykDeps = {
-  axios: AxiosInstance
+  axios: AxiosService
   snackService: SnackService
 }
 export type TChykLoadData<T, M = any> = TLoadData<T, M, TChykDeps>

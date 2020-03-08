@@ -1,16 +1,21 @@
-import { AxiosInstance } from "axios"
 import { admin_root_routes, admin_routes, frontRoute } from "../../../common/routes"
-import { TAdmin, TAdminCreateProps, TAdminList } from "../../../common/types/admin-types"
+import { TAdminCreateProps } from "../../../common/types/admin-types"
+import { TAxiosSendProps } from "../../../common/types/common-types"
 
-export const adminList = async (axios: AxiosInstance) => {
-  return await axios.post<TAdminList[]>(admin_root_routes.list)
-}
-export const adminGet = async (axios: AxiosInstance, admin_id: string) => {
-  return await axios.post<TAdmin>(frontRoute(admin_routes.get, { admin_id }))
-}
-export const adminCreate = async (axios: AxiosInstance, data: TAdminCreateProps) => {
-  return await axios.post<string>(admin_root_routes.create, data)
-}
-export const adminDelete = async (axios: AxiosInstance, admin_id: string) => {
-  return await axios.post<TAdminList[]>(admin_root_routes.delete, { admin_id })
-}
+export const adminList = (): TAxiosSendProps => ({
+  route: admin_root_routes.list,
+})
+
+export const adminGet = (admin_id: string): TAxiosSendProps => ({
+  route: frontRoute(admin_routes.get, { admin_id }),
+})
+
+export const adminCreate = (data: TAdminCreateProps): TAxiosSendProps => ({
+  route: admin_root_routes.create,
+  data,
+})
+
+export const adminDelete = (admin_id: string): TAxiosSendProps => ({
+  route: admin_root_routes.delete,
+  data: { admin_id },
+})

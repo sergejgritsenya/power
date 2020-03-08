@@ -23,7 +23,14 @@ export class TournamentService {
   getTournament = async (id: string): Promise<TTournament> => {
     const tournament = await this.prisma.tournament.findOne({
       where: { id },
-      select: { id: true, name: true, description: true, logo: true },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        logo: true,
+        videos: { select: { id: true, url: true } },
+        images: { select: { id: true, url: true } },
+      },
     })
     if (!tournament) {
       throw new Error("Unknown tournament")
@@ -35,7 +42,18 @@ export class TournamentService {
     return tournament.id
   }
   update = async (id: string, data: TTournamentUpdateProps): Promise<TTournament> => {
-    const tournament = await this.prisma.tournament.update({ where: { id }, data })
+    const tournament = await this.prisma.tournament.update({
+      where: { id },
+      data,
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        logo: true,
+        videos: { select: { id: true, url: true } },
+        images: { select: { id: true, url: true } },
+      },
+    })
     return tournament
   }
   deleteTournament = async (id: string): Promise<TTournamentList[]> => {

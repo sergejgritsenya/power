@@ -12,7 +12,7 @@ type TAdminData = AxiosResponse<TAdmin>
 export const adminLoader: TChykLoadData<TAdminData, { id: string }> = async (
   { match },
   { axios }
-) => adminGet(axios, match.params.id)
+) => axios.sendPost<TAdmin>(adminGet(match.params.id))
 
 type TAdminProps = TRouteComponentProps<TAdminData>
 export const Admin: FC<TAdminProps> = ({ data }) => {
