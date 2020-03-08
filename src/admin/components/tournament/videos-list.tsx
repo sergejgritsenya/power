@@ -3,6 +3,10 @@ import {
   Card,
   CardContent,
   CardHeader,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   Divider,
   Grid,
   makeStyles,
@@ -10,7 +14,7 @@ import {
 } from "@material-ui/core"
 import { useObserver } from "mobx-react-lite"
 import { useSnackbar } from "notistack"
-import React, { FC, useMemo } from "react"
+import React, { FC, useMemo, useState } from "react"
 import {
   TTournamentVideo,
   TTournamentVideoCreateProps,
@@ -64,10 +68,16 @@ export const VideosList: FC = () => {
   }
   return useObserver(() => (
     <Card>
-      <CardHeader title="Video list" />
+      <Grid container justify="space-between" alignItems="center">
+        <Grid item>
+          <CardHeader title="Video list" />
+        </Grid>
+        <Grid item>
+          <VideoCreateDialog createVideo={createVideo} />
+        </Grid>
+      </Grid>
       <CardContent>
         <div>
-          <VideoCreateItem createVideo={createVideo} />
           {tournament.videos.length ? (
             tournament.videos.map(video => (
               <VideoListItem video={video} deleteVideo={deleteVideo} key={video.id} />
@@ -84,29 +94,48 @@ export const VideosList: FC = () => {
 type TVideoCreateItemProps = {
   createVideo: (data: TTournamentVideoCreateProps) => void
 }
-const VideoCreateItem: FC<TVideoCreateItemProps> = props => {
+const VideoCreateDialog: FC<TVideoCreateItemProps> = props => {
   const { createVideo } = props
+  const classes = useStyles()
+  const [open, setOpen] = useState<boolean>(false)
   const video = useMemo(() => {
     const model = new TournamentVideoCreateModel({})
     return model
   }, [])
   const create = () => {
     createVideo(video.json)
+    setOpen(false)
+    video.discard()
+  }
+  const close = () => {
+    setOpen(false)
     video.discard()
   }
   return useObserver(() => (
-    <div>
-      <Grid container justify="space-between" alignItems="center">
-        <Grid item xs={12} lg={6}>
-          <TextField label="url" value={video.url} onChange={e => video.setUrl(e.target.value)} />
-        </Grid>
-        <Grid item xs={12} lg={6}>
-          <Button color="primary" onClick={create}>
-            Create
+    <div className={classes.create}>
+      <Button color="primary" onClick={() => setOpen(true)}>
+        Add
+      </Button>
+      <Dialog open={open} onClose={close} maxWidth="sm" fullWidth>
+        <DialogTitle>Title</DialogTitle>
+        <DialogContent>
+          <TextField
+            label="url"
+            value={video.url}
+            onChange={e => video.setUrl(e.target.value)}
+            multiline
+            rows={4}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button color="secondary" onClick={close}>
+            Close
           </Button>
-        </Grid>
-      </Grid>
-      <Divider />
+          <Button color="primary" onClick={create}>
+            Add
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   ))
 }
@@ -135,6 +164,12 @@ const VideoListItem: FC<TVideoListItemProps> = props => {
 const useStyles = makeStyles(
   theme => {
     return {
+      create: {
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gridColumnGap: "8px",
+        margin: "8px 0",
+      },
       iframe: {
         border: `1px solid ${theme.palette.common}`,
         "& iframe": {

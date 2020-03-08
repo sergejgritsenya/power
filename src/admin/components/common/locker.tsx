@@ -3,6 +3,7 @@ import React, { FC } from "react"
 
 type TLockerProps = {
   show: boolean
+  position?: "fixed" | "absolute"
 }
 export const Locker: FC<TLockerProps> = ({ show }) => {
   const classes = useStyles()

@@ -9,7 +9,7 @@ export type TTournament = {
   logo: string | null
   description: string
   videos: TTournamentVideo[]
-  images: TTournamentImages[]
+  images: TTournamentImage[]
 }
 export type TTournamentUpdateProps = {
   name: string
@@ -22,7 +22,7 @@ export type TTournamentVideo = {
 export type TTournamentVideoCreateProps = {
   url: string
 }
-export type TTournamentImages = {
+export type TTournamentImage = {
   id: string
   url: string
 }

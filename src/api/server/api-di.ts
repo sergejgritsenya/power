@@ -6,6 +6,7 @@ import { AdminRouter } from "../admin/admin-router"
 import { AdminService } from "../admin/admin-service"
 import { NewsRouter } from "../news/news-router"
 import { NewsService } from "../news/news-service"
+import { TournamentImageRouter } from "../tournament/image-router"
 import { TournamentRouter } from "../tournament/tournament-router"
 import { TournamentService } from "../tournament/tournament-service"
 import { TournamentVideoRouter } from "../tournament/video-router"
@@ -28,6 +29,7 @@ const routers: interfaces.ServiceIdentifier<any>[] = [
   WebRouter,
   AdminRouter,
   TournamentRouter,
+  TournamentImageRouter,
   TournamentVideoRouter,
   NewsRouter,
 ]

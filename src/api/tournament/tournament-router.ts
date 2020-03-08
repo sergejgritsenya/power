@@ -3,6 +3,7 @@ import { Middleware } from "koa"
 import Router from "koa-router"
 import { tournament_root_routes, tournament_routes } from "../../common/routes"
 import { TTournamentUpdateProps } from "../../common/types/tournament-types"
+import { TournamentImageRouter } from "./image-router"
 import { TournamentService } from "./tournament-service"
 import { TournamentVideoRouter } from "./video-router"
 
@@ -11,6 +12,7 @@ export class TournamentRouter {
   tournament_router = new Router()
   constructor(
     @inject(TournamentService) private readonly tournamentService: TournamentService,
+    @inject(TournamentImageRouter) private readonly imageRouter: TournamentImageRouter,
     @inject(TournamentVideoRouter) private readonly videoRouter: TournamentVideoRouter
   ) {
     this.tournament_router.post(tournament_root_routes.list, async ctx => {
@@ -33,6 +35,10 @@ export class TournamentRouter {
       const data = ctx.request.body as TTournamentUpdateProps
       ctx.body = await this.tournamentService.update(tournament_id, data)
     })
+    this.tournament_router.use(
+      this.imageRouter.image_router.routes() as Middleware,
+      this.imageRouter.image_router.allowedMethods() as Middleware
+    )
     this.tournament_router.use(
       this.videoRouter.video_router.routes() as Middleware,
       this.videoRouter.video_router.allowedMethods() as Middleware

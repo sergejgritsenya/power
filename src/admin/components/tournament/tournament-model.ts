@@ -2,10 +2,11 @@ import { computed, observable } from "mobx"
 import { Model, model, modelAction, prop } from "mobx-keystone"
 import {
   TTournament,
-  TTournamentImages,
+  TTournamentImage,
   TTournamentUpdateProps,
   TTournamentVideo,
 } from "../../../common/types/tournament-types"
+import { TournamentImageModel } from "./tournament-image-model"
 import { TournamentVideoModel } from "./tournament-video-model"
 
 @model("TournamentModel")
@@ -16,7 +17,7 @@ export class TournamentModel extends Model({
   description: prop<string>(""),
   is_loading: prop<boolean>(false),
 }) {
-  images = observable.array<TTournamentImages>([])
+  images = observable.array<TournamentImageModel>([])
   videos = observable.array<TournamentVideoModel>([])
   @computed
   get json(): TTournamentUpdateProps {
@@ -48,8 +49,9 @@ export class TournamentModel extends Model({
   setLoading(is_loading: boolean) {
     this.is_loading = is_loading
   }
-  setImages(images: TTournamentImages[]) {
-    this.images.replace(images)
+  setImages(images: TTournamentImage[]) {
+    const image_models = images.map(image => new TournamentImageModel(image))
+    this.images.replace(image_models)
   }
   setVideos(videos: TTournamentVideo[]) {
     const video_models = videos.map(video => new TournamentVideoModel(video))

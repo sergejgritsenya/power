@@ -1,5 +1,6 @@
 import {
   frontRoute,
+  tournament_image_routes,
   tournament_root_routes,
   tournament_routes,
   tournament_video_routes,
@@ -44,4 +45,15 @@ export const tournamentVideoDelete = (
 ): TAxiosSendProps => ({
   route: frontRoute(tournament_video_routes.delete, { tournament_id }),
   data: { video_id },
+})
+export const tournamentImageUpload = (tournament_id: string, file: File): TAxiosSendProps => ({
+  route: frontRoute(tournament_image_routes.upload, { tournament_id }),
+  data: file,
+})
+export const tournamentImageDelete = (
+  tournament_id: string,
+  image_id: string
+): TAxiosSendProps => ({
+  route: frontRoute(tournament_image_routes.delete, { tournament_id }),
+  data: { image_id },
 })

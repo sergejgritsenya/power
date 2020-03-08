@@ -4,6 +4,7 @@ import { useSnackbar } from "notistack"
 import React, { FC } from "react"
 import { TTournament } from "../../../common/types/tournament-types"
 import { useAxios } from "../../layout/di-context"
+import { ImageUpload } from "../common/image-upload"
 import { Locker } from "../common/locker"
 import { SaveButton } from "../common/save-button"
 import { useTournamentContext } from "./tournament"
@@ -46,22 +47,31 @@ const TournamentField: FC<TTournamentFieldProps> = props => {
     <Card>
       <CardHeader title={`Tournament ${tournament.name}`} />
       <CardContent>
-        <Grid container>
-          <Grid item xs={12} lg={6}>
-            <TextField
-              label="name"
-              value={tournament.name}
-              onChange={e => tournament.setName(e.target.value)}
-            />
+        <Grid container spacing={8}>
+          <Grid item xs={12} sm={9}>
+            <Grid item xs={9}>
+              <Grid container>
+                <Grid item xs={12} lg={6}>
+                  <TextField
+                    label="name"
+                    value={tournament.name}
+                    onChange={e => tournament.setName(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    label="description"
+                    value={tournament.description}
+                    onChange={e => tournament.setDescription(e.target.value)}
+                    multiline
+                    rows={4}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="description"
-              value={tournament.description}
-              onChange={e => tournament.setDescription(e.target.value)}
-              multiline
-              rows={4}
-            />
+          <Grid item xs={12} sm={3}>
+            <LogoUpload />
           </Grid>
         </Grid>
         {tournament.validation && <SaveButton save={update} />}
@@ -69,4 +79,18 @@ const TournamentField: FC<TTournamentFieldProps> = props => {
       <Locker show={tournament.is_loading} />
     </Card>
   ))
+}
+
+const LogoUpload: FC = () => {
+  const upload = async (_file: File) => {
+    return "hello"
+  }
+  return useObserver(() => {
+    // const avatar_src = useCdnSrc(auth.user.avatar, 200)
+    return (
+      <div>
+        <ImageUpload upload={upload} />
+      </div>
+    )
+  })
 }

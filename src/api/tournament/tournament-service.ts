@@ -68,6 +68,22 @@ export class TournamentService {
     })
     return tournaments
   }
+  uploadImage = async (tournament_id: string, file: File): Promise<TTournamentVideo[]> => {
+    console.log(file)
+    const images = this.prisma.tournamentImage.findMany({
+      where: { tournament: { id: tournament_id } },
+      select: { id: true, url: true },
+    })
+    return images
+  }
+  deleteImage = async (tournament_id: string, id: string): Promise<TTournamentVideo[]> => {
+    await this.prisma.tournamentImage.delete({ where: { id } })
+    const images = this.prisma.tournamentImage.findMany({
+      where: { tournament: { id: tournament_id } },
+      select: { id: true, url: true },
+    })
+    return images
+  }
   createVideo = async (
     tournament_id: string,
     data: TTournamentVideoCreateProps
