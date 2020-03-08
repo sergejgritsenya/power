@@ -24,6 +24,8 @@ export const tournament_root_routes = {
 }
 export const tournament_routes = {
   get: `${tournament_root_routes.root}/get`,
+  upload: `${tournament_root_routes.root}/upload`,
+  deleteLogo: `${tournament_root_routes.root}/deleteLogo`,
   update: `${tournament_root_routes.root}/update`,
   video: `${tournament_root_routes.root}/video`,
   image: `${tournament_root_routes.root}/image`,

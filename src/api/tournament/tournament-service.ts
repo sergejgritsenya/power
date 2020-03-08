@@ -8,6 +8,7 @@ import {
   TTournamentVideoCreateProps,
 } from "../../common/types/tournament-types"
 import { PrismaService } from "../server/prisma-service"
+import { uploadToS3 } from "../upload-file/upload-to-s3"
 
 @injectable()
 export class TournamentService {
@@ -68,8 +69,29 @@ export class TournamentService {
     })
     return tournaments
   }
+  uploadLogo = async (id: string, file: File): Promise<string> => {
+    console.log(!!file)
+    const filename = await uploadToS3(file)
+    const logo = await this.prisma.tournament
+      .update({
+        where: { id },
+        data: { logo: filename },
+        select: { logo: true },
+      })
+      .then(r => r.logo || "")
+    return logo
+  }
+  deleteLogo = async (id: string) => {
+    await this.prisma.tournament.update({
+      where: { id },
+      data: { logo: null },
+    })
+  }
   uploadImage = async (tournament_id: string, file: File): Promise<TTournamentVideo[]> => {
-    console.log(file)
+    const filename = await uploadToS3(file)
+    await this.prisma.tournamentImage.create({
+      data: { url: filename, tournament: { connect: { id: tournament_id } } },
+    })
     const images = this.prisma.tournamentImage.findMany({
       where: { tournament: { id: tournament_id } },
       select: { id: true, url: true },

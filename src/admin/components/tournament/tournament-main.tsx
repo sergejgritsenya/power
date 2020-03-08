@@ -9,7 +9,7 @@ import { Locker } from "../common/locker"
 import { SaveButton } from "../common/save-button"
 import { useTournamentContext } from "./tournament"
 import { TournamentModel } from "./tournament-model"
-import { tournamentUpdate } from "./tournament-sdk"
+import { tournamentDeleteLogo, tournamentUpdate, tournamentUploadLogo } from "./tournament-sdk"
 
 export const TournamentMain: FC = () => {
   const tournament = useTournamentContext()
@@ -82,15 +82,17 @@ const TournamentField: FC<TTournamentFieldProps> = props => {
 }
 
 const LogoUpload: FC = () => {
-  const upload = async (_file: File) => {
-    return "hello"
+  const tournament = useTournamentContext()
+  const axios = useAxios()
+  // const logo_src = useCdnSrc(tournament.logo, 200)
+  const logo_src = "https://i.pinimg.com/originals/f4/d2/96/f4d2961b652880be432fb9580891ed62.png"
+  const upload = async (file: File) => {
+    const res = await axios.sendPost<string>(tournamentUploadLogo(tournament.id, file))
+    tournament.setLogo(res.data)
   }
-  return useObserver(() => {
-    // const avatar_src = useCdnSrc(auth.user.avatar, 200)
-    return (
-      <div>
-        <ImageUpload upload={upload} />
-      </div>
-    )
-  })
+  const deleteLogo = async () => {
+    await axios.sendPost<string>(tournamentDeleteLogo(tournament.id))
+    tournament.setLogo(null)
+  }
+  return useObserver(() => <ImageUpload src={logo_src} upload={upload} deleteLogo={deleteLogo} />)
 }

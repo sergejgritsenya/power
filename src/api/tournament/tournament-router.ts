@@ -35,6 +35,16 @@ export class TournamentRouter {
       const data = ctx.request.body as TTournamentUpdateProps
       ctx.body = await this.tournamentService.update(tournament_id, data)
     })
+    this.tournament_router.post(tournament_routes.upload, async ctx => {
+      const { tournament_id } = ctx.params
+      const file = ctx.request.body as File
+      ctx.body = await this.tournamentService.uploadLogo(tournament_id, file)
+    })
+    this.tournament_router.post(tournament_routes.deleteLogo, async ctx => {
+      const { tournament_id } = ctx.params
+      await this.tournamentService.deleteLogo(tournament_id)
+      ctx.status = 200
+    })
     this.tournament_router.use(
       this.imageRouter.image_router.routes() as Middleware,
       this.imageRouter.image_router.allowedMethods() as Middleware

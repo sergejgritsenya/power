@@ -27,6 +27,14 @@ export const tournamentUpdate = (
   data: TTournamentUpdateProps
 ): TAxiosSendProps => ({ route: frontRoute(tournament_routes.update, { tournament_id }), data })
 
+export const tournamentUploadLogo = (tournament_id: string, file: File): TAxiosSendProps => ({
+  route: frontRoute(tournament_routes.upload, { tournament_id }),
+  data: file,
+})
+export const tournamentDeleteLogo = (tournament_id: string): TAxiosSendProps => ({
+  route: frontRoute(tournament_routes.deleteLogo, { tournament_id }),
+})
+
 export const tournamentDelete = (tournament_id: string): TAxiosSendProps => ({
   route: tournament_root_routes.delete,
   data: { tournament_id },
