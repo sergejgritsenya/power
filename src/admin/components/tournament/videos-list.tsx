@@ -66,14 +66,16 @@ export const VideosList: FC = () => {
     <Card>
       <CardHeader title="Video list" />
       <CardContent>
-        <VideoCreateItem createVideo={createVideo} />
-        {tournament.videos.length ? (
-          tournament.videos.map(video => (
-            <VideoListItem video={video} deleteVideo={deleteVideo} key={video.id} />
-          ))
-        ) : (
-          <NoElements />
-        )}
+        <div>
+          <VideoCreateItem createVideo={createVideo} />
+          {tournament.videos.length ? (
+            tournament.videos.map(video => (
+              <VideoListItem video={video} deleteVideo={deleteVideo} key={video.id} />
+            ))
+          ) : (
+            <NoElements />
+          )}
+        </div>
       </CardContent>
     </Card>
   ))
@@ -95,10 +97,10 @@ const VideoCreateItem: FC<TVideoCreateItemProps> = props => {
   return useObserver(() => (
     <div>
       <Grid container justify="space-between" alignItems="center">
-        <Grid item xs={12} lg={10}>
+        <Grid item xs={12} lg={6}>
           <TextField label="url" value={video.url} onChange={e => video.setUrl(e.target.value)} />
         </Grid>
-        <Grid item xs={12} lg={2}>
+        <Grid item xs={12} lg={6}>
           <Button color="primary" onClick={create}>
             Create
           </Button>

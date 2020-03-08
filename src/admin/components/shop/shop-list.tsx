@@ -10,17 +10,17 @@ type TShopListProps = TRouteComponentProps<TShopListData>
 export const ShopList: FC<TShopListProps> = () => {
   return (
     <Card>
-      <Grid container justify="space-between" alignItems="center">
-        <Grid item>
-          <CardHeader title="Shop list" />
-        </Grid>
-        <Grid item>
-          {/* <ButtonLink to="/shop/create" color="primary">
+      <CardContent>
+        <Grid container justify="space-between" alignItems="center">
+          <Grid item>
+            <CardHeader title="Shop list" />
+          </Grid>
+          <Grid item>
+            {/* <ButtonLink to="/shop/create" color="primary">
             Create new shop
           </ButtonLink> */}
+          </Grid>
         </Grid>
-      </Grid>
-      <CardContent>
         <h1>Coming soon</h1>
       </CardContent>
     </Card>
