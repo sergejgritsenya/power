@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, CardHeader, Grid } from "@material-ui/core"
+import { Button, Card, CardContent, CardHeader, Divider, Grid } from "@material-ui/core"
 import { AxiosResponse } from "axios"
 import { TRouteComponentProps } from "chyk"
 import { useSnackbar } from "notistack"
@@ -20,7 +20,7 @@ export const AdminList: FC<TAdminListProps> = ({ data }) => {
   const axios = useAxios()
   const { enqueueSnackbar } = useSnackbar()
   const admin_list = useMemo(() => {
-    const model = new ListModel<TAdminList>()
+    const model = new ListModel<TAdminList>({})
     model.setList(data)
     return model
   }, [])
@@ -47,16 +47,16 @@ export const AdminList: FC<TAdminListProps> = ({ data }) => {
           </Grid>
           <Grid item>
             <ButtonLink to="/admins/create" color="primary">
-              Create new admin
+              Create
             </ButtonLink>
           </Grid>
         </Grid>
         <Grid container justify="flex-start" alignItems="center">
           <Grid item xs={12} md={6} lg={3}>
-            Name
+            <h3> Name</h3>
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
-            Email
+            <h3>Email</h3>
           </Grid>
           <Grid item xs={12} md={6} lg={3} />
           <Grid item xs={12} md={6} lg={3} />
@@ -78,7 +78,7 @@ export const AdminListTable: FC<TAdminListTableProps> = props => {
       {admin_list.list.length ? (
         admin_list.list.map(admin => (
           <div key={admin.id}>
-            <Grid container justify="flex-start" alignItems="center">
+            <Grid container justify="flex-start" alignItems="center" style={{ padding: "7px 0" }}>
               <Grid item xs={12} md={6} lg={3}>
                 {admin.name}
               </Grid>
@@ -94,6 +94,7 @@ export const AdminListTable: FC<TAdminListTableProps> = props => {
                 </Button>
               </Grid>
             </Grid>
+            <Divider />
           </div>
         ))
       ) : (

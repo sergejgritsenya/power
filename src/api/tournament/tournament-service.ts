@@ -10,8 +10,8 @@ import { PrismaService } from "../server/prisma-service"
 @injectable()
 export class TournamentService {
   prisma: PrismaClient
-  constructor(@inject(PrismaService) private readonly prisma_service: PrismaService) {
-    this.prisma = this.prisma_service.prisma
+  constructor(@inject(PrismaService) private readonly prismaService: PrismaService) {
+    this.prisma = this.prismaService.prisma
   }
   list = async (): Promise<TTournamentList[]> => {
     const tournaments = await this.prisma.tournament.findMany({

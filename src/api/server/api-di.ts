@@ -4,6 +4,8 @@ import Router from "koa-router"
 import "reflect-metadata"
 import { AdminRouter } from "../admin/admin-router"
 import { AdminService } from "../admin/admin-service"
+import { NewsRouter } from "../news/news-router"
+import { NewsService } from "../news/news-service"
 import { TournamentRouter } from "../tournament/tournament-router"
 import { TournamentService } from "../tournament/tournament-service"
 import { AppRouter } from "./app-router"
@@ -14,13 +16,18 @@ import { appSymbols } from "./symbols"
 import { WebRouter } from "./web-router"
 
 const app_dependencies: interfaces.ServiceIdentifier<any>[] = [PrismaService]
-const singletones: interfaces.ServiceIdentifier<any>[] = [AdminService, TournamentService]
+const singletones: interfaces.ServiceIdentifier<any>[] = [
+  AdminService,
+  TournamentService,
+  NewsService,
+]
 const routers: interfaces.ServiceIdentifier<any>[] = [
   AppRouter,
   ControlRouter,
   WebRouter,
   AdminRouter,
   TournamentRouter,
+  NewsRouter,
 ]
 
 export type TInitApiServerProps = { container: Container; router: Router }

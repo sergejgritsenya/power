@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Grid } from "@material-ui/core"
+import { Card, CardContent, CardHeader, Divider, Grid } from "@material-ui/core"
 import { AxiosResponse } from "axios"
 import { TRouteComponentProps } from "chyk"
 import { useObserver } from "mobx-react-lite"
@@ -10,6 +10,7 @@ import { TTournamentList } from "../../../common/types/tournament-types"
 import { useAxios } from "../../layout/di-context"
 import { ApplyRemoveDialog } from "../common/apply-remove-dialog"
 import { ListModel } from "../common/list-model"
+import { Locker } from "../common/locker"
 import { NoElements } from "../common/no-elements"
 import { tournamentDelete, tournamentList } from "./tournament-sdk"
 
@@ -22,11 +23,12 @@ export const TournamentList: FC<TTournamentListProps> = ({ data }) => {
   const axios = useAxios()
   const { enqueueSnackbar } = useSnackbar()
   const tournament_list = useMemo(() => {
-    const model = new ListModel<TTournamentList>()
+    const model = new ListModel<TTournamentList>({})
     model.setList(data)
     return model
   }, [])
   const deleteTournament = async (tournament_id: string) => {
+    tournament_list.setLoading(true)
     try {
       const res = await tournamentDelete(axios, tournament_id)
       tournament_list.setList(res.data)
@@ -37,6 +39,8 @@ export const TournamentList: FC<TTournamentListProps> = ({ data }) => {
       enqueueSnackbar("Error", {
         variant: "error",
       })
+    } finally {
+      tournament_list.setLoading(false)
     }
   }
   return (
@@ -48,16 +52,16 @@ export const TournamentList: FC<TTournamentListProps> = ({ data }) => {
           </Grid>
           <Grid item>
             <ButtonLink to="/tournaments/create" color="primary">
-              Create new tournament
+              Create
             </ButtonLink>
           </Grid>
         </Grid>
         <Grid container justify="flex-start" alignItems="center">
           <Grid item xs={12} md={6} lg={3}>
-            Logo
+            <h3>Logo</h3>
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
-            Name
+            <h3>Name</h3>
           </Grid>
           <Grid item xs={12} md={6} lg={3} />
           <Grid item xs={12} md={6} lg={3} />
@@ -67,6 +71,7 @@ export const TournamentList: FC<TTournamentListProps> = ({ data }) => {
           tournament_list={tournament_list}
           deleteTournament={deleteTournament}
         />
+        <Locker show={tournament_list.is_loading} />
       </CardContent>
     </Card>
   )
@@ -85,7 +90,7 @@ const TournamentListTable: FC<TTournamentListTableProps> = ({
       {tournament_list.list.length ? (
         tournament_list.list.map(tournament => (
           <div key={tournament.id}>
-            <Grid container justify="flex-start" alignItems="center">
+            <Grid container justify="flex-start" alignItems="center" style={{ padding: "7px 0" }}>
               <Grid item xs={12} md={6} lg={3}>
                 {tournament.logo || ""}
               </Grid>
@@ -103,6 +108,7 @@ const TournamentListTable: FC<TTournamentListTableProps> = ({
                 />
               </Grid>
             </Grid>
+            <Divider />
           </div>
         ))
       ) : (

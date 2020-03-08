@@ -8,6 +8,7 @@ export class TournamentModel extends Model({
   name: prop<string>(""),
   logo: prop<string | null>(null),
   description: prop<string>(""),
+  is_loading: prop<boolean>(false),
 }) {
   @computed
   get json(): TTournamentUpdateProps {
@@ -35,11 +36,16 @@ export class TournamentModel extends Model({
     this.setLogo(data.logo)
     this.setDescription(data.description)
   }
+  @modelAction
+  setLoading(is_loading: boolean) {
+    this.is_loading = is_loading
+  }
 }
 @model("CreateTournamentModel")
 export class CreateTournamentModel extends Model({
   name: prop<string>(""),
   description: prop<string>(""),
+  is_loading: prop<boolean>(false),
 }) {
   @computed
   get json(): TTournamentUpdateProps {
@@ -56,5 +62,9 @@ export class CreateTournamentModel extends Model({
   @modelAction
   setDescription(description: string) {
     this.description = description
+  }
+  @modelAction
+  setLoading(is_loading: boolean) {
+    this.is_loading = is_loading
   }
 }

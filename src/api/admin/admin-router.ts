@@ -7,21 +7,21 @@ import { AdminService } from "./admin-service"
 @injectable()
 export class AdminRouter {
   admin_router = new Router()
-  constructor(@inject(AdminService) private readonly admin_service: AdminService) {
+  constructor(@inject(AdminService) private readonly adminService: AdminService) {
     this.admin_router.post(admin_root_routes.list, async ctx => {
-      ctx.body = await this.admin_service.list()
+      ctx.body = await this.adminService.list()
     })
     this.admin_router.post(admin_root_routes.create, async ctx => {
       const data = ctx.request.body as TAdminCreateProps
-      ctx.body = await admin_service.create(data)
+      ctx.body = await adminService.create(data)
     })
     this.admin_router.post(admin_root_routes.delete, async ctx => {
       const { admin_id } = ctx.request.body as { admin_id: string }
-      ctx.body = await admin_service.deleteAdmin(admin_id)
+      ctx.body = await adminService.deleteAdmin(admin_id)
     })
     this.admin_router.post(admin_routes.get, async ctx => {
       const admin_id = ctx.params.admin_id
-      ctx.body = await this.admin_service.getAdmin(admin_id)
+      ctx.body = await this.adminService.getAdmin(admin_id)
     })
   }
 }

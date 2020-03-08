@@ -4,6 +4,7 @@ import { useSnackbar } from "notistack"
 import React, { FC, useMemo } from "react"
 import { useHistory } from "react-router-dom"
 import { useAxios } from "../../layout/di-context"
+import { Locker } from "../common/locker"
 import { SaveButton } from "../common/save-button"
 import { CreateTournamentModel } from "./tournament-model"
 import { tournamentCreate } from "./tournament-sdk"
@@ -17,13 +18,16 @@ export const TournamentCreate: FC = () => {
     return model
   }, [])
   const create = async () => {
+    tournament.setLoading(true)
     try {
       const res = await tournamentCreate(axios, tournament.json)
+      tournament.setLoading(false)
       enqueueSnackbar("Successfully created", {
         variant: "success",
       })
       history.replace(`/tournaments/${res.data}`)
     } catch (e) {
+      tournament.setLoading(false)
       enqueueSnackbar("Error", {
         variant: "error",
       })
@@ -54,6 +58,7 @@ export const TournamentCreate: FC = () => {
         </Grid>
         {tournament.validation && <SaveButton save={create} />}
       </CardContent>
+      <Locker show={tournament.is_loading} />
     </Card>
   ))
 }

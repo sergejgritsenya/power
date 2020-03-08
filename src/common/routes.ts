@@ -5,6 +5,7 @@ export const app_routes = {
 export const control_routes = {
   admin: `${app_routes.control}/admin`,
   tournament: `${app_routes.control}/tournament`,
+  news: `${app_routes.control}/news`,
 }
 export const admin_root_routes = {
   list: `${control_routes.admin}/list`,
@@ -24,6 +25,16 @@ export const tournament_root_routes = {
 export const tournament_routes = {
   get: `${tournament_root_routes.root}/get`,
   update: `${tournament_root_routes.root}/update`,
+}
+export const news_root_routes = {
+  list: `${control_routes.news}/list`,
+  create: `${control_routes.news}/create`,
+  delete: `${control_routes.news}/delete`,
+  root: `${control_routes.news}/:news_id`,
+}
+export const news_routes = {
+  get: `${news_root_routes.root}/get`,
+  update: `${news_root_routes.root}/update`,
 }
 
 export const frontRoute = (route: string, args: Record<string, any>): string => {

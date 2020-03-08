@@ -12,8 +12,8 @@ import { PrismaService } from "../server/prisma-service"
 @injectable()
 export class AdminService {
   private prisma: PrismaClient
-  constructor(@inject(PrismaService) private readonly prisma_service: PrismaService) {
-    this.prisma = this.prisma_service.prisma
+  constructor(@inject(PrismaService) private readonly prismaService: PrismaService) {
+    this.prisma = this.prismaService.prisma
   }
   list = async (): Promise<TAdminList[]> => {
     return await this.prisma.admin.findMany({

@@ -1,38 +1,31 @@
 import { Card, CardContent, CardHeader, Grid, TextField } from "@material-ui/core"
-import { AxiosResponse } from "axios"
-import { TRouteComponentProps } from "chyk"
 import { useObserver } from "mobx-react-lite"
 import { useSnackbar } from "notistack"
 import React, { FC, useMemo } from "react"
-import { TChykLoadData } from "../.."
-import { TNews } from "../../../common/types/news-types"
+import { useHistory } from "react-router-dom"
 import { useAxios } from "../../layout/di-context"
 import { Locker } from "../common/locker"
 import { SaveButton } from "../common/save-button"
-import { NewsModel } from "./news-model"
-import { newsGet, newsUpdate } from "./news-sdk"
+import { CreateNewsModel } from "./news-model"
+import { newsCreate } from "./news-sdk"
 
-type TNewsData = AxiosResponse<TNews>
-export const newsLoader: TChykLoadData<TNewsData, { id: string }> = async ({ match }, { axios }) =>
-  newsGet(axios, match.params.id)
-
-type TNewsProps = TRouteComponentProps<TNewsData>
-export const News: FC<TNewsProps> = ({ data }) => {
+export const NewsCreate: FC = () => {
   const axios = useAxios()
+  const history = useHistory()
   const { enqueueSnackbar } = useSnackbar()
   const news = useMemo(() => {
-    const model = new NewsModel(data)
+    const model = new CreateNewsModel({})
     return model
   }, [])
-  const update = async () => {
+  const create = async () => {
     news.setLoading(true)
     try {
-      const res = await newsUpdate(axios, news.id, news.json)
-      news.updateAll(res.data)
+      const res = await newsCreate(axios, news.json)
       news.setLoading(false)
-      enqueueSnackbar("Successfully saved", {
+      enqueueSnackbar("Successfully created", {
         variant: "success",
       })
+      history.replace(`/news/${res.data}`)
     } catch (e) {
       news.setLoading(false)
       enqueueSnackbar("Error", {
@@ -41,18 +34,9 @@ export const News: FC<TNewsProps> = ({ data }) => {
       throw e
     }
   }
-  return <NewsField news={news} update={update} />
-}
-
-type TNewsFieldProps = {
-  news: NewsModel
-  update: () => void
-}
-const NewsField: FC<TNewsFieldProps> = props => {
-  const { news, update } = props
   return useObserver(() => (
     <Card>
-      <CardHeader title={`News ${news.title}`} />
+      <CardHeader title={`News: ${news.title}`} />
       <CardContent>
         <Grid container>
           <Grid item xs={12} lg={6}>
@@ -72,7 +56,7 @@ const NewsField: FC<TNewsFieldProps> = props => {
             />
           </Grid>
         </Grid>
-        {news.validation && <SaveButton save={update} />}
+        {news.validation && <SaveButton save={create} />}
       </CardContent>
       <Locker show={news.is_loading} />
     </Card>

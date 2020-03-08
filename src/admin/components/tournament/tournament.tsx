@@ -7,6 +7,7 @@ import { default as React, FC, useMemo, useState } from "react"
 import { TChykLoadData } from "../.."
 import { TTournament } from "../../../common/types/tournament-types"
 import { useAxios } from "../../layout/di-context"
+import { Locker } from "../common/locker"
 import { SaveButton } from "../common/save-button"
 import { ImagesList } from "./images-list"
 import { TournamentModel } from "./tournament-model"
@@ -29,13 +30,16 @@ export const Tournament: FC<TTournamentProps> = ({ data }) => {
     return model
   }, [])
   const update = async () => {
+    tournament.setLoading(true)
     try {
       const res = await tournamentUpdate(axios, tournament.id, tournament.json)
       tournament.updateAll(res.data)
+      tournament.setLoading(false)
       enqueueSnackbar("Successfully saved", {
         variant: "success",
       })
     } catch (e) {
+      tournament.setLoading(false)
       enqueueSnackbar("Error", {
         variant: "error",
       })
@@ -86,6 +90,7 @@ const TournamentField: FC<TTournamentFieldProps> = props => {
         </Grid>
         {tournament.validation && <SaveButton save={update} />}
       </CardContent>
+      <Locker show={tournament.is_loading} />
     </Card>
   ))
 }
