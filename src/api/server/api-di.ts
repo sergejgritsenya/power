@@ -4,6 +4,8 @@ import Router from "koa-router"
 import "reflect-metadata"
 import { AdminRouter } from "../admin/admin-router"
 import { AdminService } from "../admin/admin-service"
+import { AuthRouter } from "../auth/auth-router"
+import { AuthService } from "../auth/auth-service"
 import { NewsRouter } from "../news/news-router"
 import { NewsService } from "../news/news-service"
 import { TournamentImageRouter } from "../tournament/image-router"
@@ -19,6 +21,7 @@ import { WebRouter } from "./web-router"
 
 const app_dependencies: interfaces.ServiceIdentifier<any>[] = [PrismaService]
 const singletones: interfaces.ServiceIdentifier<any>[] = [
+  AuthService,
   AdminService,
   TournamentService,
   NewsService,
@@ -26,6 +29,7 @@ const singletones: interfaces.ServiceIdentifier<any>[] = [
 const routers: interfaces.ServiceIdentifier<any>[] = [
   AppRouter,
   ControlRouter,
+  AuthRouter,
   WebRouter,
   AdminRouter,
   TournamentRouter,

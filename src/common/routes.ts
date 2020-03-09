@@ -1,11 +1,15 @@
-export const app_routes = {
+const app_routes = {
   control: "/control",
   web: "/",
 }
-export const control_routes = {
+const control_routes = {
+  auth: `${app_routes.control}/auth`,
   admin: `${app_routes.control}/admin`,
   tournament: `${app_routes.control}/tournament`,
   news: `${app_routes.control}/news`,
+}
+export const admin_auth_routes = {
+  login: `${control_routes.auth}/login`,
 }
 export const admin_root_routes = {
   list: `${control_routes.admin}/list`,
@@ -15,6 +19,7 @@ export const admin_root_routes = {
 }
 export const admin_routes = {
   get: `${admin_root_routes.root}/get`,
+  logout: `${admin_root_routes.root}/logout`,
 }
 export const tournament_root_routes = {
   list: `${control_routes.tournament}/list`,

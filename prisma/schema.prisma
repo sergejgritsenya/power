@@ -8,21 +8,23 @@ datasource db {
 }
 
 model Admin {
-    id    String @default(cuid()) @id
-    login String @unique
-    email String @unique
+    id       String         @default(cuid()) @id
+    login    String         @unique
+    email    String         @unique
+    password AdminPassword?
+    salt     AdminSalt?
 }
 
 model AdminPassword {
     id       String @default(cuid()) @id
     password String
-    admin    Admin
+    admin    Admin  @relation(references: [id])
 }
 
 model AdminSalt {
     id    String @default(cuid()) @id
     salt  String
-    admin Admin
+    admin Admin  @relation(references: [id])
 }
 
 model News {

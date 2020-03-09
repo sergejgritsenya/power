@@ -22,7 +22,7 @@ const seed = async () => {
       data: { salt: hash_pass.salt, admin: { connect: { id: admin.id } } },
     })
     await prisma.adminPassword.create({
-      data: { password: hash_pass.salt, admin: { connect: { id: admin.id } } },
+      data: { password: hash_pass.hash, admin: { connect: { id: admin.id } } },
     })
     console.log("Successfully created")
   } catch (e) {
