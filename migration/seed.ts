@@ -1,13 +1,15 @@
 import { PrismaClient } from "@prisma/client"
 import { passwordHashing } from "../src/api/util/password-hashing"
-import { inputPromt } from "./input-prompt"
 
 const prisma = new PrismaClient()
 const seed = async () => {
   try {
-    const email = await inputPromt("Enter email: ")
-    const login = await inputPromt("Enter login: ")
-    const password = await inputPromt("Enter password: ")
+    // const email = await inputPromt("Enter email: ")
+    // const login = await inputPromt("Enter login: ")
+    // const password = await inputPromt("Enter password: ")
+    const email = "sergejgritsenya@gmail.com"
+    const login = "sergej"
+    const password = "050290"
     if (!email || !login || !password) {
       throw new Error("Incorrect input")
     }

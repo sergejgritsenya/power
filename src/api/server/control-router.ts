@@ -5,6 +5,7 @@ import { AdminRouter } from "../admin/admin-router"
 import { AuthRouter } from "../auth/auth-router"
 import { NewsRouter } from "../news/news-router"
 import { TournamentRouter } from "../tournament/tournament-router"
+import { authMidlleware } from "./api-middleware"
 
 @injectable()
 export class ControlRouter {
@@ -19,6 +20,7 @@ export class ControlRouter {
       this.authRouter.auth_router.routes() as Middleware,
       this.authRouter.auth_router.allowedMethods() as Middleware
     )
+    this.control_router.use(authMidlleware)
     this.control_router.use(
       this.adminRouter.admin_router.routes() as Middleware,
       this.adminRouter.admin_router.allowedMethods() as Middleware

@@ -8,8 +8,8 @@ import { AxiosService } from "./server/axios-service"
 
 const history = createBrowserHistory()
 const snackService = new SnackService()
-const axios = new AxiosService()
 const auth = new AuthController()
+const axios = new AxiosService(auth.getToken())
 new Chyk<TChykDeps>({
   routes,
   history,
