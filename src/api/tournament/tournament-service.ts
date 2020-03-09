@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client"
+import { IncomingMessage } from "http"
 import { inject, injectable } from "inversify"
 import {
   TTournament,
@@ -69,9 +70,8 @@ export class TournamentService {
     })
     return tournaments
   }
-  uploadLogo = async (id: string, file: File): Promise<string> => {
-    console.log(!!file)
-    const filename = await uploadToS3(file)
+  uploadLogo = async (id: string, req: IncomingMessage): Promise<string> => {
+    const filename = await uploadToS3(req)
     const logo = await this.prisma.tournament
       .update({
         where: { id },
@@ -87,10 +87,13 @@ export class TournamentService {
       data: { logo: null },
     })
   }
-  uploadImage = async (tournament_id: string, file: File): Promise<TTournamentVideo[]> => {
-    const filename = await uploadToS3(file)
+  uploadImage = async (
+    tournament_id: string,
+    req: IncomingMessage
+  ): Promise<TTournamentVideo[]> => {
+    const url = await uploadToS3(req)
     await this.prisma.tournamentImage.create({
-      data: { url: filename, tournament: { connect: { id: tournament_id } } },
+      data: { url, tournament: { connect: { id: tournament_id } } },
     })
     const images = this.prisma.tournamentImage.findMany({
       where: { tournament: { id: tournament_id } },

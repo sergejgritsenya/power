@@ -37,8 +37,7 @@ export class TournamentRouter {
     })
     this.tournament_router.post(tournament_routes.upload, async ctx => {
       const { tournament_id } = ctx.params
-      const file = ctx.request.body as File
-      ctx.body = await this.tournamentService.uploadLogo(tournament_id, file)
+      ctx.body = await this.tournamentService.uploadLogo(tournament_id, ctx.req)
     })
     this.tournament_router.post(tournament_routes.deleteLogo, async ctx => {
       const { tournament_id } = ctx.params

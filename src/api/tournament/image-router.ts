@@ -9,8 +9,7 @@ export class TournamentImageRouter {
   constructor(@inject(TournamentService) private readonly tournamentService: TournamentService) {
     this.image_router.post(tournament_image_routes.upload, async ctx => {
       const { tournament_id } = ctx.params
-      const data = ctx.request.body as File
-      ctx.body = await this.tournamentService.uploadImage(tournament_id, data)
+      ctx.body = await this.tournamentService.uploadImage(tournament_id, ctx.req)
     })
     this.image_router.post(tournament_image_routes.delete, async ctx => {
       const { tournament_id } = ctx.params
