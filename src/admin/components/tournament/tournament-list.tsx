@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Divider, Grid } from "@material-ui/core"
+import { Avatar, Card, CardContent, CardHeader, Divider, Grid, makeStyles } from "@material-ui/core"
 import { AxiosResponse } from "axios"
 import { TRouteComponentProps } from "chyk"
 import { useObserver } from "mobx-react-lite"
@@ -57,15 +57,14 @@ export const TournamentList: FC<TTournamentListProps> = ({ data }) => {
           </Grid>
         </Grid>
         <Grid container justify="flex-start" alignItems="center">
-          <Grid item xs={12} md={6} lg={3}>
+          <Grid item xs={12} md={6} lg={2}>
             <h3>Logo</h3>
           </Grid>
-          <Grid item xs={12} md={6} lg={3}>
+          <Grid item xs={12} md={6} lg={4}>
             <h3>Name</h3>
           </Grid>
           <Grid item xs={12} md={6} lg={3} />
           <Grid item xs={12} md={6} lg={3} />
-          <Grid item />
         </Grid>
         <TournamentListTable
           tournament_list={tournament_list}
@@ -85,16 +84,21 @@ const TournamentListTable: FC<TTournamentListTableProps> = ({
   tournament_list,
   deleteTournament,
 }) => {
+  const classes = useStyles()
   return useObserver(() => (
     <div>
       {tournament_list.list.length ? (
         tournament_list.list.map(tournament => (
           <div key={tournament.id}>
             <Grid container justify="flex-start" alignItems="center" style={{ padding: "7px 0" }}>
-              <Grid item xs={12} md={6} lg={3}>
-                {tournament.logo || ""}
+              <Grid item xs={12} md={6} lg={2}>
+                {tournament.logo ? (
+                  <Avatar src={tournament.logo} variant="rounded" className={classes.avatar} />
+                ) : (
+                  ""
+                )}
               </Grid>
-              <Grid item xs={12} md={6} lg={3}>
+              <Grid item xs={12} md={6} lg={4}>
                 {tournament.name}
               </Grid>
               <Grid item xs={12} md={6} lg={3}>
@@ -117,3 +121,15 @@ const TournamentListTable: FC<TTournamentListTableProps> = ({
     </div>
   ))
 }
+
+const useStyles = makeStyles(_theme => ({
+  avatar: {
+    width: "auto",
+    display: "flex",
+    justifyContent: "flex-start",
+    "& img": {
+      width: "auto",
+      objectFit: "contain",
+    },
+  },
+}))

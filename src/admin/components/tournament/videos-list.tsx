@@ -149,10 +149,10 @@ const VideoListItem: FC<TVideoListItemProps> = props => {
   return (
     <div>
       <Grid container justify="space-between" alignItems="center" style={{ padding: "7px 0" }}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={10}>
           <div className={classes.iframe} dangerouslySetInnerHTML={{ __html: video.url }} />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={2} container justify="center">
           <ApplyRemoveDialog id={video.id} removeEntity={deleteVideo} entity_name="video" />
         </Grid>
       </Grid>
@@ -174,14 +174,8 @@ const useStyles = makeStyles(
         border: `1px solid ${theme.palette.common}`,
         "& iframe": {
           width: "100%",
-          height: "220px",
+          height: "400px",
           marginBottom: "-5px",
-          [theme.breakpoints.up("sm")]: {
-            height: "360px",
-          },
-          [theme.breakpoints.up("md")]: {
-            height: "160px",
-          },
         },
       },
     }
