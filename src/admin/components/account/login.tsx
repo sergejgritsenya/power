@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@material-ui/core"
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
+import { Location } from "history"
 import { useObserver } from "mobx-react-lite"
 import { useSnackbar } from "notistack"
 import React, { FC, useEffect, useMemo } from "react"
@@ -18,8 +19,12 @@ import { Locker } from "../common/locker"
 import { adminLogin } from "./auth-sdk"
 import { LoginModel } from "./login-model"
 
+type TLocationStateWithRedirect = {
+  redirect_location?: Location
+}
+
 export const Login: FC = () => {
-  const history = useHistory()
+  const history = useHistory<TLocationStateWithRedirect>()
   const axios = useAxios()
   const auth = useAuth()
   const { enqueueSnackbar } = useSnackbar()
@@ -28,10 +33,17 @@ export const Login: FC = () => {
     return model
   }, [])
 
-  const redirect_location: Location =
-    history.location.state && history.location.state.redirect_location
+  const redirect_location = history.location.state && history.location.state.redirect_location
   const redirect = () => {
-    history.push({ pathname: "/" })
+    history.push(
+      redirect_location
+        ? {
+            pathname: redirect_location.pathname,
+            search: redirect_location.search,
+            hash: redirect_location.hash,
+          }
+        : { pathname: "/" }
+    )
   }
   const login = async () => {
     const res = await axios.sendPost<TAuth>(adminLogin(login_model.json))
