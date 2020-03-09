@@ -13,7 +13,7 @@ export const cors: Middleware = async (ctx, next) => {
   await next()
 }
 export const authMidlleware: Middleware = async (ctx, next) => {
-  const JWT_SERET_ADMIN = api_env.JWT_SERET_ADMIN
+  const JWT_SECRET_ADMIN = api_env.JWT_SECRET_ADMIN
   ctx.get(EAuthKey.admin)
   await next()
 }

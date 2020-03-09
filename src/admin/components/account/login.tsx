@@ -10,9 +10,10 @@ import {
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
 import { useObserver } from "mobx-react-lite"
 import { useSnackbar } from "notistack"
-import React, { FC, useMemo } from "react"
+import React, { FC, useEffect, useMemo } from "react"
 import { useHistory } from "react-router-dom"
-import { useAxios } from "../../layout/di-context"
+import { TAuth } from "../../../common/types/auth-types"
+import { useAuth, useAxios } from "../../layout/di-context"
 import { Locker } from "../common/locker"
 import { adminLogin } from "./auth-sdk"
 import { LoginModel } from "./login-model"
@@ -20,13 +21,24 @@ import { LoginModel } from "./login-model"
 export const Login: FC = () => {
   const history = useHistory()
   const axios = useAxios()
+  const auth = useAuth()
   const { enqueueSnackbar } = useSnackbar()
   const login_model = useMemo(() => {
     const model = new LoginModel({})
     return model
   }, [])
+
+  const redirect_location: Location =
+    history.location.state && history.location.state.redirect_location
+  const redirect = () => {
+    history.push({ pathname: "/" })
+  }
   const login = async () => {
-    await axios.sendPost(adminLogin(login_model.json))
+    const res = await axios.sendPost<TAuth>(adminLogin(login_model.json))
+    if (!res.data) {
+      throw "No data"
+    }
+    auth.setTokens(res.data)
     login_model.setLoading(true)
     try {
       login_model.setLoading(false)
@@ -41,6 +53,11 @@ export const Login: FC = () => {
       return e
     }
   }
+  useEffect(() => {
+    if (auth.loaded) {
+      redirect()
+    }
+  }, [])
   return <LoginField login_model={login_model} login={login} />
 }
 

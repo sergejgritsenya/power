@@ -6,7 +6,7 @@ export type TApiEnv = {
   S3_KEY: string
   S3_SECRET: string
   S3_IMAGES_BUCKET: string
-  JWT_SERET_ADMIN: string
+  JWT_SECRET_ADMIN: string
 }
 
 export const api_env: TApiEnv = {
@@ -17,5 +17,5 @@ export const api_env: TApiEnv = {
   S3_KEY: process.env.S3_KEY || "",
   S3_SECRET: process.env.S3_SECRET || "",
   S3_IMAGES_BUCKET: process.env.S3_IMAGES_BUCKET || "",
-  JWT_SERET_ADMIN: process.env.JWT_SERET_ADMIN || "",
+  JWT_SECRET_ADMIN: process.env.JWT_SECRET_ADMIN || "",
 }
