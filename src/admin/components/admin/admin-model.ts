@@ -5,13 +5,13 @@ import { TAdminCreateProps } from "../../../common/types/admin-types"
 @model("AdminModel")
 export class AdminModel extends Model({
   id: prop<string>(),
-  name: prop<string>(""),
+  login: prop<string>(""),
   email: prop<string>(""),
   is_loading: prop<boolean>(false),
 }) {
   @modelAction
-  setName(name: string) {
-    this.name = name.trim()
+  setLogin(login: string) {
+    this.login = login.trim()
   }
   @modelAction
   setEmail(email: string) {
@@ -24,7 +24,7 @@ export class AdminModel extends Model({
 }
 @model("CreateAdminModel")
 export class CreateAdminModel extends Model({
-  name: prop<string>(""),
+  login: prop<string>(""),
   email: prop<string>(""),
   password: prop<string>(""),
   confirm_password: prop<string>(""),
@@ -33,7 +33,7 @@ export class CreateAdminModel extends Model({
   @computed
   get json(): TAdminCreateProps {
     return {
-      name: this.name.trim(),
+      login: this.login.trim(),
       email: this.email.trim(),
       password: this.password.trim(),
       confirm_password: this.confirm_password.trim(),
@@ -42,7 +42,7 @@ export class CreateAdminModel extends Model({
   @computed
   get validation(): boolean {
     return (
-      !!this.name.trim() &&
+      !!this.login.trim() &&
       !!this.email.trim() &&
       !!this.password.trim() &&
       !!this.confirm_password.trim() &&
@@ -50,8 +50,8 @@ export class CreateAdminModel extends Model({
     )
   }
   @modelAction
-  setName(name: string) {
-    this.name = name
+  setLogin(login: string) {
+    this.login = login
   }
   @modelAction
   setEmail(email: string) {

@@ -30,14 +30,14 @@ const AdminField: FC<TAdminFieldProps> = props => {
   const { admin } = props
   return useObserver(() => (
     <Card>
-      <CardHeader title={`Hello Admin: ${admin.name}`} />
+      <CardHeader title={`Hello Admin: ${admin.login}`} />
       <CardContent>
         <Grid container>
           <Grid item xs={12} lg={6}>
             <TextField
-              label="name"
-              value={admin.name}
-              onChange={e => admin.setName(e.target.value)}
+              label="login"
+              value={admin.login}
+              onChange={e => admin.setLogin(e.target.value)}
             />
           </Grid>
           <Grid item xs={12} lg={6}>

@@ -56,6 +56,7 @@ export const getTheme = (): Theme =>
       MuiTextField: {
         variant: "outlined",
         fullWidth: true,
+        margin: "dense",
       },
     },
   })

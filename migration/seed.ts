@@ -6,21 +6,23 @@ const prisma = new PrismaClient()
 const seed = async () => {
   try {
     const email = await inputPromt("Enter email: ")
-    const name = await inputPromt("Enter name: ")
+    const login = await inputPromt("Enter login: ")
     const password = await inputPromt("Enter password: ")
-    if (!email || !name || !password) {
+    if (!email || !login || !password) {
       throw new Error("Incorrect input")
     }
     const hash_pass = passwordHashing(password)
-    await prisma.admin.create({
+    const admin = await prisma.admin.create({
       data: {
         email,
-        name,
-        password: {
-          create: { password: hash_pass.hash },
-        },
-        salt: { create: { salt: hash_pass.salt } },
+        login,
       },
+    })
+    await prisma.adminSalt.create({
+      data: { salt: hash_pass.salt, admin: { connect: { id: admin.id } } },
+    })
+    await prisma.adminPassword.create({
+      data: { password: hash_pass.salt, admin: { connect: { id: admin.id } } },
     })
     console.log("Successfully created")
   } catch (e) {

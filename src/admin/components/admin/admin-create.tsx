@@ -37,14 +37,14 @@ export const AdminCreate: FC = () => {
   }
   return useObserver(() => (
     <Card>
-      <CardHeader title={`Create new admin: ${admin.name}`} />
+      <CardHeader title={`Create new admin: ${admin.login}`} />
       <CardContent>
         <Grid container>
           <Grid item xs={12} lg={6}>
             <TextField
-              label="name"
-              value={admin.name}
-              onChange={e => admin.setName(e.target.value)}
+              label="login"
+              value={admin.login}
+              onChange={e => admin.setLogin(e.target.value)}
             />
           </Grid>
           <Grid item xs={12} lg={6}>

@@ -59,7 +59,7 @@ export const AdminList: FC<TAdminListProps> = ({ data }) => {
         </Grid>
         <Grid container justify="flex-start" alignItems="center">
           <Grid item xs={12} md={6} lg={3}>
-            <h3> Name</h3>
+            <h3>Login</h3>
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
             <h3>Email</h3>
@@ -87,7 +87,7 @@ export const AdminListTable: FC<TAdminListTableProps> = props => {
           <div key={admin.id}>
             <Grid container justify="flex-start" alignItems="center" style={{ padding: "7px 0" }}>
               <Grid item xs={12} md={6} lg={3}>
-                {admin.name}
+                {admin.login}
               </Grid>
               <Grid item xs={12} md={6} lg={3}>
                 {admin.email}
@@ -99,7 +99,7 @@ export const AdminListTable: FC<TAdminListTableProps> = props => {
                 <ApplyRemoveDialog
                   id={admin.id}
                   removeEntity={deleteAdmin}
-                  entity_name={`admin ${admin.name}`}
+                  entity_name={`admin ${admin.login}`}
                 />
               </Grid>
             </Grid>

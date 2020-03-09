@@ -1,6 +1,7 @@
 import { TRouteConfig } from "chyk"
 import { FC } from "react"
 import { AdminAccount } from "../components/account/account"
+import { Login } from "../components/account/login"
 import { Admin, adminLoader } from "../components/admin/admin"
 import { AdminCreate } from "../components/admin/admin-create"
 import { AdminList, adminListLoader } from "../components/admin/admin-list"
@@ -15,6 +16,10 @@ import { AdminApp, adminAppLoader } from "./admin-app"
 import { NotFound } from "./not-found"
 
 export const routes: TRouteConfig[] = [
+  {
+    path: "/login",
+    component: Login as FC,
+  },
   {
     component: AdminApp as FC,
     loadData: adminAppLoader,
