@@ -10,15 +10,12 @@ import { AdminNavBar } from "./nav-bar"
 
 type TAdminAppData = {}
 export const adminAppLoader: TChykLoadData<TAdminAppData> = async (_, { auth }) => {
-  console.log("2222222", auth.getToken() && !auth.loaded)
   auth.getToken() && !auth.loaded ? await auth.getAdmin() : null
-  console.log("333333")
   return {}
 }
 
 type TAdminAppProps = TRouteComponentProps<TAdminAppData>
 export const AdminApp: FC<TAdminAppProps> = ({ route }) => {
-  console.log("!!!!!!!")
   const auth = useAuth()
   const history = useHistory()
   const classes = useStyles()

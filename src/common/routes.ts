@@ -10,6 +10,7 @@ const control_routes = {
 }
 export const admin_auth_routes = {
   login: `${control_routes.auth}/login`,
+  refresh: `${control_routes.auth}/refresh`,
 }
 export const admin_root_routes = {
   list: `${control_routes.admin}/list`,

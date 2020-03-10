@@ -1,11 +1,18 @@
 import { AppBar, Button, Grid, Theme, Toolbar, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/styles"
-import React, { FC } from "react"
+import React, { FC, useEffect } from "react"
+import { useHistory } from "react-router-dom"
 import { useAuth } from "./di-context"
 
 export const AdminHeader: FC = () => {
   const auth = useAuth()
+  const history = useHistory()
   const classes = useStyles()
+  useEffect(() => {
+    if (!auth.loaded) {
+      history.replace("/login", { redirect_location: history.location })
+    }
+  }, [])
   return (
     <AppBar position="static">
       <Toolbar>

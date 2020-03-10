@@ -46,17 +46,19 @@ export const Login: FC = () => {
     )
   }
   const login = async () => {
-    const res = await axios.sendPost<TAuth>(adminLogin(login_model.json))
-    if (!res.data) {
-      throw "No data"
-    }
-    auth.setTokens(res.data)
-    login_model.setLoading(true)
     try {
+      login_model.setLoading(true)
+      const res = await axios.sendPost<TAuth>(adminLogin(login_model.json))
+      if (!res.data) {
+        throw "No data"
+      }
+      auth.setTokens(res.data)
       login_model.setLoading(false)
+      redirect()
       enqueueSnackbar("Success", {
         variant: "success",
       })
+      return {}
     } catch (e) {
       login_model.setLoading(false)
       enqueueSnackbar("Error", {

@@ -17,5 +17,14 @@ export class AuthRouter {
         ctx.status = 401
       }
     })
+    this.auth_router.post(admin_auth_routes.refresh, async ctx => {
+      const { refresh_token } = ctx.request.body as { refresh_token: string }
+      try {
+        ctx.body = await this.authService.adminRefresh(refresh_token)
+        ctx.status = 200
+      } catch (e) {
+        ctx.status = 401
+      }
+    })
   }
 }
