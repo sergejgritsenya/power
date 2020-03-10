@@ -1,6 +1,6 @@
 import { TRouteConfig } from "chyk"
 import { FC } from "react"
-import { AdminAccount } from "../components/account/account"
+import { AdminAccount, adminAccountLoader } from "../components/account/account"
 import { Login } from "../components/account/login"
 import { Admin, adminLoader } from "../components/admin/admin"
 import { AdminCreate } from "../components/admin/admin-create"
@@ -22,77 +22,78 @@ export const routes: TRouteConfig[] = [
   },
   {
     component: AdminApp as FC,
+    dataKey: "layout",
     loadData: adminAppLoader,
-    dataKey: "main",
     routes: [
       {
         path: "/",
-        exact: true,
         component: AdminAccount as FC,
+        exact: true,
+        loadData: adminAccountLoader,
         dataKey: "account",
       },
       {
         path: "/admins",
+        component: AdminList as FC,
         exact: true,
         loadData: adminListLoader,
-        component: AdminList as FC,
         dataKey: "admins",
       },
       {
         path: "/admins/create",
-        exact: true,
         component: AdminCreate as FC,
+        exact: true,
         dataKey: "admin_create",
       },
       {
         path: "/admins/:id",
-        loadData: adminLoader,
         component: Admin as FC,
+        loadData: adminLoader,
         dataKey: "admin",
       },
       {
         path: "/tournaments",
         exact: true,
-        loadData: tournamentListLoader,
         component: TournamentList as FC,
+        loadData: tournamentListLoader,
         dataKey: "tournaments",
       },
       {
         path: "/tournaments/create",
-        exact: true,
         component: TournamentCreate as FC,
+        exact: true,
         dataKey: "tournaments_create",
       },
       {
         path: "/tournaments/:id",
-        loadData: tournamentLoader,
         component: Tournament as FC,
+        loadData: tournamentLoader,
         dataKey: "tournament",
       },
       {
         path: "/news",
+        component: NewsList as FC,
         exact: true,
         loadData: newsListLoader,
-        component: NewsList as FC,
         dataKey: "news_list",
       },
       {
         path: "/news/create",
-        exact: true,
         component: NewsCreate as FC,
+        exact: true,
         dataKey: "news_list",
       },
       {
         path: "/news/:id",
-        loadData: newsLoader,
         component: News as FC,
+        loadData: newsLoader,
         dataKey: "news",
       },
       {
         path: "/shop",
+        component: ShopList as FC,
         exact: true,
         loadData: shopListLoader,
-        component: ShopList as FC,
         dataKey: "shop_list",
       },
       {

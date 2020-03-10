@@ -10,12 +10,12 @@ const control_routes = {
 }
 export const admin_auth_routes = {
   login: `${control_routes.auth}/login`,
-  admin_me: `${control_routes.auth}/admin_me`,
 }
 export const admin_root_routes = {
   list: `${control_routes.admin}/list`,
   create: `${control_routes.admin}/create`,
   delete: `${control_routes.admin}/delete`,
+  admin_me: `${control_routes.admin}/admin_me`,
   root: `${control_routes.admin}/:admin_id`,
 }
 export const admin_routes = {

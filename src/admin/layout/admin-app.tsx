@@ -1,6 +1,5 @@
 import { createStyles, makeStyles } from "@material-ui/styles"
 import { TRouteComponentProps } from "chyk"
-import { useObserver } from "mobx-react-lite"
 import React, { FC, useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import { TChykLoadData } from ".."
@@ -11,24 +10,27 @@ import { AdminNavBar } from "./nav-bar"
 
 type TAdminAppData = {}
 export const adminAppLoader: TChykLoadData<TAdminAppData> = async (_, { auth }) => {
-  auth.getToken() && !auth.loaded ? auth.getAdmin() : null
+  console.log("2222222", auth.getToken() && !auth.loaded)
+  auth.getToken() && !auth.loaded ? await auth.getAdmin() : null
+  console.log("333333")
   return {}
 }
 
 type TAdminAppProps = TRouteComponentProps<TAdminAppData>
 export const AdminApp: FC<TAdminAppProps> = ({ route }) => {
+  console.log("!!!!!!!")
   const auth = useAuth()
   const history = useHistory()
   const classes = useStyles()
   useEffect(() => {
     if (!auth.loaded) {
-      // history.replace("/login", { redirect_location: history.location })
+      history.replace("/login", { redirect_location: history.location })
     }
   }, [])
   if (!auth.loaded) {
-    // return null
+    return null
   }
-  return useObserver(() => (
+  return (
     <div className={classes.root}>
       <AdminHeader />
       <div className={classes.flex}>
@@ -36,7 +38,7 @@ export const AdminApp: FC<TAdminAppProps> = ({ route }) => {
         <AdminMain route={route} />
       </div>
     </div>
-  ))
+  )
 }
 
 const useStyles = makeStyles(

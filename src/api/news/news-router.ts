@@ -1,12 +1,12 @@
 import { inject, injectable } from "inversify"
-import Router from "koa-router"
 import { news_root_routes, news_routes } from "../../common/routes"
 import { TNewsUpdateProps } from "../../common/types/news-types"
+import { ApiAuthRouter } from "../server/context"
 import { NewsService } from "./news-service"
 
 @injectable()
 export class NewsRouter {
-  news_router = new Router()
+  news_router = new ApiAuthRouter()
   constructor(@inject(NewsService) private readonly newsService: NewsService) {
     this.news_router.post(news_root_routes.list, async ctx => {
       ctx.body = await this.newsService.list()

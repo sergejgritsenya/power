@@ -4,14 +4,17 @@ import { TAxiosSendProps } from "../../common/types/common-types"
 import { adminEnv } from "./env"
 
 export class AxiosService {
-  axios: AxiosInstance
-  api_url = adminEnv.API_URL
-  auth_header = EAuthKey.admin
-  constructor(value?: string) {
-    const headers = value ? { post: { [this.auth_header]: value } } : undefined
-    this.axios = Axios.create({ baseURL: this.api_url, headers })
+  private axios: AxiosInstance
+  private api_url = adminEnv.API_URL
+  private auth_header: string | undefined
+  constructor() {
+    this.axios = Axios.create({ baseURL: this.api_url })
   }
   sendPost = async <T>(props: TAxiosSendProps): Promise<AxiosResponse<T>> => {
-    return await this.axios.post<T>(props.route, props.data)
+    const headers = this.auth_header ? { post: { [EAuthKey.admin]: this.auth_header } } : undefined
+    return await this.axios.post<T>(props.route, props.data, { headers })
+  }
+  setAuthHeader = async (auth_header: string | undefined) => {
+    this.auth_header = auth_header
   }
 }
