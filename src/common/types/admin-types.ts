@@ -8,6 +8,7 @@ export type TAdmin = {
   id: string
   login: string
   email: string
+  is_super: boolean
 }
 export type TAdminCreateProps = {
   login: string

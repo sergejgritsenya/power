@@ -25,7 +25,7 @@ export class AdminService {
   getAdmin = async (id: string): Promise<TAdmin> => {
     const admin = await this.prisma.admin.findOne({
       where: { id },
-      select: { id: true, login: true, email: true },
+      select: { id: true, login: true, email: true, is_super: true },
     })
     if (!admin) {
       throw new Error("Unknown admin")
@@ -66,7 +66,7 @@ export class AdminService {
     const admin = await this.prisma.admin.update({
       where: { id },
       data,
-      select: { id: true, login: true, email: true },
+      select: { id: true, login: true, email: true, is_super: true },
     })
     if (!admin) {
       throw new Error("Unknown admin")

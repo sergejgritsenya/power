@@ -3,11 +3,11 @@ import { AxiosResponse } from "axios"
 import { TRouteComponentProps } from "chyk"
 import { useObserver } from "mobx-react-lite"
 import { useSnackbar } from "notistack"
-import React, { FC, useMemo } from "react"
+import React, { FC, useEffect, useMemo, useState } from "react"
 import { TChykLoadData } from "../.."
 import { ButtonLink } from "../../../common/front-sdk/button-link"
 import { TAdminList } from "../../../common/types/admin-types"
-import { useAxios } from "../../layout/di-context"
+import { useAuth, useAxios } from "../../layout/di-context"
 import { ApplyRemoveDialog } from "../common/apply-remove-dialog"
 import { ListModel } from "../common/list-model"
 import { Locker } from "../common/locker"
@@ -21,7 +21,13 @@ type TAdminListProps = TRouteComponentProps<TAdminListData>
 
 export const AdminList: FC<TAdminListProps> = ({ data }) => {
   const axios = useAxios()
+  const auth = useAuth()
+  const [is_super, setIsSuper] = useState<boolean>(false)
   const { enqueueSnackbar } = useSnackbar()
+  const load = async () => {
+    const res = await auth.getAdmin()
+    setIsSuper(res.data.is_super)
+  }
   const admin_list = useMemo(() => {
     const model = new ListModel<TAdminList>({})
     model.setList(data)
@@ -44,6 +50,9 @@ export const AdminList: FC<TAdminListProps> = ({ data }) => {
       throw e
     }
   }
+  useEffect(() => {
+    load()
+  }, [])
   return (
     <Card>
       <CardContent>
@@ -52,9 +61,11 @@ export const AdminList: FC<TAdminListProps> = ({ data }) => {
             <CardHeader title="Admin list" />
           </Grid>
           <Grid item>
-            <ButtonLink to="/admins/create" color="primary">
-              Create
-            </ButtonLink>
+            {is_super && (
+              <ButtonLink to="/admins/create" color="primary">
+                Create
+              </ButtonLink>
+            )}
           </Grid>
         </Grid>
         <Grid container justify="flex-start" alignItems="center">
@@ -67,7 +78,7 @@ export const AdminList: FC<TAdminListProps> = ({ data }) => {
           <Grid item xs={12} md={6} lg={3} />
           <Grid item xs={12} md={6} lg={3} />
         </Grid>
-        <AdminListTable admin_list={admin_list} deleteAdmin={deleteAdmin} />
+        <AdminListTable admin_list={admin_list} deleteAdmin={deleteAdmin} is_super={is_super} />
         <Locker show={admin_list.is_loading} />
       </CardContent>
     </Card>
@@ -75,11 +86,12 @@ export const AdminList: FC<TAdminListProps> = ({ data }) => {
 }
 
 type TAdminListTableProps = {
+  is_super: boolean
   admin_list: ListModel<TAdminList>
   deleteAdmin: (admin_id: string) => void
 }
 export const AdminListTable: FC<TAdminListTableProps> = props => {
-  const { admin_list, deleteAdmin } = props
+  const { is_super, admin_list, deleteAdmin } = props
   return useObserver(() => (
     <div>
       {admin_list.list.length ? (
@@ -96,7 +108,7 @@ export const AdminListTable: FC<TAdminListTableProps> = props => {
                 <ButtonLink to={`/admins/${admin.id}`}>More</ButtonLink>
               </Grid>
               <Grid item xs={12} md={6} lg={3}>
-                {!admin.is_super ? (
+                {is_super && !admin.is_super ? (
                   <ApplyRemoveDialog
                     id={admin.id}
                     removeEntity={deleteAdmin}
