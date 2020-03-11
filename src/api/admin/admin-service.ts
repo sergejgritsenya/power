@@ -1,8 +1,9 @@
 import { PrismaClient } from "@prisma/client"
-import { genSaltSync, hashSync } from "bcryptjs"
+import { compare, genSaltSync, hashSync } from "bcryptjs"
 import { inject, injectable } from "inversify"
 import {
   TAdmin,
+  TAdminChangePasswordProps,
   TAdminCreateProps,
   TAdminList,
   TAdminUpdateProps,
@@ -66,6 +67,36 @@ export class AdminService {
     if (!admin) {
       throw new Error("Unknown admin")
     }
+    return admin
+  }
+  changePassword = async (id: string, data: TAdminChangePasswordProps) => {
+    const admin = await this.prisma.admin.findOne({
+      where: { id },
+      select: { id: true },
+    })
+    if (!admin) {
+      throw new Error("Unknown admin")
+    }
+    const password = await this.prisma.admin
+      .findOne({ where: { id } })
+      .password({ select: { password: true } })
+    if (!password) {
+      throw new Error("password not found")
+    }
+    const pass_valid = await compare(data.old_password, password.password)
+    if (!pass_valid || data.new_password !== data.confirm_password) {
+      throw new Error("pair doesn't match")
+    }
+    const salt = genSaltSync(16)
+    const new_password = hashSync(data.new_password, salt)
+    await this.prisma.adminSalt.updateMany({
+      where: { admin: { id } },
+      data: { salt },
+    })
+    await this.prisma.adminPassword.updateMany({
+      where: { admin: { id } },
+      data: { password: new_password },
+    })
     return admin
   }
   deleteAdmin = async (id: string): Promise<TAdminList[]> => {

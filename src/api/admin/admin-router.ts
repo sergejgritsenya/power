@@ -1,6 +1,10 @@
 import { inject, injectable } from "inversify"
 import { admin_root_routes, admin_routes } from "../../common/routes"
-import { TAdminCreateProps } from "../../common/types/admin-types"
+import {
+  TAdminChangePasswordProps,
+  TAdminCreateProps,
+  TAdminUpdateProps,
+} from "../../common/types/admin-types"
 import { ApiAuthRouter } from "../server/context"
 import { AdminService } from "./admin-service"
 
@@ -14,6 +18,25 @@ export class AdminRouter {
     this.admin_router.post(admin_root_routes.create, async ctx => {
       const data = ctx.request.body as TAdminCreateProps
       ctx.body = await this.adminService.create(data)
+    })
+    this.admin_router.post(admin_root_routes.update, async ctx => {
+      const admin_id = ctx.admin_id
+      if (admin_id) {
+        const data = ctx.request.body as TAdminUpdateProps
+        ctx.body = await this.adminService.update(admin_id, data)
+      } else {
+        ctx.status = 401
+      }
+    })
+    this.admin_router.post(admin_root_routes.change_pass, async ctx => {
+      const admin_id = ctx.admin_id
+      if (admin_id) {
+        const data = ctx.request.body as TAdminChangePasswordProps
+        await this.adminService.changePassword(admin_id, data)
+        ctx.status = 200
+      } else {
+        ctx.status = 401
+      }
     })
     this.admin_router.post(admin_root_routes.delete, async ctx => {
       const { admin_id } = ctx.request.body as { admin_id: string }

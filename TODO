@@ -1,7 +1,8 @@
 - Refix admin
-- Tournament images
+- Tournament logo update without reload
+- Hide save button  when update
 - Shop
 - WEB
-- Auth service
+- Auth service refresh
 - Tournament/News add text editor
 - Docker

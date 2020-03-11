@@ -18,3 +18,8 @@ export type TAdminUpdateProps = {
   login: string
   email: string
 }
+export type TAdminChangePasswordProps = {
+  old_password: string
+  new_password: string
+  confirm_password: string
+}

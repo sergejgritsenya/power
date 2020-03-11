@@ -15,6 +15,8 @@ export const admin_auth_routes = {
 export const admin_root_routes = {
   list: `${control_routes.admin}/list`,
   create: `${control_routes.admin}/create`,
+  update: `${control_routes.admin}/update`,
+  change_pass: `${control_routes.admin}/change_pass`,
   delete: `${control_routes.admin}/delete`,
   admin_me: `${control_routes.admin}/admin_me`,
   root: `${control_routes.admin}/:admin_id`,
