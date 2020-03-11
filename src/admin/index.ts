@@ -1,8 +1,8 @@
 import { Chyk, TLoadData } from "chyk"
 import { createBrowserHistory } from "history"
-import { AdminRoot } from "./layout/root"
+import { SnackService } from "../common/server/snack"
+import { AdminRoot } from "./layout/admin-root"
 import { routes } from "./layout/routes"
-import { SnackService } from "./layout/snack"
 import { AuthController } from "./server/auth-controller"
 import { AxiosService } from "./server/axios-service"
 

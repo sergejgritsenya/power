@@ -3,9 +3,9 @@ import { TRouteComponentProps } from "chyk"
 import React, { FC, useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import { TChykLoadData } from ".."
+import { AdminMain } from "./admin-main"
 import { useAuth } from "./di-context"
 import { AdminHeader } from "./header"
-import { AdminMain } from "./main"
 import { AdminNavBar } from "./nav-bar"
 
 type TAdminAppData = {}
