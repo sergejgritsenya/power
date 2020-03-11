@@ -1,7 +1,7 @@
 import { TRouteComponentProps } from "chyk"
 import React, { FC } from "react"
+import { WebHeader } from "./header/header"
 import { WebFooter } from "./web-footer"
-import { WebHeader } from "./web-header"
 import { WebMain } from "./web-main"
 
 type TWebAppProps = TRouteComponentProps<{}>

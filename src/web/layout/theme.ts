@@ -1,19 +1,24 @@
 import { createMuiTheme, Theme } from "@material-ui/core/styles"
 
 const gold = "#b89960"
-const blue = "#1c3780"
+const blue = "#f7f7f7"
+const grey = "#000d6e"
+const dark_grey = "#464646"
+// const blue = "#1c3780"
 
 export const getTheme = (): Theme =>
   createMuiTheme({
     palette: {
       primary: {
+        light: grey,
         main: blue,
+        dark: dark_grey,
       },
       common: {
         black: gold,
       },
       secondary: {
-        main: "#EC0000",
+        main: gold,
       },
       background: {
         default: blue,

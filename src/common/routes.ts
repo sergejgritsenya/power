@@ -1,6 +1,5 @@
 const app_routes = {
   control: "/control",
-  web: "/",
 }
 const control_routes = {
   auth: `${app_routes.control}/auth`,

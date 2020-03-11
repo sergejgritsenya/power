@@ -8,10 +8,12 @@ import { AuthRouter } from "../auth/auth-router"
 import { AuthService } from "../auth/auth-service"
 import { NewsRouter } from "../news/news-router"
 import { NewsService } from "../news/news-service"
+import { WebNewsRouter } from "../news/web-news-router"
 import { TournamentImageRouter } from "../tournament/image-router"
 import { TournamentRouter } from "../tournament/tournament-router"
 import { TournamentService } from "../tournament/tournament-service"
 import { TournamentVideoRouter } from "../tournament/video-router"
+import { WebTournamentRouter } from "../tournament/web-tournament-router"
 import { AppRouter } from "./app-router"
 import { ControlRouter } from "./control-router"
 import { api_env, TApiEnv } from "./env"
@@ -36,6 +38,8 @@ const routers: interfaces.ServiceIdentifier<any>[] = [
   TournamentImageRouter,
   TournamentVideoRouter,
   NewsRouter,
+  WebTournamentRouter,
+  WebNewsRouter,
 ]
 
 export type TInitApiServerProps = { container: Container; router: Router }

@@ -19,9 +19,9 @@ export class AppRouter {
       this.control_router.routes() as Middleware,
       this.control_router.allowedMethods() as Middleware
     )
-    // this.app_router.use(
-    //   this.web_router.routes() as Middleware,
-    //   this.web_router.allowedMethods() as Middleware
-    // )
+    this.app_router.use(
+      this.web_router.routes() as Middleware,
+      this.web_router.allowedMethods() as Middleware
+    )
   }
 }

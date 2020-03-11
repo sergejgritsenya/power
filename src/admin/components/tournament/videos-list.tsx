@@ -117,7 +117,7 @@ const VideoCreateDialog: FC<TVideoCreateItemProps> = props => {
         Add
       </Button>
       <Dialog open={open} onClose={close} maxWidth="sm" fullWidth>
-        <DialogTitle>Title</DialogTitle>
+        <DialogTitle>Incorporate YouTube link</DialogTitle>
         <DialogContent>
           <TextField
             label="url"

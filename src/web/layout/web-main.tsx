@@ -1,7 +1,7 @@
 import { createStyles, makeStyles } from "@material-ui/core"
 import { DataRoutes, TRouteConfig } from "chyk"
 import React, { FC } from "react"
-import { PageInner } from "../el/page-inner"
+import { PageInner } from "../components/common/page-inner"
 import { NotFound } from "./not-found"
 
 type TWebMainProps = {
