@@ -18,7 +18,7 @@ export class AdminService {
   }
   list = async (): Promise<TAdminList[]> => {
     return await this.prisma.admin.findMany({
-      select: { id: true, login: true, email: true },
+      select: { id: true, login: true, email: true, is_super: true },
       orderBy: { login: "asc" },
     })
   }
@@ -32,8 +32,12 @@ export class AdminService {
     }
     return admin
   }
-  create = async (data: TAdminCreateProps): Promise<string> => {
+  create = async (data: TAdminCreateProps, super_id: string): Promise<string> => {
     try {
+      const super_admin = await this.prisma.admin.findOne({ where: { id: super_id } })
+      if (!super_admin || !super_admin.is_super) {
+        throw new Error("Forbidden")
+      }
       if (data.password !== data.confirm_password) {
         throw new Error("Passwords doesn't match")
       }
@@ -99,12 +103,20 @@ export class AdminService {
     })
     return admin
   }
-  deleteAdmin = async (id: string): Promise<TAdminList[]> => {
-    await this.prisma.adminSalt.deleteMany({ where: { admin: { id } } })
-    await this.prisma.adminPassword.deleteMany({ where: { admin: { id } } })
-    await this.prisma.admin.delete({ where: { id } })
+  deleteAdmin = async (id: string, super_id: string): Promise<TAdminList[]> => {
+    const [super_admin, admin] = await Promise.all([
+      this.prisma.admin.findOne({ where: { id: super_id } }),
+      this.prisma.admin.findOne({ where: { id } }),
+    ])
+    if (super_admin && super_admin.is_super && admin && !admin.is_super) {
+      await this.prisma.adminSalt.deleteMany({ where: { admin: { id } } })
+      await this.prisma.adminPassword.deleteMany({ where: { admin: { id } } })
+      await this.prisma.admin.delete({ where: { id } })
+    } else {
+      throw new Error("Forbidden")
+    }
     return await this.prisma.admin.findMany({
-      select: { id: true, login: true, email: true },
+      select: { id: true, login: true, email: true, is_super: true },
       orderBy: { login: "asc" },
     })
   }

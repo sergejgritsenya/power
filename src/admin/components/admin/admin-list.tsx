@@ -96,11 +96,13 @@ export const AdminListTable: FC<TAdminListTableProps> = props => {
                 <ButtonLink to={`/admins/${admin.id}`}>More</ButtonLink>
               </Grid>
               <Grid item xs={12} md={6} lg={3}>
-                <ApplyRemoveDialog
-                  id={admin.id}
-                  removeEntity={deleteAdmin}
-                  entity_name={`admin ${admin.login}`}
-                />
+                {!admin.is_super ? (
+                  <ApplyRemoveDialog
+                    id={admin.id}
+                    removeEntity={deleteAdmin}
+                    entity_name={`admin ${admin.login}`}
+                  />
+                ) : null}
               </Grid>
             </Grid>
             <Divider />

@@ -11,6 +11,7 @@ model Admin {
     id       String         @default(cuid()) @id
     login    String         @unique
     email    String         @unique
+    is_super Boolean        @default(false)
     password AdminPassword?
     salt     AdminSalt?
 }

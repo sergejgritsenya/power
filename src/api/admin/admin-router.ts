@@ -17,7 +17,17 @@ export class AdminRouter {
     })
     this.admin_router.post(admin_root_routes.create, async ctx => {
       const data = ctx.request.body as TAdminCreateProps
-      ctx.body = await this.adminService.create(data)
+      const super_id = ctx.admin_id
+      if (super_id) {
+        try {
+          ctx.body = await this.adminService.create(data, super_id)
+        } catch (e) {
+          ctx.body = e
+          ctx.status = 403
+        }
+      } else {
+        ctx.status = 401
+      }
     })
     this.admin_router.post(admin_root_routes.update, async ctx => {
       const admin_id = ctx.admin_id
@@ -40,7 +50,17 @@ export class AdminRouter {
     })
     this.admin_router.post(admin_root_routes.delete, async ctx => {
       const { admin_id } = ctx.request.body as { admin_id: string }
-      ctx.body = await this.adminService.deleteAdmin(admin_id)
+      const super_id = ctx.admin_id
+      if (super_id) {
+        try {
+          ctx.body = await this.adminService.deleteAdmin(admin_id, super_id)
+        } catch (e) {
+          ctx.body = e
+          ctx.status = 403
+        }
+      } else {
+        ctx.status = 401
+      }
     })
     this.admin_router.post(admin_routes.get, async ctx => {
       const admin_id = ctx.params.admin_id
