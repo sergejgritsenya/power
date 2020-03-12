@@ -6,6 +6,7 @@ export const HeaderMenu: FC = () => {
   const classes = useStyles()
   return (
     <div className={classes.root}>
+      <HeaderMenuItem label="P.O.W.E.R" link="/"></HeaderMenuItem>
       <HeaderMenuItem label="News" link="/news"></HeaderMenuItem>
       <HeaderMenuItem label="Tournaments" link="/tournaments"></HeaderMenuItem>
       <HeaderMenuItem label="Shop" link="/shop"></HeaderMenuItem>
@@ -18,10 +19,13 @@ const useStyles = makeStyles(
   theme => {
     return {
       root: {
-        display: "none",
         height: "100%",
-        [theme.breakpoints.up("md")]: {
-          display: "flex",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        [theme.breakpoints.down("xs")]: {
+          flexDirection: "column",
+          alignItems: "center",
         },
       },
     }

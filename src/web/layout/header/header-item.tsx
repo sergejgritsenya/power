@@ -7,15 +7,14 @@ type THeaderMenuItemProps = {
   label: string | React.ReactNode
   link: string
 }
-export const HeaderMenuItem: FC<THeaderMenuItemProps> = ({ label, link, children }) => {
+export const HeaderMenuItem: FC<THeaderMenuItemProps> = ({ label, link }) => {
   const classes = useStyles()
   return (
-    <div className={clsx(children && classes.root)}>
+    <div className={clsx(classes.root)}>
       <HeaderLink to={link} className={clsx(classes.link)}>
         <Typography className={classes.text} component="div">
           {label}
         </Typography>
-        {children}
       </HeaderLink>
     </div>
   )
@@ -27,35 +26,17 @@ const useStyles = makeStyles(
     return {
       root: {
         height: "100%",
+        [theme.breakpoints.only("xs")]: {
+          "& + $root": {
+            marginTop: "12px",
+          },
+        },
         [theme.breakpoints.up("md")]: {
           position: "relative",
-          "&:after": {
-            //triangle
-            position: "absolute",
-            bottom: "0",
-            left: "calc(50%)",
-            transform: "translateX(-50%)",
-            width: 0,
-            height: 0,
-            borderStyle: "solid",
-            borderWidth: "0 10px 9px 10px",
-            borderColor: "transparent transparent #fafafa transparent",
-            transition: ".3s",
-          },
           "&:hover": {
             "& $link": {
-              color: theme.palette.secondary.main,
+              color: theme.palette.primary.main,
               textDecoration: "none",
-            },
-            "&:after": {
-              //triangle
-              content: "''",
-            },
-            "& $secondLvl": {
-              display: "block",
-            },
-            "& $triangle": {
-              transform: "rotate(180deg)",
             },
           },
         },
@@ -76,10 +57,7 @@ const useStyles = makeStyles(
         },
       },
       text: {
-        ...theme.typography.subtitle1,
-        [theme.breakpoints.up("md")]: {
-          ...theme.typography.h5,
-        },
+        ...theme.typography.h5,
       },
     }
   },
