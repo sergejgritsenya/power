@@ -1,6 +1,7 @@
 import { makeStyles, Typography } from "@material-ui/core"
 import clsx from "clsx"
 import React, { FC } from "react"
+import { HeaderMenuItem } from "../../layout/header/header-item"
 import { WebFooter } from "../../layout/web-footer"
 import { PageInner } from "../common/page-inner"
 
@@ -10,7 +11,10 @@ export const WebMainPage: FC = () => {
     <>
       <main className={classes.root}>
         <div className={classes.content}>
-          <img src="/static/main.jpg" className={classes.contentItem} />
+          <img
+            src="https://static.tildacdn.com/tild3437-6665-4835-b834-366333316638/OLYMPIC13_1.jpg"
+            className={clsx(classes.contentItem, classes.logo)}
+          />
           <div className={classes.contentItem}>
             <Typography className={clsx(classes.text, classes.textTitle)}>P.O.W.E.R. </Typography>
             <Typography className={classes.text}>
@@ -22,9 +26,15 @@ export const WebMainPage: FC = () => {
           by Classic Sport LLC
         </Typography>
         <PageInner component="nav" className={classes.nav}>
-          <div className={classes.text}>1</div>
-          <div className={classes.text}>1</div>
-          <div className={classes.text}>1</div>
+          <div className={classes.text}>
+            <HeaderMenuItem label="News" link="/news"></HeaderMenuItem>
+          </div>
+          <div className={classes.text}>
+            <HeaderMenuItem label="Tournaments" link="/tournaments"></HeaderMenuItem>
+          </div>
+          <div className={classes.text}>
+            <HeaderMenuItem label="Shop" link="/shop"></HeaderMenuItem>
+          </div>
         </PageInner>
       </main>
       <WebFooter />
@@ -39,6 +49,9 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down("sm")]: {
       minHeight: "calc(100vh - 231px)",
     },
+  },
+  logo: {
+    width: "290px",
   },
   text: {
     color: theme.palette.secondary.main,
