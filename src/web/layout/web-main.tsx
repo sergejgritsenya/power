@@ -1,4 +1,4 @@
-import { createStyles, makeStyles } from "@material-ui/core"
+import { makeStyles } from "@material-ui/core"
 import { DataRoutes, TRouteConfig } from "chyk"
 import React, { FC } from "react"
 import { PageInner } from "../components/common/page-inner"
@@ -16,12 +16,13 @@ export const WebMain: FC<TWebMainProps> = ({ route }) => {
   )
 }
 
-const useStyles = makeStyles(
-  createStyles({
-    root: {
-      minHeight: "calc(100vh - 100px)",
-      display: "flex",
-      flexDirection: "column",
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "calc(100vh - 110px - 100px)",
+    [theme.breakpoints.down("sm")]: {
+      minHeight: "calc(100vh - 231px - 100px)",
     },
-  })
-)
+  },
+}))

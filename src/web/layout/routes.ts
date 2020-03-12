@@ -9,15 +9,15 @@ import { WebApp } from "./web-app"
 
 export const routes: TRouteConfig[] = [
   {
+    path: "/",
+    exact: true,
+    component: WebMainPage as FC,
+    dataKey: "main",
+  },
+  {
     component: WebApp as FC,
     dataKey: "layout",
     routes: [
-      {
-        path: "/",
-        exact: true,
-        component: WebMainPage as FC,
-        dataKey: "main",
-      },
       {
         path: "/news",
         exact: true,

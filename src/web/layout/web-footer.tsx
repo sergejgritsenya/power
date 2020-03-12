@@ -8,39 +8,42 @@ export const WebFooter: FC = () => {
   const classes = useStyles()
   const yearNow = new Date().getFullYear()
   return (
-    <footer className={classes.root}>
-      <PageInner className={classes.inner}>
-        <div className={classes.footerItem}>
-          <Typography className={classes.text}>Contact us:</Typography>
-          <Typography
-            className={classes.text}
-            component="a"
-            href={"mailto:pilipenko.wrestling@gmail.com"}
+    <>
+      <div className={classes.stub} />
+      <footer className={clsx(classes.root, classes.stub)}>
+        <PageInner className={classes.inner}>
+          <div className={classes.footerItem}>
+            <Typography className={classes.text}>Contact us:</Typography>
+            <Typography
+              className={classes.text}
+              component="a"
+              href={"mailto:pilipenko.wrestling@gmail.com"}
+            >
+              pilipenko.wrestling@gmail.com
+            </Typography>
+            <Typography component="a" href="tel:+1 718 509 5655" className={classes.text}>
+              +1 718 509 5655
+            </Typography>
+          </div>
+          <a
+            className={clsx(classes.footerItem, classes.footerItemIcon)}
+            href={"https://www.youtube.com/channel/UCOE3vmiJp1pUxCxCPOYkkQw"}
+            target="_blank"
           >
-            pilipenko.wrestling@gmail.com
-          </Typography>
-          <Typography component="a" href="tel:+1 718 509 5655" className={classes.text}>
-            +1 718 509 5655
-          </Typography>
-        </div>
-        <a
-          className={clsx(classes.footerItem, classes.footerItemIcon)}
-          href={"https://www.youtube.com/channel/UCOE3vmiJp1pUxCxCPOYkkQw"}
-          target="_blank"
-        >
-          <YouTubeIcon className={classes.youtubeIcon} />
-        </a>
-        <div className={classes.footerItem}>
-          <Typography className={classes.text}>© {yearNow}. All rights reserved.</Typography>
-          <Typography className={classes.text}>
-            Use and/or distribution of any content without written{" "}
-          </Typography>
-          <Typography className={classes.text}>
-            consent of its respective owner is prohibited.
-          </Typography>
-        </div>
-      </PageInner>
-    </footer>
+            <YouTubeIcon className={classes.youtubeIcon} />
+          </a>
+          <div className={classes.footerItem}>
+            <Typography className={classes.text}>© {yearNow}. All rights reserved.</Typography>
+            <Typography className={classes.text}>
+              Use and/or distribution of any content without written{" "}
+            </Typography>
+            <Typography className={classes.text}>
+              consent of its respective owner is prohibited.
+            </Typography>
+          </div>
+        </PageInner>
+      </footer>
+    </>
   )
 }
 
@@ -52,15 +55,26 @@ const useStyles = makeStyles(theme => ({
       position: "relative",
     },
   },
+  stub: {
+    height: "110px",
+    [theme.breakpoints.down("sm")]: {
+      height: "231px",
+    },
+    [theme.breakpoints.down(400)]: {
+      height: "250px",
+    },
+    [theme.breakpoints.down(390)]: {
+      height: "260px",
+    },
+  },
   root: {
     background: theme.palette.primary.dark,
-    minHeight: "80px",
+
     position: "absolute",
     bottom: "0",
     left: "0",
     width: "100%",
     padding: "15px 0",
-    boxSizing: "content-box",
   },
   inner: {
     paddingBottom: 0,
