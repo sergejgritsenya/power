@@ -35,6 +35,22 @@ model News {
     created_at DateTime @default(now())
 }
 
+model Shop {
+    id          String      @default(cuid()) @id
+    name        String
+    price       String
+    description String
+    created_at  DateTime    @default(now())
+    logo        String?
+    images      ShopImage[]
+}
+
+model ShopImage {
+    id   String @default(cuid()) @id
+    url  String
+    shop Shop
+}
+
 model Tournament {
     id          String            @default(cuid()) @id
     name        String

@@ -9,6 +9,9 @@ import { AuthService } from "../auth/auth-service"
 import { NewsRouter } from "../news/news-router"
 import { NewsService } from "../news/news-service"
 import { WebNewsRouter } from "../news/web-news-router"
+import { ShopImageRouter } from "../shop/shop-image-router"
+import { ShopRouter } from "../shop/shop-router"
+import { ShopService } from "../shop/shop-service"
 import { TournamentImageRouter } from "../tournament/image-router"
 import { TournamentRouter } from "../tournament/tournament-router"
 import { TournamentService } from "../tournament/tournament-service"
@@ -27,6 +30,7 @@ const singletones: interfaces.ServiceIdentifier<any>[] = [
   AdminService,
   TournamentService,
   NewsService,
+  ShopService,
 ]
 const routers: interfaces.ServiceIdentifier<any>[] = [
   AppRouter,
@@ -38,6 +42,8 @@ const routers: interfaces.ServiceIdentifier<any>[] = [
   TournamentImageRouter,
   TournamentVideoRouter,
   NewsRouter,
+  ShopRouter,
+  ShopImageRouter,
   WebTournamentRouter,
   WebNewsRouter,
 ]

@@ -1,11 +1,11 @@
 import { inject, injectable } from "inversify"
-import Router from "koa-router"
 import { tournament_image_routes } from "../../common/routes"
+import { ApiAuthRouter } from "../server/context"
 import { TournamentService } from "./tournament-service"
 
 @injectable()
 export class TournamentImageRouter {
-  image_router = new Router()
+  image_router = new ApiAuthRouter()
   constructor(@inject(TournamentService) private readonly tournamentService: TournamentService) {
     this.image_router.post(tournament_image_routes.upload, async ctx => {
       const { tournament_id } = ctx.params

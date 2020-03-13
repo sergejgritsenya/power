@@ -1,15 +1,15 @@
 import { inject, injectable } from "inversify"
 import { Middleware } from "koa"
-import Router from "koa-router"
 import { tournament_root_routes, tournament_routes } from "../../common/routes"
 import { TTournamentUpdateProps } from "../../common/types/tournament-types"
+import { ApiAuthRouter } from "../server/context"
 import { TournamentImageRouter } from "./image-router"
 import { TournamentService } from "./tournament-service"
 import { TournamentVideoRouter } from "./video-router"
 
 @injectable()
 export class TournamentRouter {
-  tournament_router = new Router()
+  tournament_router = new ApiAuthRouter()
   constructor(
     @inject(TournamentService) private readonly tournamentService: TournamentService,
     @inject(TournamentImageRouter) private readonly imageRouter: TournamentImageRouter,

@@ -3,6 +3,7 @@ import { IncomingMessage } from "http"
 import { inject, injectable } from "inversify"
 import {
   TTournament,
+  TTournamentImage,
   TTournamentList,
   TTournamentUpdateProps,
   TTournamentVideo,
@@ -90,7 +91,7 @@ export class TournamentService {
   uploadImage = async (
     tournament_id: string,
     req: IncomingMessage
-  ): Promise<TTournamentVideo[]> => {
+  ): Promise<TTournamentImage[]> => {
     const url = await uploadToS3(req)
     await this.prisma.tournamentImage.create({
       data: { url, tournament: { connect: { id: tournament_id } } },
@@ -101,7 +102,7 @@ export class TournamentService {
     })
     return images
   }
-  deleteImage = async (tournament_id: string, id: string): Promise<TTournamentVideo[]> => {
+  deleteImage = async (tournament_id: string, id: string): Promise<TTournamentImage[]> => {
     await this.prisma.tournamentImage.delete({ where: { id } })
     const images = this.prisma.tournamentImage.findMany({
       where: { tournament: { id: tournament_id } },
