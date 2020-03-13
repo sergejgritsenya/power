@@ -3,7 +3,11 @@ import { FC } from "react"
 import { WebMainPage } from "../components/main/main-page"
 import { WebNewsList, webNewsLoader } from "../components/news/news-list"
 import { Shop } from "../components/shop/shop"
-import { WebTournamentList, webTournamentLoader } from "../components/tournament/tournament-list"
+import { WebTournament, webTournamentLoader } from "../components/tournament/tournament"
+import {
+  WebTournamentList,
+  webTournamentListLoader,
+} from "../components/tournament/tournament-list"
 import { NotFound } from "./not-found"
 import { WebApp } from "./web-app"
 
@@ -29,6 +33,12 @@ export const routes: TRouteConfig[] = [
         path: "/tournaments",
         exact: true,
         component: WebTournamentList as FC,
+        loadData: webTournamentListLoader,
+        dataKey: "tournaments",
+      },
+      {
+        path: "/tournaments/:tournament_id",
+        component: WebTournament as FC,
         loadData: webTournamentLoader,
         dataKey: "tournaments",
       },

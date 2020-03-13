@@ -64,7 +64,6 @@ const TournamentField: FC<TTournamentFieldProps> = props => {
                     value={tournament.description}
                     onChange={e => tournament.setDescription(e.target.value)}
                     multiline
-                    rows={4}
                   />
                 </Grid>
               </Grid>
@@ -84,9 +83,7 @@ const TournamentField: FC<TTournamentFieldProps> = props => {
 const LogoUpload: FC = () => {
   const tournament = useTournamentContext()
   const axios = useAxios()
-  // const logo_src = useCdnSrc(tournament.logo, 200)
-  // const logo_src = "https://i.pinimg.com/originals/f4/d2/96/f4d2961b652880be432fb9580891ed62.png"
-  const logo_src = tournament.logo || ""
+  const logo_src = tournament.logo || "/static/default-img.png"
   const upload = async (file: File) => {
     const res = await axios.sendPost<string>(tournamentUploadLogo(tournament.id, file))
     tournament.setLogo(res.data)

@@ -1,3 +1,4 @@
+import { Grid, makeStyles } from "@material-ui/core"
 import { AxiosResponse } from "axios"
 import { TRouteComponentProps } from "chyk"
 import React, { FC } from "react"
@@ -7,12 +8,49 @@ import { WebNoElements } from "../common/no-elements"
 import { tournamentList } from "./tournament-sdk"
 
 type TTournamentListData = AxiosResponse<TTournamentList[]>
-export const webTournamentLoader: TChykLoadData<TTournamentListData> = async (_, { axios }) =>
+export const webTournamentListLoader: TChykLoadData<TTournamentListData> = async (_, { axios }) =>
   axios.sendPost(tournamentList())
 type TTournamentListProps = TRouteComponentProps<TTournamentListData>
 
 export const WebTournamentList: FC<TTournamentListProps> = ({ data: tournaments }) => {
+  const classes = useStyles()
   return (
-    <>{tournaments.length ? tournaments.map(item => <div>{item.name}</div>) : <WebNoElements />}</>
+    <Grid container justify="center" className={classes.superRoot}>
+      {tournaments.length ? (
+        tournaments.map(item => (
+          <Grid
+            item
+            xs={12}
+            md={6}
+            key={item.id}
+            className={classes.root}
+            component="a"
+            href={`/tournaments/${item.id}`}
+          >
+            <img src={item.logo || "/static/default-img.png"} className={classes.image} />
+          </Grid>
+        ))
+      ) : (
+        <WebNoElements />
+      )}
+    </Grid>
   )
 }
+
+const useStyles = makeStyles(_theme => ({
+  superRoot: {
+    minHeight: "calc(100vh - 110px - 100px)",
+    paddingTop: "30px",
+    marginBottom: "15px",
+  },
+  root: {
+    alignItems: "center",
+    display: "flex",
+    justifyContent: "center",
+    paddingTop: "30px",
+  },
+  image: {
+    width: "290px",
+    height: "450px",
+  },
+}))

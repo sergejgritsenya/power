@@ -8,10 +8,7 @@ export const WebMainPage: FC = () => {
   return (
     <main className={classes.root}>
       <div className={classes.content}>
-        <img
-          src="https://static.tildacdn.com/tild3437-6665-4835-b834-366333316638/OLYMPIC13_1.jpg"
-          className={clsx(classes.contentItem, classes.logo)}
-        />
+        <img src="/static/main.jpg" className={clsx(classes.contentItem, classes.logo)} />
         <div className={classes.contentItem}>
           <Typography className={clsx(classes.text, classes.textTitle)}>P.O.W.E.R. </Typography>
           <Typography className={classes.text}>
@@ -34,6 +31,10 @@ const useStyles = makeStyles(theme => ({
   },
   logo: {
     width: "290px",
+    marginRight: "134px",
+    [theme.breakpoints.down("sm")]: {
+      marginRight: 0,
+    },
   },
   text: {
     color: theme.palette.secondary.main,

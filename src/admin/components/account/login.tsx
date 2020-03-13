@@ -83,46 +83,48 @@ const LoginField: FC<TLoginFieldProps> = props => {
   const { login_model, login } = props
   const classes = useStyles()
   return useObserver(() => (
-    <Container component="main" maxWidth="xs">
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography variant="h3" gutterBottom align="center">
-          Power Admin Login
-        </Typography>
-        <Grid container justify="center" alignItems="center">
-          <Grid item xs={12}>
-            <TextField
-              label="Login"
-              type="text"
-              autoComplete="login"
-              required
-              value={login_model.login}
-              onChange={e => login_model.setLogin(e.target.value)}
-            />
+    <form onKeyPress={e => e.key === "Enter" && login()}>
+      <Container component="main" maxWidth="xs">
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography variant="h3" gutterBottom align="center">
+            Power Admin Login
+          </Typography>
+          <Grid container justify="center" alignItems="center">
+            <Grid item xs={12}>
+              <TextField
+                label="Login"
+                type="text"
+                autoComplete="login"
+                required
+                value={login_model.login}
+                onChange={e => login_model.setLogin(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                type="password"
+                label="Password"
+                autoComplete="current-password"
+                required
+                value={login_model.password}
+                onChange={e => login_model.setPassword(e.target.value)}
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              type="password"
-              label="Password"
-              autoComplete="current-password"
-              required
-              value={login_model.password}
-              onChange={e => login_model.setPassword(e.target.value)}
-            />
+          <Grid container justify="flex-end" alignItems="center">
+            <Grid item>
+              <Button color="primary" onClick={login}>
+                Login
+              </Button>
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid container justify="flex-end" alignItems="center">
-          <Grid item>
-            <Button color="primary" onClick={login}>
-              Login
-            </Button>
-          </Grid>
-        </Grid>
-        <Locker show={login_model.is_loading} />
-      </div>
-    </Container>
+          <Locker show={login_model.is_loading} />
+        </div>
+      </Container>
+    </form>
   ))
 }
 
