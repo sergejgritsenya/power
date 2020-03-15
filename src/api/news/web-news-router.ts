@@ -8,7 +8,7 @@ export class WebNewsRouter {
   news_router = new Router()
   constructor(@inject(NewsService) private readonly newsService: NewsService) {
     this.news_router.post(web_news_root_routes.list, async ctx => {
-      ctx.body = await this.newsService.list()
+      ctx.body = await this.newsService.webList()
     })
     this.news_router.post(web_news_routes.get, async ctx => {
       const news_id = ctx.params.news_id

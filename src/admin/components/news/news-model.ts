@@ -6,11 +6,13 @@ import { TNews, TNewsUpdateProps } from "../../../common/types/news-types"
 export class NewsModel extends Model({
   id: prop<string>(),
   title: prop<string>(""),
+  publish: prop<boolean>(false),
+  logo: prop<string | null>(null),
   text: prop<string>(""),
   is_loading: prop<boolean>(false),
 }) {
   get json(): TNewsUpdateProps {
-    return { title: this.title.trim(), text: this.text.trim() }
+    return { title: this.title.trim(), publish: this.publish, text: this.text.trim() }
   }
   @computed
   get validation(): boolean {
@@ -19,6 +21,14 @@ export class NewsModel extends Model({
   @modelAction
   setTitle(title: string) {
     this.title = title
+  }
+  @modelAction
+  setPublish(publish: boolean) {
+    this.publish = publish
+  }
+  @modelAction
+  setLogo(logo: string | null) {
+    this.logo = logo
   }
   @modelAction
   setText(text: string) {
@@ -37,12 +47,13 @@ export class NewsModel extends Model({
 @model("CreateNewsModel")
 export class CreateNewsModel extends Model({
   title: prop<string>(""),
+  publish: prop<boolean>(false),
   text: prop<string>(""),
   is_loading: prop<boolean>(false),
 }) {
   @computed
   get json(): TNewsUpdateProps {
-    return { title: this.title.trim(), text: this.text.trim() }
+    return { title: this.title.trim(), publish: this.publish, text: this.text.trim() }
   }
   @computed
   get validation(): boolean {

@@ -12,6 +12,7 @@ import { WebNewsRouter } from "../news/web-news-router"
 import { ShopImageRouter } from "../shop/shop-image-router"
 import { ShopRouter } from "../shop/shop-router"
 import { ShopService } from "../shop/shop-service"
+import { WebShopRouter } from "../shop/web-shop-router"
 import { TournamentImageRouter } from "../tournament/image-router"
 import { TournamentRouter } from "../tournament/tournament-router"
 import { TournamentService } from "../tournament/tournament-service"
@@ -45,6 +46,7 @@ const routers: interfaces.ServiceIdentifier<any>[] = [
   ShopRouter,
   ShopImageRouter,
   WebTournamentRouter,
+  WebShopRouter,
   WebNewsRouter,
 ]
 

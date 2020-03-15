@@ -2,35 +2,35 @@ import { Grid, makeStyles } from "@material-ui/core"
 import { AxiosResponse } from "axios"
 import { TRouteComponentProps } from "chyk"
 import React, { FC } from "react"
-import { TChykLoadData } from "../.."
-import { TShop } from "../../../common/types/shop-types"
-import { shopGet } from "./shop-sdk"
+import { TChykLoadData } from "../../../admin"
+import { TNews } from "../../../common/types/news-types"
+import { newsGet } from "./news-sdk"
 
-type TShopData = AxiosResponse<TShop>
-export const webShopLoader: TChykLoadData<TShopData> = async ({ match }, { axios }) =>
-  axios.sendPost(shopGet(match.params.shop_id))
-type TShopProps = TRouteComponentProps<TShopData>
+type TNewsData = AxiosResponse<TNews>
+export const webNewsLoader: TChykLoadData<TNewsData> = async ({ match }, { axios }) =>
+  axios.sendPost(newsGet(match.params.news_id))
+type TNewsProps = TRouteComponentProps<TNewsData>
 
-export const WebShop: FC<TShopProps> = ({ data: shop }) => {
+export const WebNews: FC<TNewsProps> = ({ data: news }) => {
   const classes = useStyles()
   return (
     <>
       <Grid container justify="center" className={classes.superRoot}>
         <Grid item xs={12} md={6} className={classes.root}>
-          <img src={shop.logo || "/static/default-img.png"} className={classes.logo} />
+          <img src={news.logo || "/static/default-img.png"} className={classes.logo} />
         </Grid>
         <Grid item xs={12} md={6} className={classes.root}>
-          <div className={classes.text}>{shop.description}</div>
+          <div className={classes.text}>{news.text}</div>
         </Grid>
-        {shop.images.length ? (
+        {/* {news.images.length ? (
           <Grid container justify="center" className={classes.superRoot}>
-            {shop.images.map(image => (
+            {news.images.map(image => (
               <Grid item xs={12} md={6} className={classes.root} key={image.id}>
                 <img src={image.url} className={classes.image} />
               </Grid>
             ))}
           </Grid>
-        ) : null}
+        ) : null} */}
       </Grid>
     </>
   )

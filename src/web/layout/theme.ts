@@ -1,8 +1,8 @@
 import { createMuiTheme, Theme } from "@material-ui/core/styles"
 
 const gold = "#b89960"
-const blue = "#f7f7f7"
-const grey = "#183883"
+const grey = "#f7f7f7"
+const blue = "#183883"
 // const grey = "#000d6e"
 const dark_grey = "#464646"
 // const blue = "#1c3780"
@@ -11,8 +11,8 @@ export const getTheme = (): Theme =>
   createMuiTheme({
     palette: {
       primary: {
-        light: grey,
-        main: blue,
+        light: blue,
+        main: grey,
         dark: dark_grey,
       },
       common: {
@@ -22,7 +22,7 @@ export const getTheme = (): Theme =>
         main: gold,
       },
       background: {
-        default: blue,
+        default: grey,
       },
     },
     overrides: {

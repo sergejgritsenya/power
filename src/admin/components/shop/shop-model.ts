@@ -23,11 +23,15 @@ export class ShopModel extends Model({
   }
   @computed
   get validation(): boolean {
-    return !!this.name.trim() && !!this.description.trim()
+    return !!this.name.trim() && !!this.price.trim() && !!this.description.trim()
   }
   @modelAction
   setName(name: string) {
     this.name = name
+  }
+  @modelAction
+  setPrice(price: string) {
+    this.price = price
   }
   @modelAction
   setLogo(logo: string | null) {
@@ -40,6 +44,7 @@ export class ShopModel extends Model({
   @modelAction
   updateAll(data: TShop) {
     this.setName(data.name)
+    this.setPrice(data.price)
     this.setLogo(data.logo)
     this.setDescription(data.description)
   }

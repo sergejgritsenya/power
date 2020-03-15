@@ -1,8 +1,10 @@
 import { TRouteConfig } from "chyk"
 import { FC } from "react"
 import { WebMainPage } from "../components/main/main-page"
-import { WebNewsList, webNewsLoader } from "../components/news/news-list"
-import { Shop } from "../components/shop/shop"
+import { WebNews, webNewsLoader } from "../components/news/news"
+import { WebNewsList, webNewsListLoader } from "../components/news/news-list"
+import { WebShop, webShopLoader } from "../components/shop/shop"
+import { WebShopList, webShopListLoader } from "../components/shop/shop-list"
 import { WebTournament, webTournamentLoader } from "../components/tournament/tournament"
 import {
   WebTournamentList,
@@ -26,6 +28,13 @@ export const routes: TRouteConfig[] = [
         path: "/news",
         exact: true,
         component: WebNewsList as FC,
+        loadData: webNewsListLoader,
+        dataKey: "news_list",
+      },
+      {
+        path: "/news/:news_id",
+        exact: true,
+        component: WebNews as FC,
         loadData: webNewsLoader,
         dataKey: "news",
       },
@@ -44,8 +53,15 @@ export const routes: TRouteConfig[] = [
       },
       {
         path: "/shop",
+        component: WebShopList as FC,
         exact: true,
-        component: Shop as FC,
+        loadData: webShopListLoader,
+        dataKey: "shop",
+      },
+      {
+        path: "/shop/:shop_id",
+        component: WebShop as FC,
+        loadData: webShopLoader,
         dataKey: "shop",
       },
       {

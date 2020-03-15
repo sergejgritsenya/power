@@ -1,4 +1,6 @@
-import { Card, CardContent, CardHeader, Divider, Grid } from "@material-ui/core"
+import { Avatar, Card, CardContent, CardHeader, Divider, Grid, makeStyles } from "@material-ui/core"
+import Check from "@material-ui/icons/Check"
+import Clear from "@material-ui/icons/Clear"
 import { AxiosResponse } from "axios"
 import { TRouteComponentProps } from "chyk"
 import { useObserver } from "mobx-react-lite"
@@ -57,11 +59,17 @@ export const NewsList: FC<TNewsListProps> = ({ data }) => {
           </Grid>
         </Grid>
         <Grid container justify="flex-start" alignItems="center">
-          <Grid item xs={12} md={6} lg={4}>
+          <Grid item xs={12} md={6} lg={2}>
+            <h3>Logo</h3>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
             <h3>Title</h3>
           </Grid>
-          <Grid item xs={12} md={6} lg={4} />
-          <Grid item xs={12} md={6} lg={4} />
+          <Grid item xs={12} md={6} lg={1}>
+            <h3>Publish</h3>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3} />
+          <Grid item xs={12} md={6} lg={3} />
         </Grid>
         <NewsListTable news_list={news_list} deleteNews={deleteNews} />
       </CardContent>
@@ -75,19 +83,30 @@ type TNewsListTableProps = {
 }
 const NewsListTable: FC<TNewsListTableProps> = props => {
   const { news_list, deleteNews } = props
+  const classes = useStyles()
   return useObserver(() => (
     <div>
       {news_list.list.length ? (
         news_list.list.map(news => (
           <div key={news.id}>
             <Grid container justify="flex-start" alignItems="center" style={{ padding: "7px 0" }}>
-              <Grid item xs={12} md={6} lg={4}>
+              <Grid item xs={12} md={6} lg={2}>
+                {news.logo ? (
+                  <Avatar src={news.logo} variant="rounded" className={classes.avatar} />
+                ) : (
+                  ""
+                )}
+              </Grid>
+              <Grid item xs={12} md={6} lg={3}>
                 {news.title}
               </Grid>
-              <Grid item xs={12} md={6} lg={4}>
+              <Grid item xs={12} md={6} lg={1}>
+                {news.publish ? <Check color="primary" /> : <Clear color="secondary" />}
+              </Grid>
+              <Grid item xs={12} md={6} lg={3}>
                 <ButtonLink to={`/news/${news.id}`}>More</ButtonLink>
               </Grid>
-              <Grid item xs={12} md={6} lg={4}>
+              <Grid item xs={12} md={6} lg={3}>
                 <ApplyRemoveDialog id={news.id} removeEntity={deleteNews} entity_name="news" />
               </Grid>
             </Grid>
@@ -100,3 +119,15 @@ const NewsListTable: FC<TNewsListTableProps> = props => {
     </div>
   ))
 }
+
+const useStyles = makeStyles(_theme => ({
+  avatar: {
+    width: "auto",
+    display: "flex",
+    justifyContent: "flex-start",
+    "& img": {
+      width: "auto",
+      objectFit: "contain",
+    },
+  },
+}))

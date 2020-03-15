@@ -55,6 +55,8 @@ export const news_root_routes = {
 }
 export const news_routes = {
   get: `${news_root_routes.root}/get`,
+  upload: `${news_root_routes.root}/upload`,
+  deleteLogo: `${news_root_routes.root}/deleteLogo`,
   update: `${news_root_routes.root}/update`,
 }
 export const shop_root_routes = {

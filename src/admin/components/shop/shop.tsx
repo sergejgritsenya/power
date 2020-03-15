@@ -4,6 +4,8 @@ import { TRouteComponentProps } from "chyk"
 import React, { createContext, FC, useContext, useMemo, useState } from "react"
 import { TChykLoadData } from "../.."
 import { TShop } from "../../../common/types/shop-types"
+import { ShopImagesList } from "./shop-image-list"
+import { ShopMain } from "./shop-main"
 import { ShopModel } from "./shop-model"
 import { shopGet } from "./shop-sdk"
 
@@ -27,7 +29,6 @@ export const Shop: FC<TShopProps> = ({ data }) => {
       <Tabs value={value} onChange={(_, val) => setValue(val)}>
         <Tab value={0} label="Main" />
         <Tab value={1} label="Images" />
-        <Tab value={2} label="Video" />
       </Tabs>
       {value === 0 && <ShopMain />}
       {value === 1 && <ShopImagesList />}

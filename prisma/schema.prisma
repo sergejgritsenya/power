@@ -31,6 +31,8 @@ model AdminSalt {
 model News {
     id         String   @default(cuid()) @id
     title      String
+    logo       String?
+    publish    Boolean  @default(false)
     text       String
     created_at DateTime @default(now())
 }

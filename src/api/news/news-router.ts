@@ -28,5 +28,14 @@ export class NewsRouter {
       const data = ctx.request.body as TNewsUpdateProps
       ctx.body = await this.newsService.update(news_id, data)
     })
+    this.news_router.post(news_routes.upload, async ctx => {
+      const { news_id } = ctx.params
+      ctx.body = await this.newsService.uploadLogo(news_id, ctx.req)
+    })
+    this.news_router.post(news_routes.deleteLogo, async ctx => {
+      const { news_id } = ctx.params
+      await this.newsService.deleteLogo(news_id)
+      ctx.status = 200
+    })
   }
 }

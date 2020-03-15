@@ -1,7 +1,7 @@
-import { Grid, makeStyles } from "@material-ui/core"
+import { Button, Dialog, DialogActions, DialogContent, Grid, makeStyles } from "@material-ui/core"
 import { AxiosResponse } from "axios"
 import { TRouteComponentProps } from "chyk"
-import React, { FC } from "react"
+import React, { FC, useState } from "react"
 import { TChykLoadData } from "../.."
 import { TTournament } from "../../../common/types/tournament-types"
 import { tournamentGet } from "./tournament-sdk"
@@ -22,25 +22,51 @@ export const WebTournament: FC<TTournamentProps> = ({ data: tournament }) => {
         <Grid item xs={12} md={6} className={classes.root}>
           <div className={classes.text}>{tournament.description}</div>
         </Grid>
-        <Grid container justify="center" className={classes.superRoot}>
-          {tournament.images.length
-            ? tournament.images.map(image => (
-                <Grid item xs={12} md={6} className={classes.root} key={image.id}>
-                  <img src={image.url} className={classes.image} />
-                </Grid>
-              ))
-            : null}
-        </Grid>
-        <Grid container justify="center" className={classes.superRoot}>
-          {tournament.videos.length
-            ? tournament.videos.map(video => (
-                <Grid item xs={12} md={6} className={classes.root} key={video.id}>
-                  <div className={classes.iframe} dangerouslySetInnerHTML={{ __html: video.url }} />
-                </Grid>
-              ))
-            : null}
-        </Grid>
+        {tournament.images.length ? (
+          <Grid container justify="center" className={classes.superRoot}>
+            {tournament.images.map(image => (
+              <Grid item xs={12} md={6} className={classes.root} key={image.id}>
+                <ImageDialog url={image.url} />
+              </Grid>
+            ))}
+          </Grid>
+        ) : null}
+        {tournament.videos.length ? (
+          <Grid container justify="center" className={classes.superRoot}>
+            {tournament.videos.map(video => (
+              <Grid item xs={12} md={6} className={classes.root} key={video.id}>
+                <div className={classes.iframe} dangerouslySetInnerHTML={{ __html: video.url }} />
+              </Grid>
+            ))}
+          </Grid>
+        ) : null}
       </Grid>
+    </>
+  )
+}
+
+type TImageDialogProps = {
+  url: string
+}
+const ImageDialog: FC<TImageDialogProps> = props => {
+  const { url } = props
+  const [open, setOpen] = useState<boolean>(false)
+  const classes = useStyles()
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>
+        <img src={url} className={classes.image} />
+      </Button>
+      <Dialog open={open} onClose={() => setOpen(false)}>
+        <DialogContent>
+          <img src={url} alt={"logo"} {...{ loading: "lazy" }} className={classes.fullImg} />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)} className={classes.button}>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   )
 }
@@ -61,12 +87,18 @@ const useStyles = makeStyles(theme => ({
     width: "290px",
     height: "450px",
   },
+  button: {
+    background: theme.palette.primary.light,
+  },
   image: {
     width: "200px",
     height: "200px",
   },
   text: {
     color: theme.palette.primary.light,
+  },
+  fullImg: {
+    width: "100%",
   },
   iframe: {
     border: `1px solid ${theme.palette.common}`,
