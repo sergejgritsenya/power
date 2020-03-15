@@ -21,7 +21,7 @@ export const WebTournamentList: FC<TTournamentListProps> = ({ data: tournaments 
           <Grid
             item
             xs={12}
-            md={6}
+            md={3}
             key={item.id}
             className={classes.root}
             component="a"

@@ -9,6 +9,7 @@ export type TShop = {
   price: string
   description: string
   logo: string | null
+  images: TShopImage[]
 }
 
 export type TShopUpdateProps = {

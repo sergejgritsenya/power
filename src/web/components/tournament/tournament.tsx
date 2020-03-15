@@ -22,20 +22,24 @@ export const WebTournament: FC<TTournamentProps> = ({ data: tournament }) => {
         <Grid item xs={12} md={6} className={classes.root}>
           <div className={classes.text}>{tournament.description}</div>
         </Grid>
-        {tournament.images.length
-          ? tournament.images.map(image => (
-              <Grid item xs={12} md={6} className={classes.root} key={image.id}>
-                <img src={image.url} className={classes.image} />
-              </Grid>
-            ))
-          : null}
-        {tournament.videos.length
-          ? tournament.videos.map(video => (
-              <Grid item xs={12} md={6} className={classes.root} key={video.id}>
-                <div className={classes.iframe} dangerouslySetInnerHTML={{ __html: video.url }} />
-              </Grid>
-            ))
-          : null}
+        <Grid container justify="center" className={classes.superRoot}>
+          {tournament.images.length
+            ? tournament.images.map(image => (
+                <Grid item xs={12} md={6} className={classes.root} key={image.id}>
+                  <img src={image.url} className={classes.image} />
+                </Grid>
+              ))
+            : null}
+        </Grid>
+        <Grid container justify="center" className={classes.superRoot}>
+          {tournament.videos.length
+            ? tournament.videos.map(video => (
+                <Grid item xs={12} md={6} className={classes.root} key={video.id}>
+                  <div className={classes.iframe} dangerouslySetInnerHTML={{ __html: video.url }} />
+                </Grid>
+              ))
+            : null}
+        </Grid>
       </Grid>
     </>
   )

@@ -8,6 +8,7 @@ import { AdminList, adminListLoader } from "../components/admin/admin-list"
 import { News, newsLoader } from "../components/news/news"
 import { NewsCreate } from "../components/news/news-create"
 import { NewsList, newsListLoader } from "../components/news/news-list"
+import { ShopCreate } from "../components/shop/shop-create"
 import { ShopList, shopListLoader } from "../components/shop/shop-list"
 import { Tournament, tournamentLoader } from "../components/tournament/tournament"
 import { TournamentCreate } from "../components/tournament/tournament-create"
@@ -95,6 +96,12 @@ export const routes: TRouteConfig[] = [
         exact: true,
         loadData: shopListLoader,
         dataKey: "shop_list",
+      },
+      {
+        path: "/shop/create",
+        component: ShopCreate as FC,
+        exact: true,
+        dataKey: "shop_create",
       },
       {
         component: NotFound as FC,
