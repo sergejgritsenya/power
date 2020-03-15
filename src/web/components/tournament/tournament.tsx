@@ -14,34 +14,34 @@ type TTournamentProps = TRouteComponentProps<TTournamentData>
 export const WebTournament: FC<TTournamentProps> = ({ data: tournament }) => {
   const classes = useStyles()
   return (
-    <>
-      <Grid container justify="center" className={classes.superRoot}>
-        <Grid item xs={12} md={6} className={classes.root}>
-          <img src={tournament.logo || "/static/default-img.png"} className={classes.logo} />
-        </Grid>
-        <Grid item xs={12} md={6} className={classes.root}>
-          <div className={classes.text}>{tournament.description}</div>
-        </Grid>
+    <Grid container justify="center" className={classes.superRoot}>
+      <Grid item xs={12} md={6} className={classes.root}>
+        <img src={tournament.logo || "/static/default-img.png"} className={classes.logo} />
+      </Grid>
+      <Grid item xs={12} md={6} className={classes.root}>
+        <div className={classes.text}>{tournament.description}</div>
+      </Grid>
+      <Grid item xs={12}>
         {tournament.images.length ? (
-          <Grid container justify="center" className={classes.superRoot}>
+          <Grid container justify="center" className={classes.container}>
             {tournament.images.map(image => (
-              <Grid item xs={12} md={6} className={classes.root} key={image.id}>
+              <Grid item xs={12} md={3} className={classes.root} key={image.id}>
                 <ImageDialog url={image.url} />
               </Grid>
             ))}
           </Grid>
         ) : null}
         {tournament.videos.length ? (
-          <Grid container justify="center" className={classes.superRoot}>
+          <Grid container justify="center" className={classes.container}>
             {tournament.videos.map(video => (
-              <Grid item xs={12} md={6} className={classes.root} key={video.id}>
+              <Grid item xs={12} md={6} key={video.id}>
                 <div className={classes.iframe} dangerouslySetInnerHTML={{ __html: video.url }} />
               </Grid>
             ))}
           </Grid>
         ) : null}
       </Grid>
-    </>
+    </Grid>
   )
 }
 
@@ -75,6 +75,10 @@ const useStyles = makeStyles(theme => ({
   superRoot: {
     minHeight: "calc(100vh - 110px - 100px)",
     paddingTop: "30px",
+    marginBottom: "15px",
+  },
+  container: {
+    paddingTop: "50px",
     marginBottom: "15px",
   },
   root: {

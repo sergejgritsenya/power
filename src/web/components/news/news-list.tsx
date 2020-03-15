@@ -30,8 +30,11 @@ export const WebNewsList: FC<TNewsListProps> = ({ data: newss }) => {
             <Grid item xs={12} md={3}>
               <img src={item.logo || "/static/default-img.png"} className={classes.image} />
             </Grid>
+            <Grid item xs={12} md={9} className={classes.title}>
+              {item.title}
+            </Grid>
             <Grid item xs={12} md={9} className={classes.text}>
-              {item.text}
+              {item.text.substr(0, 200) + "..."}
             </Grid>
           </Grid>
         ))
@@ -54,15 +57,23 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "center",
     paddingTop: "30px",
   },
+  title: {
+    // alignItems: "center",
+    // display: "flex",
+    // justifyContent: "center",
+    // paddingTop: "30px",
+    fontSize: "40px",
+    color: theme.palette.primary.light,
+  },
   text: {
     // alignItems: "center",
     // display: "flex",
     // justifyContent: "center",
     // paddingTop: "30px",
+    fontSize: "21px",
     color: theme.palette.primary.light,
   },
   image: {
-    width: "290px",
-    height: "450px",
+    width: "200px",
   },
 }))

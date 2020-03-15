@@ -65,11 +65,11 @@ export const NewsList: FC<TNewsListProps> = ({ data }) => {
           <Grid item xs={12} md={6} lg={3}>
             <h3>Title</h3>
           </Grid>
-          <Grid item xs={12} md={6} lg={1}>
+          <Grid item xs={12} md={6} lg={3}>
             <h3>Publish</h3>
           </Grid>
-          <Grid item xs={12} md={6} lg={3} />
-          <Grid item xs={12} md={6} lg={3} />
+          <Grid item xs={12} md={6} lg={2} />
+          <Grid item xs={12} md={6} lg={2} />
         </Grid>
         <NewsListTable news_list={news_list} deleteNews={deleteNews} />
       </CardContent>
@@ -100,13 +100,13 @@ const NewsListTable: FC<TNewsListTableProps> = props => {
               <Grid item xs={12} md={6} lg={3}>
                 {news.title}
               </Grid>
-              <Grid item xs={12} md={6} lg={1}>
+              <Grid item xs={12} md={6} lg={3}>
                 {news.publish ? <Check color="primary" /> : <Clear color="secondary" />}
               </Grid>
-              <Grid item xs={12} md={6} lg={3}>
+              <Grid item xs={12} md={6} lg={2}>
                 <ButtonLink to={`/news/${news.id}`}>More</ButtonLink>
               </Grid>
-              <Grid item xs={12} md={6} lg={3}>
+              <Grid item xs={12} md={6} lg={2}>
                 <ApplyRemoveDialog id={news.id} removeEntity={deleteNews} entity_name="news" />
               </Grid>
             </Grid>
@@ -130,4 +130,8 @@ const useStyles = makeStyles(_theme => ({
       objectFit: "contain",
     },
   },
+  // publish: {
+  //   display: "flex",
+  //   justifyContent: "center",
+  // },
 }))

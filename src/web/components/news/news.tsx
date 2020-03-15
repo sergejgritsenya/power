@@ -49,14 +49,11 @@ const useStyles = makeStyles(theme => ({
     paddingTop: "30px",
   },
   logo: {
-    width: "290px",
+    // width: "290px",
     height: "450px",
   },
-  image: {
-    width: "200px",
-    height: "200px",
-  },
   text: {
+    fontSize: "20px",
     color: theme.palette.primary.light,
   },
 }))
