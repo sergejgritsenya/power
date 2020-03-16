@@ -2,7 +2,7 @@ import { Grid, makeStyles } from "@material-ui/core"
 import { AxiosResponse } from "axios"
 import { TRouteComponentProps } from "chyk"
 import React, { FC } from "react"
-import { TChykLoadData } from "../../../admin"
+import { TChykLoadData } from "../.."
 import { TNews } from "../../../common/types/news-types"
 import { newsGet } from "./news-sdk"
 

@@ -5,3 +5,4 @@ node_modules
 dist
 .env
 prisma/migrations/*
+docker-compose.yml
