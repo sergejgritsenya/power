@@ -14,15 +14,14 @@ type TNewsProps = TRouteComponentProps<TNewsData>
 export const WebNews: FC<TNewsProps> = ({ data: news }) => {
   const classes = useStyles()
   return (
-    <>
-      <Grid container justify="center" className={classes.superRoot}>
-        <Grid item xs={12} md={6} className={classes.root}>
-          <img src={news.logo || "/static/default-img.png"} className={classes.logo} />
-        </Grid>
-        <Grid item xs={12} md={6} className={classes.root}>
-          <div className={classes.text}>{news.text}</div>
-        </Grid>
-        {/* {news.images.length ? (
+    <Grid container justify="center" className={classes.superRoot}>
+      <Grid item xs={12} md={6} className={classes.root}>
+        <img src={news.logo || "/static/default-img.png"} className={classes.logo} />
+      </Grid>
+      <Grid item xs={12} md={6} className={classes.root}>
+        <div className={classes.text}>{news.text}</div>
+      </Grid>
+      {/* {news.images.length ? (
           <Grid container justify="center" className={classes.superRoot}>
             {news.images.map(image => (
               <Grid item xs={12} md={6} className={classes.root} key={image.id}>
@@ -31,8 +30,7 @@ export const WebNews: FC<TNewsProps> = ({ data: news }) => {
             ))}
           </Grid>
         ) : null} */}
-      </Grid>
-    </>
+    </Grid>
   )
 }
 
@@ -49,8 +47,9 @@ const useStyles = makeStyles(theme => ({
     paddingTop: "30px",
   },
   logo: {
-    // width: "290px",
-    height: "450px",
+    width: "100%",
+    // objectFit: "cover",
+    height: "100%",
   },
   text: {
     fontSize: "20px",

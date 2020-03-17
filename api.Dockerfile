@@ -5,7 +5,7 @@ ENV POSTGRES_URL=""
 WORKDIR /app
 
 COPY ./prisma/schema.prisma ./
-COPY package.json yarn.lock /app/
+COPY package.json yarn.lock tsconfig.json /app/
 
 RUN apt-get -qy update && apt-get -qy install openssl
 RUN yarn install --production=false --ignore-scripts

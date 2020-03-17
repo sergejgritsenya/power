@@ -32,7 +32,7 @@ export const WebTournament: FC<TTournamentProps> = ({ data: tournament }) => {
           </Grid>
         ) : null}
         {tournament.videos.length ? (
-          <Grid container justify="center" className={classes.container}>
+          <Grid container justify="center" spacing={5} className={classes.container}>
             {tournament.videos.map(video => (
               <Grid item xs={12} md={6} key={video.id}>
                 <div className={classes.iframe} dangerouslySetInnerHTML={{ __html: video.url }} />
@@ -62,7 +62,7 @@ const ImageDialog: FC<TImageDialogProps> = props => {
           <img src={url} alt={"logo"} {...{ loading: "lazy" }} className={classes.fullImg} />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpen(false)} className={classes.button}>
+          <Button onClick={() => setOpen(false)} className={classes.button} color="default">
             Close
           </Button>
         </DialogActions>
@@ -93,6 +93,11 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     background: theme.palette.primary.light,
+    color: "#fff",
+    "&:hover": {
+      background: theme.palette.primary.light,
+      color: "#fff",
+    },
   },
   image: {
     width: "200px",

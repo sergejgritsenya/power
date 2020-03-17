@@ -15,7 +15,7 @@ type TTournamentListProps = TRouteComponentProps<TTournamentListData>
 export const WebTournamentList: FC<TTournamentListProps> = ({ data: tournaments }) => {
   const classes = useStyles()
   return (
-    <Grid container justify="center" className={classes.superRoot}>
+    <Grid container justify="center" spacing={4} className={classes.superRoot}>
       {tournaments.length ? (
         tournaments.map(item => (
           <Grid

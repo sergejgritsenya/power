@@ -1,4 +1,4 @@
-import { Grid, makeStyles } from "@material-ui/core"
+import { Grid, makeStyles, Typography } from "@material-ui/core"
 import { AxiosResponse } from "axios"
 import { TRouteComponentProps } from "chyk"
 import React, { FC } from "react"
@@ -30,11 +30,9 @@ export const WebNewsList: FC<TNewsListProps> = ({ data: newss }) => {
             <Grid item xs={12} md={3}>
               <img src={item.logo || "/static/default-img.png"} className={classes.image} />
             </Grid>
-            <Grid item xs={12} md={9} className={classes.title}>
-              {item.title}
-            </Grid>
-            <Grid item xs={12} md={9} className={classes.text}>
-              {item.text.substr(0, 200) + "..."}
+            <Grid item xs={12} md={9}>
+              <Typography className={classes.title}>{item.title}</Typography>
+              <Typography className={classes.text}>{item.text}</Typography>
             </Grid>
           </Grid>
         ))
@@ -58,20 +56,17 @@ const useStyles = makeStyles(theme => ({
     paddingTop: "30px",
   },
   title: {
-    // alignItems: "center",
-    // display: "flex",
-    // justifyContent: "center",
-    // paddingTop: "30px",
-    fontSize: "40px",
+    fontSize: "30px",
+    fontWeight: "bold",
     color: theme.palette.primary.light,
   },
   text: {
-    // alignItems: "center",
-    // display: "flex",
-    // justifyContent: "center",
-    // paddingTop: "30px",
-    fontSize: "21px",
+    fontSize: "15px",
     color: theme.palette.primary.light,
+    overflow: "hidden",
+    WebkitLineClamp: 4,
+    WebkitBoxOrient: "vertical",
+    display: "-webkit-box",
   },
   image: {
     width: "200px",

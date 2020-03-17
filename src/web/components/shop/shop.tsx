@@ -1,7 +1,7 @@
-import { Grid, makeStyles } from "@material-ui/core"
+import { Button, Dialog, DialogActions, DialogContent, Grid, makeStyles } from "@material-ui/core"
 import { AxiosResponse } from "axios"
 import { TRouteComponentProps } from "chyk"
-import React, { FC } from "react"
+import React, { FC, useState } from "react"
 import { TChykLoadData } from "../.."
 import { TShop } from "../../../common/types/shop-types"
 import { shopGet } from "./shop-sdk"
@@ -26,12 +26,38 @@ export const WebShop: FC<TShopProps> = ({ data: shop }) => {
           <Grid container justify="center" className={classes.superRoot}>
             {shop.images.map(image => (
               <Grid item xs={12} md={6} className={classes.root} key={image.id}>
-                <img src={image.url} className={classes.image} />
+                <ImageDialog url={image.url} />
               </Grid>
             ))}
           </Grid>
         ) : null}
       </Grid>
+    </>
+  )
+}
+
+type TImageDialogProps = {
+  url: string
+}
+const ImageDialog: FC<TImageDialogProps> = props => {
+  const { url } = props
+  const [open, setOpen] = useState<boolean>(false)
+  const classes = useStyles()
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>
+        <img src={url} className={classes.image} />
+      </Button>
+      <Dialog open={open} onClose={() => setOpen(false)}>
+        <DialogContent>
+          <img src={url} alt={"logo"} {...{ loading: "lazy" }} className={classes.fullImg} />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)} className={classes.button}>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   )
 }
@@ -58,5 +84,11 @@ const useStyles = makeStyles(theme => ({
   },
   text: {
     color: theme.palette.primary.light,
+  },
+  button: {
+    background: theme.palette.primary.light,
+  },
+  fullImg: {
+    width: "100%",
   },
 }))

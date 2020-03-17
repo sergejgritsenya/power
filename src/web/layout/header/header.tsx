@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
     position: "fixed",
     top: 0,
     left: 0,
+    zIndex: 10,
   },
   left: {
     display: "flex",
