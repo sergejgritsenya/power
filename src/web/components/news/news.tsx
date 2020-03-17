@@ -14,7 +14,7 @@ type TNewsProps = TRouteComponentProps<TNewsData>
 export const WebNews: FC<TNewsProps> = ({ data: news }) => {
   const classes = useStyles()
   return (
-    <Grid container justify="center" className={classes.superRoot}>
+    <Grid container justify="center" spacing={4} className={classes.superRoot}>
       <Grid item xs={12} md={6} className={classes.root}>
         <img src={news.logo || "/static/default-img.png"} className={classes.logo} />
       </Grid>

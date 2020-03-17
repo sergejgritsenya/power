@@ -87,6 +87,11 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     background: theme.palette.primary.light,
+    color: "#fff",
+    "&:hover": {
+      background: theme.palette.primary.light,
+      color: "#fff",
+    },
   },
   fullImg: {
     width: "100%",
