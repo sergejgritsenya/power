@@ -3,6 +3,7 @@ import { AxiosResponse } from "axios"
 import { TRouteComponentProps } from "chyk"
 import React, { FC } from "react"
 import { TChykLoadData } from "../.."
+import { ButtonLink } from "../../../common/front-sdk/button-link"
 import { TNews } from "../../../common/types/news-types"
 import { newsGet } from "./news-sdk"
 
@@ -21,15 +22,11 @@ export const WebNews: FC<TNewsProps> = ({ data: news }) => {
       <Grid item xs={12} md={6} className={classes.root}>
         <div className={classes.text}>{news.text}</div>
       </Grid>
-      {/* {news.images.length ? (
-          <Grid container justify="center" className={classes.superRoot}>
-            {news.images.map(image => (
-              <Grid item xs={12} md={6} className={classes.root} key={image.id}>
-                <img src={image.url} className={classes.image} />
-              </Grid>
-            ))}
-          </Grid>
-        ) : null} */}
+      {news.tournament_id ? (
+        <Grid item xs={12} md={6} className={classes.root}>
+          <ButtonLink to={`/tournaments/${news.tournament_id}`}>More info</ButtonLink>
+        </Grid>
+      ) : null}
     </Grid>
   )
 }

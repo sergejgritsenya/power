@@ -5,7 +5,7 @@ import { useObserver } from "mobx-react-lite"
 import { useSnackbar } from "notistack"
 import React, { FC, useMemo } from "react"
 import { TChykLoadData } from "../.."
-import { TNews } from "../../../common/types/news-types"
+import { TNewsAdmin } from "../../../common/types/news-types"
 import { useAxios } from "../../layout/di-context"
 import { ImageUpload } from "../common/image-upload"
 import { Locker } from "../common/locker"
@@ -13,22 +13,23 @@ import { SaveButton } from "../common/save-button"
 import { NewsModel } from "./news-model"
 import { newsDeleteLogo, newsGet, newsUpdate, newsUploadLogo } from "./news-sdk"
 
-type TNewsData = AxiosResponse<TNews>
+type TNewsData = AxiosResponse<TNewsAdmin>
 export const newsLoader: TChykLoadData<TNewsData, { id: string }> = async ({ match }, { axios }) =>
-  axios.sendPost<TNews>(newsGet(match.params.id))
+  axios.sendPost<TNewsAdmin>(newsGet(match.params.id))
 
 type TNewsProps = TRouteComponentProps<TNewsData>
 export const News: FC<TNewsProps> = ({ data }) => {
   const axios = useAxios()
   const { enqueueSnackbar } = useSnackbar()
   const news = useMemo(() => {
-    const model = new NewsModel(data)
+    const model = new NewsModel(data.news)
+    model.setTournaments(data.tournaments)
     return model
   }, [])
   const update = async () => {
     news.setLoading(true)
     try {
-      const res = await axios.sendPost<TNews>(newsUpdate(news.id, news.json))
+      const res = await axios.sendPost<TNewsAdmin>(newsUpdate(news.id, news.json))
       news.updateAll(res.data)
       news.setLoading(false)
       enqueueSnackbar("Successfully saved", {
@@ -64,6 +65,22 @@ const NewsField: FC<TNewsFieldProps> = props => {
                   value={news.title}
                   onChange={e => news.setTitle(e.target.value)}
                 />
+              </Grid>
+              <Grid item xs={12} lg={6}>
+                <TextField
+                  label="tournament"
+                  value={news.tournament_id}
+                  onChange={e => news.setTournament(e.target.value)}
+                  select
+                  SelectProps={{ native: true }}
+                >
+                  <option value="" />
+                  {news.tournaments.map(tournament => (
+                    <option key={tournament.id} value={tournament.id}>
+                      {tournament.name}
+                    </option>
+                  ))}
+                </TextField>
               </Grid>
               <Grid item xs={12} lg={6}>
                 <Checkbox

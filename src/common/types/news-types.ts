@@ -17,9 +17,19 @@ export type TNews = {
   logo: string | null
   publish: boolean
   text: string
+  tournament_id: string | null
 }
 export type TNewsUpdateProps = {
   title: string
   publish: boolean
   text: string
+  tournament_id: string
+}
+export type TNewsTournaments = {
+  id: string
+  name: string
+}
+export type TNewsAdmin = {
+  news: TNews
+  tournaments: TNewsTournaments[]
 }

@@ -1,7 +1,13 @@
 import { PrismaClient } from "@prisma/client"
 import { IncomingMessage } from "http"
 import { inject, injectable } from "inversify"
-import { TNews, TNewsList, TNewsUpdateProps, TWebNewsList } from "../../common/types/news-types"
+import {
+  TNews,
+  TNewsAdmin,
+  TNewsList,
+  TNewsUpdateProps,
+  TWebNewsList,
+} from "../../common/types/news-types"
 import { PrismaService } from "../server/prisma-service"
 import { uploadToS3 } from "../upload-file/upload-to-s3"
 
@@ -18,27 +24,77 @@ export class NewsService {
     })
     return news_list
   }
-  getNews = async (id: string): Promise<TNews> => {
-    const news = await this.prisma.news.findOne({
-      where: { id },
-      select: { id: true, title: true, publish: true, logo: true, text: true },
-    })
-    if (!news) {
+  getNews = async (id: string): Promise<TNewsAdmin> => {
+    const [db_news, tournaments] = await Promise.all([
+      this.prisma.news.findOne({
+        where: { id },
+        select: {
+          id: true,
+          title: true,
+          publish: true,
+          logo: true,
+          text: true,
+          tournament: { select: { id: true } },
+        },
+      }),
+      this.prisma.tournament.findMany({ select: { id: true, name: true } }),
+    ])
+    if (!db_news || !tournaments) {
       throw new Error("Unknown news")
     }
-    return news
+    const news: TNews = {
+      id: db_news.id,
+      title: db_news.title,
+      publish: db_news.publish,
+      logo: db_news.logo,
+      text: db_news.text,
+      tournament_id: db_news.tournament ? db_news.tournament.id : null,
+    }
+    return { news, tournaments }
   }
-  create = async (data: TNewsUpdateProps): Promise<string> => {
+  create = async (props: TNewsUpdateProps): Promise<string> => {
+    const data = {
+      title: props.title,
+      publish: props.publish,
+      text: props.text,
+      tournament: { connect: { id: props.tournament_id } },
+    }
     const news = await this.prisma.news.create({ data })
     return news.id
   }
-  update = async (id: string, data: TNewsUpdateProps): Promise<TNews> => {
-    const news = await this.prisma.news.update({
-      where: { id },
-      data,
-      select: { id: true, title: true, publish: true, logo: true, text: true },
-    })
-    return news
+  update = async (id: string, props: TNewsUpdateProps): Promise<TNewsAdmin> => {
+    const data = {
+      title: props.title,
+      publish: props.publish,
+      text: props.text,
+      tournament: props.tournament_id
+        ? { connect: { id: props.tournament_id } }
+        : { disconnect: true },
+    }
+    const [db_news, tournaments] = await Promise.all([
+      this.prisma.news.update({
+        where: { id },
+        data,
+        select: {
+          id: true,
+          title: true,
+          publish: true,
+          logo: true,
+          text: true,
+          tournament: { select: { id: true } },
+        },
+      }),
+      this.prisma.tournament.findMany({ select: { id: true, name: true } }),
+    ])
+    const news: TNews = {
+      id: db_news.id,
+      title: db_news.title,
+      publish: db_news.publish,
+      logo: db_news.logo,
+      text: db_news.text,
+      tournament_id: db_news.tournament ? db_news.tournament.id : null,
+    }
+    return { news, tournaments }
   }
   uploadLogo = async (id: string, req: IncomingMessage): Promise<string> => {
     const filename = await uploadToS3(req)
@@ -72,5 +128,30 @@ export class NewsService {
       orderBy: { created_at: "asc" },
     })
     return news_list
+  }
+  webGetNews = async (id: string): Promise<TNews> => {
+    const db_news = await this.prisma.news.findOne({
+      where: { id },
+      select: {
+        id: true,
+        title: true,
+        publish: true,
+        logo: true,
+        text: true,
+        tournament: { select: { id: true } },
+      },
+    })
+    if (!db_news) {
+      throw new Error("Unknown news")
+    }
+    const news: TNews = {
+      id: db_news.id,
+      title: db_news.title,
+      publish: db_news.publish,
+      logo: db_news.logo,
+      text: db_news.text,
+      tournament_id: db_news.tournament ? db_news.tournament.id : null,
+    }
+    return news
   }
 }

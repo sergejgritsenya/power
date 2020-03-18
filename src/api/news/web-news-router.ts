@@ -12,7 +12,7 @@ export class WebNewsRouter {
     })
     this.news_router.post(web_news_routes.get, async ctx => {
       const news_id = ctx.params.news_id
-      ctx.body = await this.newsService.getNews(news_id)
+      ctx.body = await this.newsService.webGetNews(news_id)
     })
   }
 }
