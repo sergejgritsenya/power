@@ -3,7 +3,6 @@ import { AxiosResponse } from "axios"
 import { TRouteComponentProps } from "chyk"
 import React, { FC } from "react"
 import { TChykLoadData } from "../.."
-import { ButtonLink } from "../../../common/front-sdk/button-link"
 import { TNews } from "../../../common/types/news-types"
 import { newsGet } from "./news-sdk"
 
@@ -20,13 +19,15 @@ export const WebNews: FC<TNewsProps> = ({ data: news }) => {
         <img src={news.logo || "/static/default-img.png"} className={classes.logo} />
       </Grid>
       <Grid item xs={12} md={6} className={classes.root}>
-        <div className={classes.text}>{news.text}</div>
+        <div className={classes.text}>
+          {news.text}
+          {news.tournament_id ? (
+            <div>
+              <a href={`/tournaments/${news.tournament_id}`}>{"More info"}</a>
+            </div>
+          ) : null}
+        </div>
       </Grid>
-      {news.tournament_id ? (
-        <Grid item xs={12} md={6} className={classes.root}>
-          <ButtonLink to={`/tournaments/${news.tournament_id}`}>More info</ButtonLink>
-        </Grid>
-      ) : null}
     </Grid>
   )
 }
@@ -49,6 +50,10 @@ const useStyles = makeStyles(theme => ({
     height: "100%",
   },
   text: {
+    fontSize: "20px",
+    color: theme.palette.primary.light,
+  },
+  mainText: {
     fontSize: "20px",
     color: theme.palette.primary.light,
   },
