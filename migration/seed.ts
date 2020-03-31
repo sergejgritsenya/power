@@ -7,9 +7,9 @@ const seed = async () => {
     // const email = await inputPromt("Enter email: ")
     // const login = await inputPromt("Enter login: ")
     // const password = await inputPromt("Enter password: ")
-    const email = "sergejgritsenya@gmail.com"
-    const login = "sergej"
-    const password = "050290"
+    const email = "admin@admin.com"
+    const login = "admin"
+    const password = "admin"
     if (!email || !login || !password) {
       throw new Error("Incorrect input")
     }
