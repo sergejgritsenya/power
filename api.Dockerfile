@@ -11,7 +11,8 @@ RUN apt-get -qy update && apt-get -qy install openssl
 RUN yarn install --production=false --ignore-scripts
 RUN yarn global add prisma2@2.0.0-preview022
 
-COPY . /app
+COPY ./src/api /app/src/api
+COPY ./src/common /app/src/common
 
 RUN NODE_ENV=development prisma2 generate
 RUN yarn build

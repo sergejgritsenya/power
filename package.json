@@ -8,7 +8,6 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "webpack": "TS_NODE_POJECT=\"tsconfig.json\" webpack --config webpack.config.ts",
-    "docker:build": "docker build -t power .",
     "start": "node -r dotenv/config ./dist/entry.js",
     "start:admin": "node -r dotenv/config ./dist/admin/entry.js",
     "start:api": "node -r dotenv/config ./dist/api/entry.js",
@@ -21,7 +20,8 @@
     "seed": "ts-node-dev -r dotenv/config migration/seed",
     "docker:build:admin": "docker build -t power-admin -f admin.Dockerfile .",
     "docker:build:api": "docker build -t power-api -f api.Dockerfile .",
-    "docker:build:web": "docker build -t power-web -f web.Dockerfile ."
+    "docker:build:web": "docker build -t power-web -f web.Dockerfile .",
+    "docker:start": "docker-compose up -d"
   },
   "dependencies": {
     "@material-ui/core": "^4.9.5",
