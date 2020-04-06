@@ -4,6 +4,7 @@ import { inject, injectable } from "inversify"
 import {
   TNews,
   TNewsAdmin,
+  TNewsCreateProps,
   TNewsList,
   TNewsUpdateProps,
   TWebNewsList,
@@ -52,13 +53,7 @@ export class NewsService {
     }
     return { news, tournaments }
   }
-  create = async (props: TNewsUpdateProps): Promise<string> => {
-    const data = {
-      title: props.title,
-      publish: props.publish,
-      text: props.text,
-      tournament: { connect: { id: props.tournament_id } },
-    }
+  create = async (data: TNewsCreateProps): Promise<string> => {
     const news = await this.prisma.news.create({ data })
     return news.id
   }
@@ -104,7 +99,7 @@ export class NewsService {
         data: { logo: filename },
         select: { logo: true },
       })
-      .then(r => r.logo || "")
+      .then((r) => r.logo || "")
     return logo
   }
   deleteLogo = async (id: string) => {

@@ -1,6 +1,11 @@
 import { computed, observable } from "mobx"
 import { Model, model, modelAction, prop } from "mobx-keystone"
-import { TNewsAdmin, TNewsTournaments, TNewsUpdateProps } from "../../../common/types/news-types"
+import {
+  TNewsAdmin,
+  TNewsCreateProps,
+  TNewsTournaments,
+  TNewsUpdateProps,
+} from "../../../common/types/news-types"
 
 @model("NewsModel")
 export class NewsModel extends Model({
@@ -62,18 +67,14 @@ export class NewsModel extends Model({
 @model("CreateNewsModel")
 export class CreateNewsModel extends Model({
   title: prop<string>(""),
-  publish: prop<boolean>(false),
   text: prop<string>(""),
-  tournament_id: prop<string | null>(null),
   is_loading: prop<boolean>(false),
 }) {
   @computed
-  get json(): TNewsUpdateProps {
+  get json(): TNewsCreateProps {
     return {
       title: this.title.trim(),
-      publish: this.publish,
       text: this.text.trim(),
-      tournament_id: this.tournament_id ? this.tournament_id : "",
     }
   }
   @computed
