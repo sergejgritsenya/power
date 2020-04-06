@@ -23,7 +23,7 @@ export class NewsModel extends Model({
       title: this.title.trim(),
       publish: this.publish,
       text: this.text.trim(),
-      tournament_id: this.tournament_id ? this.tournament_id : "",
+      tournament_id: this.tournament_id ? this.tournament_id : undefined,
     }
   }
   @computed
