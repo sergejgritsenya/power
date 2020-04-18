@@ -12,12 +12,12 @@ export const webNewsListLoader: TChykLoadData<TNewsListData> = async (_, { axios
   axios.sendPost(webNewsList())
 type TNewsListProps = TRouteComponentProps<TNewsListData>
 
-export const WebNewsList: FC<TNewsListProps> = ({ data: newss }) => {
+export const WebNewsList: FC<TNewsListProps> = ({ data: newses }) => {
   const classes = useStyles()
   return (
     <Grid container justify="center" className={classes.superRoot}>
-      {newss.length ? (
-        newss.map(item => (
+      {newses.length ? (
+        newses.map((item) => (
           <Grid
             item
             component="a"
@@ -43,7 +43,7 @@ export const WebNewsList: FC<TNewsListProps> = ({ data: newss }) => {
   )
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   superRoot: {
     minHeight: "calc(100vh - 110px - 100px)",
     paddingTop: "30px",
