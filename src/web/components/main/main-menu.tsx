@@ -8,11 +8,13 @@ import { PageInner } from "../common/page-inner"
 export const MainMenu: FC = () => {
   const classes = useStyles()
   return (
-    <PageInner component="nav" className={classes.nav}>
-      <MainMenuItem label="News" link="/news"></MainMenuItem>
-      <MainMenuItem label="Tournaments" link="/tournaments"></MainMenuItem>
-      <MainMenuItem label="Shop" link="/shop"></MainMenuItem>
-    </PageInner>
+    <nav>
+      <PageInner className={classes.nav}>
+        <MainMenuItem label="News" link="/news"></MainMenuItem>
+        <MainMenuItem label="Tournaments" link="/tournaments"></MainMenuItem>
+        <MainMenuItem label="Shop" link="/shop"></MainMenuItem>
+      </PageInner>
+    </nav>
   )
 }
 type TMainMenuItemProps = {
@@ -34,7 +36,7 @@ const MainMenuItem: FC<TMainMenuItemProps> = ({ label, link }) => {
 HeaderMenuItem.displayName = "HeaderMenuItem"
 
 const useStyles = makeStyles(
-  theme => {
+  (theme) => {
     return {
       root: {
         height: "100%",

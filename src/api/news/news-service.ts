@@ -62,9 +62,7 @@ export class NewsService {
       title: props.title,
       publish: props.publish,
       text: props.text,
-      tournament: props.tournament_id
-        ? { connect: { id: props.tournament_id } }
-        : { disconnect: true },
+      tournament: props.tournament_id ? { connect: { id: props.tournament_id } } : null,
     }
     const [db_news, tournaments] = await Promise.all([
       this.prisma.news.update({

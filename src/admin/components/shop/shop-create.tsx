@@ -25,7 +25,7 @@ export const ShopCreate: FC = () => {
       enqueueSnackbar("Successfully created", {
         variant: "success",
       })
-      history.replace(`/shops/${res.data}`)
+      history.replace(`/shop/${res.data}`)
     } catch (e) {
       shop.setLoading(false)
       enqueueSnackbar("Error", {
@@ -43,21 +43,21 @@ export const ShopCreate: FC = () => {
             <TextField
               label="name"
               value={shop.name}
-              onChange={e => shop.setName(e.target.value)}
+              onChange={(e) => shop.setName(e.target.value)}
             />
           </Grid>
           <Grid item xs={12} lg={6}>
             <TextField
               label="price"
               value={shop.price}
-              onChange={e => shop.setPrice(e.target.value)}
+              onChange={(e) => shop.setPrice(e.target.value)}
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
               label="description"
               value={shop.description}
-              onChange={e => shop.setDescription(e.target.value)}
+              onChange={(e) => shop.setDescription(e.target.value)}
               multiline
               rows={4}
             />

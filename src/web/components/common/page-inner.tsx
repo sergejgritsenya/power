@@ -10,7 +10,7 @@ export const PageInner: FC<ContainerProps> = ({ children, ...props }) => {
   )
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     overflow: "auto",

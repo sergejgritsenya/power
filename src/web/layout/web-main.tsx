@@ -10,13 +10,15 @@ type TWebMainProps = {
 export const WebMain: FC<TWebMainProps> = ({ route }) => {
   const classes = useStyles()
   return (
-    <PageInner className={classes.root} component="main">
-      {route.routes ? <DataRoutes routes={route.routes} /> : <NotFound />}
-    </PageInner>
+    <main>
+      <PageInner className={classes.root}>
+        {route.routes ? <DataRoutes routes={route.routes} /> : <NotFound />}
+      </PageInner>
+    </main>
   )
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
