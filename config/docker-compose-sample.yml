@@ -1,0 +1,30 @@
+version: "3.3"
+services:
+  power-admin:
+    image: power-admin
+    ports:
+      - "3087:3087"
+    restart: always
+    environment:
+      ASSETS_URL_BASE:
+      API_URL:
+  power-web:
+    image: power-web
+    ports:
+      - "3086:3086"
+    restart: always
+    environment:
+      ASSETS_URL_BASE:
+      API_URL:
+  power-api:
+    image: power-api
+    ports:
+      - "3088:3088"
+    restart: always
+    environment:
+      POSTGRES_URL:
+      JWT_SECRET_ADMIN:
+      JWT_SECRET_USER:
+      S3_KEY:
+      S3_SECRET:
+      S3_IMAGES_BUCKET:
